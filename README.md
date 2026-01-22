@@ -5,7 +5,7 @@
 ---
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/assets/logo.svg" alt="NuMonitor Logo" width="120" height="120">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/logo.svg" alt="NuMonitor Logo" width="120" height="120">
   
   # NuMonitor for Serial Port
   
@@ -40,13 +40,13 @@ NuMonitor 是一款專為 **Arduino/ESP32** 開發者設計的 Serial Port 監�
 ## 🖼️ 截圖
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/assets/screenshot-terminal.png" alt="Terminal" width="45%">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/assets/screenshot-plotter.png" alt="Plotter" width="45%">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-terminal.png" alt="Terminal" width="45%">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-plotter.png" alt="Plotter" width="45%">
 </div>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/assets/screenshot-map.png" alt="GPS Map" width="45%">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/assets/screenshot-charts.png" alt="Charts" width="45%">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-map.png" alt="GPS Map" width="45%">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-charts.png" alt="Charts" width="45%">
 </div>
 
 ---
