@@ -2556,27 +2556,52 @@
 
             parseDataPoints(dataStr) {
                 const dataPoints = [];
-                // 分割 tokens，支援空格和逗號分隔
-                const tokens = dataStr.split(/[\s,]+/).filter(t => t.length > 0 && !t.toLowerCase().startsWith('map:'));
+                // 分割 tokens，支援空格、逗號、Tab 分隔
+                const tokens = dataStr.split(/[\s,\t]+/).filter(t => t.length > 0 && !t.toLowerCase().startsWith('map:'));
                 
-                tokens.forEach((token, index) => {
-                    const colonIndex = token.indexOf(':');
-                    if (colonIndex > 0) {
-                        // Key:Value 格式
-                        const label = token.substring(0, colonIndex);
-                        const valueStr = token.substring(colonIndex + 1);
+                let i = 0;
+                while (i < tokens.length) {
+                    const token = tokens[i];
+                    
+                    // 支援 : 和 = 兩種分隔符號
+                    let separatorIndex = token.indexOf(':');
+                    if (separatorIndex <= 0) {
+                        separatorIndex = token.indexOf('=');
+                    }
+                    
+                    if (separatorIndex > 0) {
+                        // Key:Value 或 Key=Value 格式
+                        const label = token.substring(0, separatorIndex);
+                        const valueStr = token.substring(separatorIndex + 1);
                         const value = this.extractNumber(valueStr);
                         if (!isNaN(value)) {
                             dataPoints.push({ label, value, rawValue: valueStr });
                         }
+                        i++;
                     } else {
-                        // 純數值格式（向後相容）
+                        // 檢查是否為純數值
                         const value = this.extractNumber(token);
                         if (!isNaN(value)) {
-                            dataPoints.push({ label: `CH${index + 1}`, value, rawValue: token });
+                            // 純數值格式
+                            dataPoints.push({ label: `CH${dataPoints.length + 1}`, value, rawValue: token });
+                            i++;
+                        } else {
+                            // 非數值，可能是 Label，檢查下一個 token 是否為數值 (Tab/空格 分隔的情況)
+                            if (i + 1 < tokens.length) {
+                                const nextToken = tokens[i + 1];
+                                const nextValue = this.extractNumber(nextToken);
+                                if (!isNaN(nextValue)) {
+                                    // Label [Tab/空格] Value 格式
+                                    dataPoints.push({ label: token, value: nextValue, rawValue: nextToken });
+                                    i += 2;
+                                    continue;
+                                }
+                            }
+                            // 無法解析，跳過
+                            i++;
                         }
                     }
-                });
+                }
                 
                 return dataPoints;
             }
