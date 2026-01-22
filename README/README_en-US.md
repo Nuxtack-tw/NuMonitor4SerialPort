@@ -34,6 +34,37 @@ NuMonitor is a Serial Port monitoring tool designed for **Arduino/ESP32** develo
 
 ---
 
+## 🖼️ 截圖
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-terminal.png" alt="Terminal" width="90%">
+</div>
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-line.png" alt="Line" width="90%">
+</div>
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-map.png" alt="GNSS Map" width="90%">
+</div>
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-area.png" alt="Area" width="45%">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-stack.png" alt="Area Stack" width="45%">
+</div>
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-bar.png" alt="Bar" width="45%">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-gauge.png" alt="Gauge" width="45%">
+</div>
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-pie.png" alt="Pie" width="45%">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-scatter.png" alt="Scatter" width="45%">
+</div>
+---
+
+
 ## 🚀 Quick Start
 
 ### 1. Download
