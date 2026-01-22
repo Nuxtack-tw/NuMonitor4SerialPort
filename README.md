@@ -36,15 +36,31 @@ NuMonitor 是一款專為 **Arduino/ESP32** 開發者設計的 Serial Port 監�
 ## 🖼️ 截圖
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-terminal.png" alt="Terminal" width="45%">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-plotter.png" alt="Plotter" width="45%">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-terminal.png" alt="Terminal" width="90%">
 </div>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-map.png" alt="GPS Map" width="45%">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-charts.png" alt="Charts" width="45%">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-line.png" alt="Line" width="90%">
 </div>
 
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-map.png" alt="GNSS Map" width="90%">
+</div>
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-area.png" alt="Area" width="45%">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-stack.png" alt="Area Stack" width="45%">
+</div>
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-bar.png" alt="Bar" width="45%">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-gauge.png" alt="Gauge" width="45%">
+</div>
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-pie.png" alt="Pie" width="45%">
+  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-scatter.png" alt="Scatter" width="45%">
+</div>
 ---
 
 ## 🚀 快速開始
