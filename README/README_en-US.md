@@ -34,7 +34,7 @@ NuMonitor is a Serial Port monitoring tool designed for **Arduino/ESP32** develo
 
 ---
 
-## 🖼️ 截圖
+## 🖼️ Screenshot
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-terminal.png" alt="Terminal" width="90%">
