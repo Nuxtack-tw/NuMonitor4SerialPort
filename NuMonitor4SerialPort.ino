@@ -71,8 +71,8 @@ void setup() {
     
     // 展示 URL 自動識別功能
     Serial.println("📚 Documentation Links (clickable in NuMonitor):");
-    Serial.println("   GitHub: https://github.com/anthropics/claude");
-    Serial.println("   Website: www.nuwarobotics.com");
+    Serial.println("   GitHub: https://github.com/Nuxtack-tw/NuMonitor4SerialPort");
+    Serial.println("   Website: https://github.com/Nuxtack");
     Serial.println("   Docs: https://docs.arduino.cc/");
     Serial.println();
 }
