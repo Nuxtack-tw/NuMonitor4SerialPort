@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NuMonitor - 版本記錄</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Rubik:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e14;
+            --bg-secondary: #0d1117;
+            --bg-tertiary: #161b22;
+            --bg-elevated: #1c2128;
+            --border-color: #30363d;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --accent-green: #39d353;
+            --accent-blue: #58a6ff;
+            --accent-orange: #d29922;
+            --accent-red: #f85149;
+            --accent-purple: #a371f7;
+            --nu-color: #81D8D0;
+            --chart-yellow: #ffcc00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo:hover { opacity: 0.8; }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
+            font-size: 20px;
+            letter-spacing: -0.3px;
+            color: white;
+        }
+
+        .nu-color { color: var(--nu-color); }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-left: auto;
+        }
+
+        .version-entry {
+            margin-bottom: 40px;
+            padding: 24px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+
+        .version-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .version-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--nu-color);
+        }
+
+        .version-date {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .version-tag {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag-latest {
+            background: rgba(57, 211, 83, 0.15);
+            color: var(--accent-green);
+        }
+
+        .tag-major {
+            background: rgba(88, 166, 255, 0.15);
+            color: var(--accent-blue);
+        }
+
+        .change-category { margin-bottom: 20px; }
+        .change-category:last-child { margin-bottom: 0; }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .category-icon { font-size: 16px; }
+        .icon-new { color: var(--accent-green); }
+        .icon-improve { color: var(--accent-blue); }
+        .icon-fix { color: var(--accent-orange); }
+
+        .change-list {
+            list-style: none;
+            padding-left: 24px;
+        }
+
+        .change-list li {
+            position: relative;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .change-list li::before {
+            content: '•';
+            position: absolute;
+            left: -16px;
+            color: var(--text-muted);
+        }
+
+        .change-list ul {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+
+        .change-list ul li {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .change-list ul li::before {
+            content: '○';
+            font-size: 10px;
+        }
+
+        .change-list code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            padding: 2px 6px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            color: var(--accent-orange);
+        }
+
+        .change-list strong { color: var(--text-primary); }
+
+        .feature-highlight {
+            margin: 16px 0;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            border-left: 3px solid var(--nu-color);
+        }
+
+        .feature-highlight h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--nu-color);
+            margin-bottom: 8px;
+        }
+
+        .feature-highlight p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .feature-highlight code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            padding: 2px 6px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+            color: var(--chart-yellow);
+        }
+
+        .chart-table {
+            width: 100%;
+            margin: 12px 0;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .chart-table th,
+        .chart-table td {
+            padding: 8px 12px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-table th {
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .chart-table td { background: var(--bg-primary); }
+        .chart-table .icon { font-size: 16px; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .back-link:hover { text-decoration: underline; }
+        .back-link svg { width: 16px; height: 16px; }
+
+        .footer {
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../NuMonitor4SerialPort.html" class="back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            返回 NuMonitor
+        </a>
+
+        <header class="header">
+            <a href="../NuMonitor4SerialPort.html" class="logo">
+                <div class="logo-icon">
+                    <svg width="28" height="28" viewBox="0 0 32373 33553" fill="#81D8D0">
+                        <path d="M32306.51 13651.25l-11174.46 -5592.01 0 -7198.5c12113.32,6376.73 11174.53,3823.33 11174.46,12790.52z"/>
+                        <path d="M16.96 19856.56l11174.46 5592.01 0 7198.5c-12113.32,-6376.73 -11174.53,-3823.33 -11174.46,-12790.52z"/>
+                        <polygon points="16.96,9927.52 32373.56,26094.99 32373.56,33553.52 16.89,17370.21"/>
+                        <polygon points="16.89,0 32373.5,16167.46 32373.5,23625.99 16.83,7442.68"/>
+                    </svg>
+                </div>
+                <div class="logo-text"><span class="nu-color">NuMonitor</span> for Serial Port</div>
+            </a>
+            <div class="header-subtitle">版本變更記錄</div>
+        </header>
+
+        <!-- Version 2.0.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v2.0.0</span>
+                <span class="version-date">2026-01-22</span>
+                <span class="version-tag tag-latest">最新版本</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    重大更新 - 繪圖系統重構
+                </div>
+                
+                <div class="feature-highlight">
+                    <h4>📊 全新數據格式與功能</h4>
+                    <p>完全重構繪圖解析器，支援更靈活的數據格式與全新功能：</p>
+                </div>
+
+                <ul class="change-list">
+                    <li><strong>新數據格式</strong>：
+                        <ul>
+                            <li>支援計數器: <code>#0001</code>、<code>#3.14</code>（整數/小數）</li>
+                            <li>支援 Key:Value 格式: <code>Temp:25.5 RH:46.3%</code></li>
+                            <li>自動過濾單位: <code>25.5°C</code> → <code>25.5</code></li>
+                            <li>向後相容舊格式</li>
+                        </ul>
+                    </li>
+                    <li><strong>堆疊面積圖 (stack)</strong>：
+                        <ul>
+                            <li>新增第 7 種圖表類型</li>
+                            <li>視覺化各數據系列的累計貢獻</li>
+                            <li>Y 軸自動調整為實際累計值</li>
+                        </ul>
+                    </li>
+                    <li><strong>X 軸遊標</strong>：
+                        <ul>
+                            <li>適用於 line、area、stack 圖表</li>
+                            <li>滑鼠移動顯示垂直虛線</li>
+                            <li>虛線上方顯示計數器值</li>
+                            <li>各線交點顯示數據標籤</li>
+                        </ul>
+                    </li>
+                    <li><strong>GPS 地圖軌跡</strong>：
+                        <ul>
+                            <li>支援 <code>map:lat,lng</code> 座標格式</li>
+                            <li>多種經緯度格式：DD、DM、DMS</li>
+                            <li>整合 Leaflet + OpenStreetMap</li>
+                            <li>軌跡點數可調 1-100（滾輪控制）</li>
+                            <li>圖表/地圖一鍵切換</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-improve">✨</span>
+                    改進
+                </div>
+                <ul class="change-list">
+                    <li>PlotterParser 類別完全重構，程式碼更清晰</li>
+                    <li>ChartManager 新增地圖管理功能</li>
+                    <li>18 種語言完整支援新功能翻譯</li>
+                    <li><strong>終端機 URL 自動識別</strong>：自動將 http://、https://、www. 開頭的網址轉換為可點擊連結</li>
+                    <li><strong>地圖軌跡點數調整</strong>：改用 +/- 按鈕調整（避免與地圖縮放滾輪衝突）</li>
+                    <li><strong>地圖軌跡點提示</strong>：滑鼠 hover 即顯示座標及數據（保留原始單位）</li>
+                    <li><strong>地圖即時更新</strong>：地圖視圖開啟時，新座標即時繪製</li>
+                    <li><strong>地圖視界鎖定</strong>：新增跟隨/鎖定切換按鈕，localStorage 記住偏好</li>
+                    <li><strong>使用說明書</strong>：新增 HTML 版完整使用說明書</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    技術細節
+                </div>
+                <ul class="change-list">
+                    <li>新增 <code>StackedAreaChart</code> 類別</li>
+                    <li>PlotterParser 支援 counter、mapCoord 解析，dataPoints 新增 rawValue 屬性</li>
+                    <li>group 物件新增 counters、mapPoints、mapMaxPoints、mapLocked 屬性</li>
+                    <li>新增 drawCursor() 方法於 LineChart、AreaChart、StackedAreaChart</li>
+                    <li>整合 Leaflet.js 1.9.4 動態載入</li>
+                    <li>新增 CSS：.map-container、.map-status、.terminal-link、.map-tooltip、.map-lock-btn</li>
+                    <li>新增 <code>linkifyUrls()</code> 函數：URL 正則識別 + HTML 轉義防 XSS</li>
+                    <li>Leaflet marker 改用 <code>bindTooltip()</code> 取代 <code>bindPopup()</code></li>
+                    <li>新增翻譯 key：map.follow、map.lock、manual.link、manual.tip（18 種語言）</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 1.9.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.9.0</span>
+                <span class="version-date">2026-01-21</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    新功能 - 終端機文字顏色自訂
+                </div>
+                
+                <div class="feature-highlight">
+                    <h4>🎨 終端機顏色選擇器</h4>
+                    <p>新增三種終端機文字顏色的自訂功能，讓您可以根據個人喜好調整顯示效果：</p>
+                </div>
+
+                <ul class="change-list">
+                    <li><strong>三種文字類型顏色自訂</strong>：
+                        <ul>
+                            <li><strong>TX (輸入)</strong>：發送的指令文字，預設白色 <code>#ffffff</code></li>
+                            <li><strong>RX (輸出)</strong>：接收的數據文字，預設 Tiffany 藍 <code>#81D8D0</code></li>
+                            <li><strong>SYS (系統)</strong>：系統訊息文字，預設黃色 <code>#ffcc00</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>直覺式操作</strong>：
+                        <ul>
+                            <li>三個顏色色塊直接顯示於終端機工具列</li>
+                            <li>點擊色塊開啟顏色選擇器</li>
+                            <li>支援 16 色預設色盤 + 自訂色碼輸入</li>
+                            <li>「重置為預設」按鈕快速恢復原始設定</li>
+                        </ul>
+                    </li>
+                    <li><strong>設定持久化</strong>：顏色設定自動儲存至 localStorage，重新開啟保留設定</li>
+                    <li><strong>即時套用</strong>：變更顏色後立即套用至所有現有終端機文字</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-improve">✨</span>
+                    改進
+                </div>
+                <ul class="change-list">
+                    <li>顏色選擇器新增標題顯示，清楚標示正在編輯的項目</li>
+                    <li>顏色選擇器新增「重置為預設」按鈕</li>
+                    <li>18 種語言完整支援終端機顏色相關翻譯</li>
+                    <li><strong>歷史訊息操作改進</strong>：
+                        <ul>
+                            <li>點擊整行：複製指令到輸入框（可編輯後再發送）</li>
+                            <li>點擊發送按鈕 ✈：直接發送指令</li>
+                        </ul>
+                    </li>
+                    <li>修復圖表標籤關閉按鈕的雙重 Tooltip 問題</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    技術細節
+                </div>
+                <ul class="change-list">
+                    <li>新增 <code>terminalColors</code> 物件管理三種文字顏色</li>
+                    <li>新增 <code>loadTerminalColors()</code>、<code>saveTerminalColors()</code> 方法</li>
+                    <li>新增 <code>openTerminalColorPicker()</code>、<code>applyTerminalColors()</code> 方法</li>
+                    <li>新增全局函數 <code>window.openColorPicker()</code> 供外部調用</li>
+                    <li>歷史訊息：<code>selectHistoryItem()</code> 重構為 <code>copyHistoryItem()</code> + <code>sendHistoryItem()</code></li>
+                    <li>localStorage 鍵：<code>numonitor_terminalColors</code></li>
+                    <li>新增 8 個翻譯鍵 × 18 種語言 = 144 個翻譯項</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 1.8.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.8.0</span>
+                <span class="version-date">2026-01-14</span>
+                <span class="version-tag tag-major">主要更新</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🌐</span>
+                    新功能 - 完整多語言系統
+                </div>
+                
+                <div class="feature-highlight">
+                    <h4>🗣️ 三語言國際化支援</h4>
+                    <p>全新的多語言系統，支援繁體中文、English、日本語三種語言：</p>
+                </div>
+
+                <ul class="feature-list">
+                    <li><strong>語言選擇器</strong>：右上角新增語言切換按鈕
+                        <ul>
+                            <li>支援繁體中文（zh-TW）、English（en-US）、日本語（ja-JP）</li>
+                            <li>語言設定自動儲存於 localStorage，跨會話保持</li>
+                            <li>自動偵測瀏覽器語言作為預設值</li>
+                            <li>點擊切換後立即更新所有界面元素</li>
+                        </ul>
+                    </li>
+                    <li><strong>完整翻譯覆蓋</strong>：105+ 個翻譯項目
+                        <ul>
+                            <li>所有按鈕文字（15 個）</li>
+                            <li>所有標籤文字（10 個）</li>
+                            <li>所有 Tooltips（30+ 個）</li>
+                            <li>所有 Placeholders（輸入框提示）</li>
+                            <li>所有選項文字（8 個）</li>
+                            <li>所有標題文字（6 個）</li>
+                            <li>所有動態訊息（25+ 個）</li>
+                        </ul>
+                    </li>
+                    <li><strong>UI 元素翻譯</strong>：
+                        <ul>
+                            <li>Header 連線面板：選擇連接埠、自動重連、斷開、連線狀態</li>
+                            <li>Terminal 標籤：終端機、繪圖器標籤文字</li>
+                            <li>Terminal 控制列：TXT/HEX 模式、Echo、時間戳記、自動捲動、清除</li>
+                            <li>輸入區域：輸入框提示、發送按鈕、歷史訊息</li>
+                            <li>行尾字元選單：None、LF、CR、CRLF 選項及說明</li>
+                            <li>統計列：RX、TX、Port 標籤及 tooltips</li>
+                            <li>繪圖功能：預設群組、暫停、繼續、平滑、清除、CSV、背景</li>
+                        </ul>
+                    </li>
+                    <li><strong>動態訊息翻譯</strong>：
+                        <ul>
+                            <li>連線訊息：連線已斷開、如需重新連接、已選擇、已連接</li>
+                            <li>自動重連：已啟用、已停用、逾時</li>
+                            <li>繪圖器：功能開啟/關閉、已清除圖表、已重新解析</li>
+                            <li>裝置訊息：偵測到連接、裝置恢復、連線中斷、等待重連、已重新連接</li>
+                            <li>錯誤訊息：一般錯誤、連接錯誤、讀取錯誤、發送錯誤、請先選擇連接埠</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    修復 - 翻譯同步問題
+                </div>
+                <ul class="change-list">
+                    <li>修復歷史訊息選單的翻譯同步問題（關閉再打開會恢復中文）</li>
+                    <li>修復終端清除訊息的翻譯更新</li>
+                    <li>修復動態生成元素的翻譯應用</li>
+                    <li>修復圖表關閉按鈕的 tooltip 翻譯</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-improve">✨</span>
+                    改進 - 樣式優化
+                </div>
+                <ul class="change-list">
+                    <li>
+                        <span class="change-type type-ui">UI</span>
+                        移除所有斜體字（info 和 system 訊息類型）
+                    </li>
+                    <li>
+                        <span class="change-type type-ui">UI</span>
+                        統一使用正體字顯示所有訊息
+                    </li>
+                    <li>
+                        <span class="change-type type-ui">UI</span>
+                        優化語言選擇器視覺設計
+                    </li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    技術細節
+                </div>
+                <ul class="change-list">
+                    <li>新增 <code>LanguageManager</code> 類別：管理翻譯資源和語言切換</li>
+                    <li>使用 <code>data-i18n</code>、<code>data-i18n-tip</code>、<code>data-i18n-placeholder</code> 屬性標記可翻譯元素</li>
+                    <li>動態訊息使用 <code>window.languageManager.t()</code> 方法即時翻譯</li>
+                    <li>語言設定持久化到 localStorage</li>
+                    <li>動態生成元素在創建後立即更新翻譯</li>
+                    <li>100% 翻譯覆蓋率，零中文殘留（在非中文模式）</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 1.7.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.7.0</span>
+                <span class="version-date">2026-01-14</span>
+                <span class="version-tag tag-feature">功能更新</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-change">🔄</span>
+                    重大變更 - 連接介面簡化
+                </div>
+                
+                <div class="feature-highlight">
+                    <h4>🔌 連接埠選擇流程簡化</h4>
+                    <p>大幅簡化串列埠連接流程，移除不必要的複雜操作：</p>
+                </div>
+
+                <ul class="feature-list">
+                    <li><strong>移除</strong>連接埠下拉式選單 - 不再維護已授權裝置列表</li>
+                    <li><strong>移除</strong>編輯裝置標籤功能 - 簡化介面複雜度</li>
+                    <li><strong>移除</strong>重新掃描連接埠按鈕 - 每次直接選擇即可</li>
+                    <li><strong>移除</strong>「連接」按鈕 - 選擇連接埠後自動連線</li>
+                    <li><strong>重新命名</strong>「新增裝置」→「選擇連接埠」</li>
+                    <li>點擊「選擇連接埠」後直接開啟瀏覽器選擇視窗，選擇後自動連線</li>
+                    <li>「斷開」按鈕在未連線時自動禁用</li>
+                    <li>避免對已關閉的 SerialPort 重新 open()，解決 USB CDC 裝置相容性問題</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-change">🔄</span>
+                    變更 - 群組格式語法調整
+                </div>
+                
+                <div class="feature-highlight">
+                    <h4>📝 群組標示符號變更</h4>
+                    <p>數據群組格式的標示符號從方括號 <code>[]</code> 改為大括號 <code>{}</code>，提供更直覺的語法體驗：</p>
+                    <p><strong>舊格式：</strong><code>[群組名稱|最小值|最大值|圖表類型]Label:Value</code></p>
+                    <p><strong>新格式：</strong><code>{群組名稱|最小值|最大值|圖表類型}Label:Value</code></p>
+                    <p>範例：<code>{溫濕度|0|100|line}Temp:25.5,Humidity:60.2</code></p>
+                </div>
+
+                <ul class="feature-list">
+                    <li>大括號在多數程式語言中更常用於結構化數據</li>
+                    <li>避免與陣列索引符號混淆</li>
+                    <li>視覺上更易於識別群組定義區塊</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    新功能 - 繪圖開關
+                </div>
+                
+                <div class="feature-highlight">
+                    <h4>📊 即時繪圖功能開關</h4>
+                    <p>在終端機控制列右側新增 Toggle Switch 開關，可即時啟用或停用數據繪圖功能：</p>
+                </div>
+
+                <ul class="feature-list">
+                    <li>預設為開啟狀態，自動解析並繪製圖表</li>
+                    <li>關閉時僅顯示終端機文字，不進行圖表解析</li>
+                    <li>適用場景：大量數據傳輸時提升效能、只需查看原始數據時</li>
+                    <li>切換狀態會在終端機顯示提示訊息</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-improve">⚡</span>
+                    改進
+                </div>
+                <ul class="change-list">
+                    <li>
+                        <span class="change-type type-ui">UI</span>
+                        新增迷你版 Toggle Switch 樣式，適用於工具列空間
+                    </li>
+                    <li>
+                        <span class="change-type type-ux">UX</span>
+                        繪圖開關使用圖示 📊 標示，一目瞭然
+                    </li>
+                    <li>
+                        <span class="change-type type-ui">UI</span>
+                        連接按鈕圖示更新為串列埠圖示
+                    </li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 1.6.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.6.0</span>
+                <span class="version-date">2026-01-08</span>
+                <span class="version-tag tag-major">主要更新</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    新功能 - Serial Plotter 數據繪圖器
+                </div>
+                
+                <div class="feature-highlight">
+                    <h4>📊 數據群組繪圖系統</h4>
+                    <p>支援自定義群組標示格式，可將串列數據自動分類並以不同圖表類型呈現：</p>
+                    <p><code>{群組名稱|最小值|最大值|圖表類型}Label1:Value1,Label2:Value2</code></p>
+                    <p>例如：<code>{溫濕度|0|100|line}Temp:25.5,Humidity:60.2</code></p>
+                </div>
+
+                <ul class="change-list">
+                    <li><strong>分頁式界面</strong>：終端機與各數據群組獨立分頁顯示
+                        <ul>
+                            <li>動態新增/移除分頁，依據收到的數據群組自動建立</li>
+                            <li>每個群組分頁顯示對應的圖表類型圖示</li>
+                            <li>最多支援 10 個數據群組</li>
+                            <li>頁籤背景色採用暗灰色 (#21262d) 提升辨識度</li>
+                        </ul>
+                    </li>
+                    <li><strong>6 種圖表類型</strong>：
+                        <table class="chart-table">
+                            <tr>
+                                <th>類型</th>
+                                <th>圖示</th>
+                                <th>用途</th>
+                                <th>時間序列</th>
+                            </tr>
+                            <tr>
+                                <td><code>line</code></td>
+                                <td class="icon">📈</td>
+                                <td>折線圖 - 連續變化數據</td>
+                                <td>✓ 預設 100 點</td>
+                            </tr>
+                            <tr>
+                                <td><code>bar</code></td>
+                                <td class="icon">📊</td>
+                                <td>柱狀圖 - 離散數值比較</td>
+                                <td>✓ 預設 100 點</td>
+                            </tr>
+                            <tr>
+                                <td><code>area</code></td>
+                                <td class="icon">📉</td>
+                                <td>面積圖 - 堆疊累積數據</td>
+                                <td>✓ 預設 100 點</td>
+                            </tr>
+                            <tr>
+                                <td><code>scatter</code></td>
+                                <td class="icon">⚬</td>
+                                <td>散點圖 - 分散測量點</td>
+                                <td>✓ 預設 100 點</td>
+                            </tr>
+                            <tr>
+                                <td><code>pie</code></td>
+                                <td class="icon">🥧</td>
+                                <td>圓餅圖 - 比例分配</td>
+                                <td>✗ 最新值</td>
+                            </tr>
+                            <tr>
+                                <td><code>gauge</code></td>
+                                <td class="icon">🎯</td>
+                                <td>儀表圖 - 支援多數據並排顯示</td>
+                                <td>✗ 最新值</td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li><strong>X 軸顯示點數調整</strong>：
+                        <ul>
+                            <li>預設顯示 100 點</li>
+                            <li>滑鼠滾輪可調整範圍 20 ~ 2000 點</li>
+                            <li>標題自動顯示當前點數，如 <code>line (100pts)</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>平滑曲線選項</strong>：
+                        <ul>
+                            <li>Line、Area、Scatter 圖表可開啟平滑曲線</li>
+                            <li>使用貝茲曲線平滑連接數據點</li>
+                            <li>點擊「平滑」按鈕切換開啟/關閉</li>
+                        </ul>
+                    </li>
+                    <li><strong>Y 軸範圍設定</strong>：
+                        <ul>
+                            <li>固定範圍：<code>{溫度|0|100|line}</code></li>
+                            <li>自動縮放：<code>{加速度|auto|auto|line}</code></li>
+                        </ul>
+                    </li>
+                    <li><strong>圖例與顏色系統</strong>：
+                        <ul>
+                            <li>自動分配 16 種預設顏色</li>
+                            <li>點擊色塊可自訂顏色（含調色盤和自訂色碼輸入）</li>
+                            <li>顏色設定自動儲存於 localStorage</li>
+                            <li>點擊圖例可隱藏/顯示該曲線</li>
+                        </ul>
+                    </li>
+                    <li><strong>圖表背景顏色自訂</strong>：
+                        <ul>
+                            <li>每個圖表可獨立設定背景顏色</li>
+                            <li>點擊「背景」按鈕開啟顏色選擇器</li>
+                            <li>設定自動儲存於 localStorage</li>
+                        </ul>
+                    </li>
+                    <li><strong>圖表控制按鈕</strong>：
+                        <ul>
+                            <li>暫停/繼續：凍結圖表以便觀察</li>
+                            <li>平滑：切換平滑曲線（時間軸圖表）</li>
+                            <li>清除：清除當前群組的所有數據</li>
+                            <li>匯出 CSV：將數據下載為 CSV 檔案</li>
+                            <li>背景：自訂圖表背景顏色</li>
+                        </ul>
+                    </li>
+                    <li><strong>清除所有圖表</strong>：終端機工具列新增「清除所有圖表」按鈕
+                        <ul>
+                            <li>一鍵關閉所有圖表分頁</li>
+                            <li>圖示為圖表加上紅色 X</li>
+                        </ul>
+                    </li>
+                    <li><strong>Gauge 多儀表支援</strong>：
+                        <ul>
+                            <li>同一群組可傳送多個數據，自動並排顯示</li>
+                            <li>例如：<code>{Battery|0|5|gauge}電池0:4.35,電池1:4.28,電池2:4.42</code></li>
+                            <li>自動計算排列（如 3 個儀表排成一行）</li>
+                        </ul>
+                    </li>
+                    <li><strong>向下相容</strong>：無群組標示的傳統格式自動歸入「預設」群組，使用折線圖顯示</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-improve">✨</span>
+                    改進
+                </div>
+                <ul class="change-list">
+                    <li>標題字型改為 <strong>Google Font "Rubik" (Bold 700)</strong></li>
+                    <li>標題 "NuMonitor for Serial Port" 設定固定寬度 (220px)，避免被擠壓變形</li>
+                    <li>Canvas 繪圖採用 <strong>devicePixelRatio</strong> 縮放，支援高解析度螢幕</li>
+                    <li>圖表自動隨視窗大小調整</li>
+                    <li>時間軸圖表數據從左到右繪製（最舊 → 最新）</li>
+                    <li>X 軸自動調整：點數不足時自動擴展填滿整個圖形</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    技術細節
+                </div>
+                <ul class="change-list">
+                    <li>新增 <code>PlotterParser</code> 類別：解析群組定義和數據格式</li>
+                    <li>新增 <code>ChartManager</code> 類別：管理分頁、圖表渲染、顏色分配</li>
+                    <li>新增 <code>ColorStorage</code> 物件：持久化保存使用者自訂顏色</li>
+                    <li>新增 <code>ChartBase</code> 基礎類別：6 種圖表類別繼承共用方法</li>
+                    <li>使用純 Canvas API 繪圖，無外部依賴，保持單一檔案架構</li>
+                    <li>貝茲曲線平滑演算法用於 Line、Area 圖表</li>
+                    <li>檔案大小：約 3,500 行</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 1.5.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.5.0</span>
+                <span class="version-date">2026-01-04</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    新功能
+                </div>
+                <ul class="change-list">
+                    <li>新增<strong>指令歷史功能</strong>（↑↓ 鍵瀏覽、歷史選單）</li>
+                    <li>新增<strong>複誦指令開關 (Echo)</strong></li>
+                    <li>串列埠選單改為<strong>自訂下拉選單</strong></li>
+                    <li>新增 <strong>URL 自動偵測</strong></li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-improve">✨</span>
+                    改進
+                </div>
+                <ul class="change-list">
+                    <li>系統名稱更新為 <strong>NuMonitor for Serial Port</strong></li>
+                    <li>終端輸出顏色：接收 #81D8D0、發送 #ffcc00</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 1.4.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.4.0</span>
+                <span class="version-date">2026-01-03</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    Bug 修復
+                </div>
+                <ul class="change-list">
+                    <li>修復中文字元亂碼問題</li>
+                    <li>修復終端輸出滾動條問題</li>
+                    <li>修復終端控制按鈕 Tooltip 問題</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 1.3.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.3.0</span>
+                <span class="version-date">2026-01-02</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    新功能
+                </div>
+                <ul class="change-list">
+                    <li>自動重連功能</li>
+                    <li>自定義裝置標籤</li>
+                    <li>USB 晶片型號辨識</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Earlier versions -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.0.0 ~ v1.2.0</span>
+                <span class="version-date">2025-12-30 ~ 2026-01-01</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    初始版本功能
+                </div>
+                <ul class="change-list">
+                    <li>基於 Web Serial API 的串列監控工具</li>
+                    <li>TXT / HEX 顯示模式</li>
+                    <li>時間戳記、自動捲動</li>
+                    <li>多種波特率支援（300 ~ 2000000 bps）</li>
+                    <li>多種換行字元設定</li>
+                    <li>RX / TX 流量統計</li>
+                </ul>
+            </div>
+        </article>
+
+        <footer class="footer">
+            <p>NuMonitor for Serial Port &copy; 2025-2026 <a href="https://nuxtack.com" target="_blank">Nuxtack</a></p>
+            <p>Built with Web Serial API</p>
+        </footer>
+    </div>
+</body>
+</html>
