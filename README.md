@@ -2,11 +2,7 @@
 
 [English](README/README_en-US.md) | [日本語](README/README_ja-JP.md) | [Français](README/README_fr-FR.md) | [Deutsch](README/README_de-DE.md) | [Italiano](README/README_it-IT.md) | [Español](README/README_es-ES.md) | [Português](README/README_pt-PT.md) | [Türkçe](README/README_tr-TR.md) | [Русский](README/README_ru-RU.md) | [العربية](README/README_ar-SA.md) | [עברית](README/README_he-IL.md) | [فارسی](README/README_fa-IR.md) | [हिन्दी](README/README_hi-IN.md) | [Tiếng Việt](README/README_vi-VN.md) | [ไทย](README/README_th-TH.md) | [Bahasa Melayu](README/README_ms-MY.md) | [Bahasa Indonesia](README/README_id-ID.md)
 
----
-
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/logo.svg" alt="NuMonitor Logo" width="120" height="120">
-  
+---  
   # NuMonitor for Serial Port
   
   **專業的 Web Serial Port 監控與數據視覺化工具**
