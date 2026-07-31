@@ -10,7 +10,7 @@
   [![Browser](https://img.shields.io/badge/browser-Chrome%20%7C%20Edge%20%7C%20Opera-orange.svg)](#瀏覽器支援)
   [![Languages](https://img.shields.io/badge/languages-18-purple.svg)](#多語言支援)
 
-  [線上展示](#) · [使用說明書](doc/manual.html) · [版本記錄](doc/changelog.html) · [回報問題](https://github.com/Nuxtack-tw/NuMonitor4SerialPort/issues)
+  [**線上執行**](https://nuxtack-tw.github.io/NuMonitor4SerialPort/) · [使用說明書](doc/manual.html) · [版本記錄](doc/changelog.html) · [回報問題](https://github.com/Nuxtack-tw/NuMonitor4SerialPort/issues)
 
 </div>
 
@@ -81,17 +81,24 @@ NuMonitor 是一款專為 **Arduino/ESP32** 開發者設計的 Serial Port 監�
 
 ## 🚀 快速開始
 
-### 1. 下載
+### 1. 直接線上執行（免下載）
+
+👉 **<https://nuxtack-tw.github.io/NuMonitor4SerialPort/>**
+
+用 Chrome、Edge 或 Opera 打開就能用，不必下載任何檔案。
+
+> Web Serial API 只在 **HTTPS 或 localhost** 下可用，GitHub Pages 是 HTTPS 所以沒問題。
+> 注意：連接埠授權是**按網站來源記錄**的，線上版與本機版各自獨立，第一次使用要各自授權一次。
+
+### 2. 或下載到本機使用
 
 ```bash
 git clone https://github.com/Nuxtack-tw/NuMonitor4SerialPort.git
 ```
 
-或直接下載 [最新版本](https://github.com/Nuxtack-tw/NuMonitor4SerialPort/releases/latest)
+或直接下載 [最新版本](https://github.com/Nuxtack-tw/NuMonitor4SerialPort/releases/latest)，用 Chrome、Edge 或 Opera 開啟 `NuMonitor4SerialPort.html`。
 
-### 2. 開啟
-
-用 Chrome、Edge 或 Opera 開啟 `NuMonitor4SerialPort.html`
+> 直接用 `file://` 開啟也能用 Web Serial（本機檔案視為安全來源）。
 
 ### 3. 連接裝置
 
