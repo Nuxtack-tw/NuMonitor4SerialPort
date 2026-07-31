@@ -194,8 +194,12 @@ NuMonitor4SerialPort/
 ├── NuMonitor4SerialPort.html    # 主程式（單一檔案應用，版號寫在 <title>）
 ├── backup/                      # 各版本凍結快照（NuMonitor4SerialPort_V<版號>.html）
 ├── doc/
-│   ├── manual.html              # 使用說明書
-│   └── changelog.html           # 版本記錄（唯一一份 changelog）
+│   ├── manual.html              # 使用說明書（繁體中文）
+│   ├── changelog.html           # 版本記錄（唯一一份 changelog）
+│   ├── img/                     # 說明書用的介面截圖
+│   └── src/                     # 多語文件的建置原始碼（產物在英文版 repo）
+│       ├── build.py             #   組裝腳本，用法見 doc/src/README.md
+│       └── bodies/              #   各語言正文，改文件改這裡
 ├── reports/                     # 分析報告（專案盤點、設計說明）
 ├── .claude/                     # Claude Code 開發設定
 │   ├── skills/                  # 技能檔
