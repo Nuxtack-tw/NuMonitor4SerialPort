@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NuMonitor for Serial Port V26.10.1</title>
+    <title>NuMonitor for Serial Port V26.11.0</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root,
@@ -8408,15 +8408,18 @@
             }
 
             // 「說明書」與版本徽章要跟著語言走，否則切成英文後點過去還是中文
-            // zh-TW → 同一個 repo 的 doc/；其他語言 → 英文版文件站
-            // （日後各語言有專屬檔案時，只要在 DOC_LANGS 補上對應檔名即可）
+            // zh-TW → 同一個 repo 的 doc/；其他語言 → 英文站的單檔多語文件，帶 ?lang= 過去
+            // 文件端自己認得 en/ja/vi/id/ms，認不得的語言它會退回英文並說明原因，
+            // 所以這裡不必維護「哪些語言有翻譯」的清單，加語言只要動文件端
             updateDocLinks() {
-                const EN_DOC_BASE = 'https://nuxtack.github.io/NuMonitor4SerialPort/docs/';
+                const DOC_BASE = 'https://nuxtack.github.io/NuMonitor4SerialPort/docs/';
                 const isZhTW = this.currentLang === 'zh-TW';
 
                 document.querySelectorAll('[data-doc]').forEach(a => {
                     const kind = a.dataset.doc;            // 'manual' | 'changelog'
-                    a.href = isZhTW ? `doc/${kind}.html` : `${EN_DOC_BASE}${kind}.html`;
+                    a.href = isZhTW
+                        ? `doc/${kind}.html`
+                        : `${DOC_BASE}${kind}.html?lang=${encodeURIComponent(this.currentLang)}`;
                 });
             }
         }
