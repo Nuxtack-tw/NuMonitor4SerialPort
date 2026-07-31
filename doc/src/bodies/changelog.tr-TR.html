@@ -1,0 +1,557 @@
+
+    <div class="container">
+        <header class="header">
+            <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/" class="logo-link">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 32373 33553" fill="#81D8D0">
+                        <path d="M32306.51 13651.25l-11174.46 -5592.01 0 -7198.5c12113.32,6376.73 11174.53,3823.33 11174.46,12790.52z"/>
+                        <path d="M16.96 19856.56l11174.46 5592.01 0 7198.5c-12113.32,-6376.73 -11174.53,-3823.33 -11174.46,-12790.52z"/>
+                        <polygon points="16.96,9927.52 32373.56,26094.99 32373.56,33553.52 16.89,17370.21"/>
+                        <polygon points="16.89,0 32373.5,16167.46 32373.5,23625.99 16.83,7442.68"/>
+                    </svg>
+                </div>
+                <div class="logo-text"><span class="nu-color">NuMonitor</span> for Serial Port</div>
+            </a>
+            <div class="header-subtitle">Değişiklik Günlüğü</div>
+        </header>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.12.0</span>
+                <span class="version-date">2026-07-31</span>
+                <span class="version-tag tag-latest">En Son</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Altı yeni belge dili daha</div>
+                <ul class="change-list">
+                    <li><strong>Deutsch, Français, Español, Português, Italiano ve Türkçe artık kılavuza ve değişiklik günlüğüne katıldı</strong>; böylece her iki belge de on iki dile ulaştı</li>
+                    <li>On sekiz arayüz dilinin üçte ikisi artık kendi dilinde yazılmış belgeleri açıyor; geri kalanlar hâlâ İngilizceye düşüyor ve sayfa bunun nedenini açıklayan bir not gösteriyor</li>
+                    <li>Uygulamanın içinde hiçbir şey değişmedi — uygulama yalnızca arayüz dilini iletiyor, ne gösterileceğine belgeler karar veriyor. Yeni bir dil eklemek bir daha asla uygulamaya dokunmayı gerektirmiyor</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.11.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Kılavuz ve değişiklik günlüğü beş dilde</div>
+                <ul class="change-list">
+                    <li><strong>Bu değişiklik günlüğü ve kullanıcı kılavuzu artık English, 日本語, Tiếng Việt, Bahasa Indonesia ve Bahasa Melayu dillerinde mevcut</strong>; hâlihazırdaki 繁體中文 sürümüne ek olarak</li>
+                    <li>Belgelerden herhangi birini NuMonitor üzerinden açmak artık arayüz dilinizi de beraberinde taşıyor, böylece karşınıza çıkan sayfa zaten doğru dilde oluyor</li>
+                    <li>Her iki belgenin de sağ üst köşesinde bir dil seçici bulunuyor; seçiminiz hatırlanıyor</li>
+                    <li>Kendi çevirisi henüz bulunmayan arayüz dilleri İngilizceye düşer ve sayfa sessizce dil değiştirmek yerine bunu açıkça belirtir</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.10.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Belge bağlantıları arayüz dilini izliyor</div>
+                <ul class="change-list">
+                    <li><strong>Arayüzü başka bir dile geçirmek yine de Çince belgeleri açıyordu</strong> — bu iki bağlantı sabit kodlanmıştı ve dilden bağımsızdı</li>
+                    <li>Kılavuz bağlantısı ve sürüm rozeti artık geçerli dile göre çözümleniyor</li>
+                    <li>Sayfanın dil özniteliği, seçilen dilden bağımsız olarak her zaman <code>zh-TW</code> idi; artık gerçek dili izliyor ve bu, ekran okuyucular ile çeviri araçları için önemli</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.10.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Satır sonu hatırlanıyor</div>
+                <ul class="change-list">
+                    <li><strong>Satır sonu seçimi (Yok / LF / CR / CRLF) artık kalıcı</strong> ve sayfa yeniden açıldığında geri yükleniyor</li>
+                    <li>Özellikle modemlerde işe yarar: AT komutları <strong>CR</strong> ile bitmek zorundadır; varsayılan LF ile hiçbir yanıt alınamaz</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.9.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Sinyal panelinin okunabilirliği</div>
+                <ul class="change-list">
+                    <li>Sinyal göstergesi metninin arka planına göre kontrastı çok düşüktü; artık satırın tamamı başlık çubuğundaki düğmelerle aynı paleti kullanıyor — aynı arka plan, kenarlık, metin rengi ve köşe yarıçapı</li>
+                    <li>Yazı biraz büyütüldü; sönük gösterge noktaları da neredeyse görünmez olmak yerine "var ama kapalı" izlenimi verecek şekilde parlatıldı</li>
+                    <li>Sinyal renkleri (mavi çıkışlar, yeşil girişler, turuncu ACT, kırmızı ERR) artık yalnızca bir sinyal gerçekten etkinleştiğinde görünüyor</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.9.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Bağlantı yokken sinyal paneli gizleniyor</div>
+                <ul class="change-list">
+                    <li><strong>RS-232 sinyal paneli, bağlantı kesikken artık soluklaştırılmak yerine tamamen gizleniyor</strong> — göstergeler bağlantı olmadan hiçbir anlam taşımıyor, dolayısıyla o satır yalnızca yer kaplıyordu</li>
+                    <li>Bağlantı kurulduğunda görünür, bağlantı kesildiğinde anında kaybolur ve yoklamayı da beraberinde durdurur</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.8.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>RS-232 sinyal paneli</div>
+                <div class="feature-highlight">
+                    <h4>🚦 Başlık çubuğunun altında bir sıra el sıkışma göstergesi</h4>
+                    <p>Tüm RS-232 kontrol hatları tek bakışta — üstelik çıkış sinyalleri tıklanarak değiştirilebiliyor.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>LOCAL (OUT): BRK / RTS / DTR</strong> — ilgili çıkışı değiştirmek için göstergeye tıklayın; bağlantı yokken devre dışıdır
+                        <ul>
+                            <li>İlk tıklamaya kadar sönük gösterilir: tarayıcı çıkış sinyallerini ayarlayabilir ama mevcut durumlarını geri okuyamaz</li>
+                            <li>NuMonitor, bağlantı sırasında DTR/RTS sinyallerini bilerek ayarlamaz; çünkü çoğu Arduino ve ESP32 kartında bu hatlar otomatik sıfırlama devresini sürer</li>
+                        </ul>
+                    </li>
+                    <li><strong>REMOTE (IN): DCD / DSR / CTS / RI</strong> — salt okunur, 250 ms'de bir yenilenir</li>
+                    <li><strong>ACT</strong> — her iki yönde de bayt hareket ettiğinde yanıp söner</li>
+                    <li><strong>ERR</strong> — çerçeveleme, eşlik, arabellek taşması veya alınan break hatalarında üç saniye boyunca kırmızı yanar; temizlemek için tıklayın. Okuma artık bağlantıyı düşürmek yerine kendiliğinden toparlanıyor</li>
+                </ul>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">⚠️</span>Eşlik hataları hakkında</div>
+                <ul class="change-list">
+                    <li>Portlar <strong>8N1 (eşlik yok)</strong> olarak açılır, dolayısıyla eşlik hatası oluşamaz — pratikte ERR; çerçeveleme, taşma ve break durumlarına tepki verir</li>
+                    <li>Gerçek eşlik hatalarını algılamak için önce arayüzde eşlik / veri biti / stop biti ayarlarının sunulması gerekirdi</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.7.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Başlık çubuğunun satır kayması düzeltildi</div>
+                <ul class="change-list">
+                    <li><strong>Başlık çubuğu, henüz gerçekten kalabalıklaşmamışken çok erken bir noktada ikinci satıra kayıyordu</strong> — sebebi, 1200 px genişliğin altında başlığı dikey olarak istifleyen sabit kodlanmış bir kırılma noktasıydı; kontroller arasında hâlâ 400 px boşluk varken bile</li>
+                    <li>Kırılma noktası kaldırıldı; yerleşim artık yalnızca kontroller gerçekten sığmadığında alt satıra kayıyor</li>
+                    <li>Ölçülen kayma noktası 1200 px'den yaklaşık 899 px'e indi — bu genişlikte son iki kontrolün arasında yalnızca 13 px kadar boşluk kalıyor</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.7.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Başlık çubuğu yerleşimi</div>
+                <ul class="change-list">
+                    <li><strong>Tema düğmesi ve dil seçici artık sağ kenara tam yaslanıyor</strong>; böylece bağlantı kontrolleri (solda) tercihlerden (sağda) ayrılıyor</li>
+                    <li>Önlerindeki ayırıcı kaldırıldı — boşluk iki grubu zaten ayırıyor</li>
+                    <li>Pencere, alt satıra kayacak kadar daraldığında da sağa hizalı kalıyorlar</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.6.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Sayfa yeniden yüklendikten sonra yeniden bağlanma</div>
+                <div class="feature-highlight">
+                    <h4>🔄 Her yenilemeden sonra Bağlan'a tıklamaya son</h4>
+                    <p>En son kullandığınız port hâlâ oradaysa, NuMonitor sayfa yüklenirken yeniden bağlanır ve baud hızını da geri yükler.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Üç koşulun da sağlanması gerekir</strong>
+                        <ul>
+                            <li>Otomatik yeniden bağlanma açık olmalı</li>
+                            <li>Son seferinde bağlantıyı bilerek <strong>kesmemiş</strong> olmalısınız (cihazın fişinin çekilmesi sayılmaz)</li>
+                            <li>Port hâlâ mevcut ve yetkilendirilmiş olmalı</li>
+                        </ul>
+                    </li>
+                    <li>Port bulunamazsa NuMonitor yoklamaya <strong>başlamaz</strong> — sayfa yüklenirken bir portu ele geçirmek, Arduino IDE gibi başka programları engellerdi</li>
+                    <li>Başarısız bir otomatik bağlantı, tam sorun giderme panelini açmak yerine tek satırlık bir kayıt düşer</li>
+                </ul>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Düzeltmeler</div>
+                <ul class="change-list">
+                    <li><strong>Otomatik yeniden bağlanma anahtarı artık durumunu hatırlıyor</strong> — daha önce her yeniden yüklemeden sonra açık konuma dönüyordu</li>
+                    <li>Hatırlanan port kaydı artık baud hızını da içeriyor, dolayısıyla o da geri yükleniyor</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.5.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Daha parlak nefes parıltısı</div>
+                <ul class="change-list">
+                    <li>"Bağlandı" parıltısı, koyu bir arka planda fark edilemeyecek kadar soluktu; artık belirgin şekilde daha parlak</li>
+                    <li>İki katman olarak yeniden kuruldu — netlik için düz bir dış çizgi, nefes alışın görünmesi için de genişleyen yumuşak bir hale; tepe parlaklığı önceki değerin altı katından fazla</li>
+                    <li>Turuncu yeniden bağlanma parıltısı da buna uyacak şekilde güçlendirildi</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.5.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Bağlan düğmesinde iyileştirmeler</div>
+                <ul class="change-list">
+                    <li><strong>Nefes alan gösterge, düğmenin tamamını saran bir parıltıya dönüştü</strong> ve "Bağlandı" yazısının yanındaki küçük noktanın yerini aldı — hem daha net bir işaret hem de daha derli toplu bir düğme
+                        <ul>
+                            <li>Bağlandı: yeşil parıltı, 2,6 s'lik döngü</li>
+                            <li>Yeniden bağlanıyor: turuncu parıltı, 1,1 s'lik döngü</li>
+                            <li>Düğmenin üzerine gelindiğinde animasyon durur</li>
+                        </ul>
+                    </li>
+                    <li><strong>Port menüsü oku, bağlıyken soluklaştırılmak yerine tamamen gizleniyor</strong> — bağlantı açıkken seçilecek bir port yoktur</li>
+                    <li>Ok, yeniden bağlanma sırasında kullanılabilir kalır; böylece deneme sürerken başka bir porta geçebilirsiniz</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.4.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Bağlantı durumu düğmenin içine taşındı</div>
+                <div class="feature-highlight">
+                    <h4>🔗 Ayrı "Bağlantı Kesildi / Bağlandı" göstergesi kaldırıldı</h4>
+                    <p>Düğmenin kendisi durum ışığıdır: renk durumu, etiket ise tıklamanın ne yapacağını söyler.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Üç durum, üç renk</strong>
+                        <ul>
+                            <li><strong>Mavi "Bağlan"</strong> — bağlı değil</li>
+                            <li><strong>Yeşil "Bağlandı"</strong> — bağlı, yavaş nefes alan bir parıltıyla</li>
+                            <li><strong>Turuncu "Bağlanıyor…"</strong> — cihaz kayboldu, otomatik yeniden bağlanma sürüyor, daha hızlı bir ritim</li>
+                        </ul>
+                    </li>
+                    <li><strong>Üzerine gelmek sonucu önceden gösterir</strong>: bağlıyken kırmızıya döner ve "Bağlantıyı Kes" yazar; yeniden bağlanırken kırmızıya döner ve "İptal" yazar. Animasyon durur, böylece hareketli bir hedefe tıklamış olmazsınız</li>
+                    <li><strong>Yeniden bağlanma sırasında tıklamak denemeyi iptal eder</strong> (daha önce ayrı bir bağlantı girişimi başlatıyordu)</li>
+                    <li>Fiş ve çarpı simgeleri durum renginin lehine kaldırıldı; bu da düğmeyi daralttı</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.3.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Başlık çubuğu metin rengi birleştirildi</div>
+                <ul class="change-list">
+                    <li><strong>"Kılavuz", sürüm rozeti ve "Otomatik Yeniden Bağlan", satırdaki diğer her şeyden bir ton daha koyuydu</strong>; artık başlık çubuğunun tamamı tek bir metin rengi kullanıyor</li>
+                    <li>Tüm başlık metinleri ve simgeleri tek bir değişkeni izliyor: koyu temada <code>#e6edf3</code>, açık temada <code>#1f2328</code></li>
+                    <li>Tek istisna, dolgulu Bağlan/Bağlantıyı Kes düğmesi üzerindeki beyaz etikettir; o da düğmenin ön plan rengidir</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.3.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Daha sıkı başlık çubuğu, kalın yazı yok</div>
+                <ul class="change-list">
+                    <li><strong>Kontrol yüksekliği 26 px'den 22 px'e düşürüldü</strong>; toplam başlık yüksekliği artık 33,7 px, yani yeniden tasarım öncesine göre %45 daha az</li>
+                    <li><strong>Başlık çubuğundaki tüm kalın yazılar kaldırıldı</strong>, logo dahil — her şey normal kalınlıkta</li>
+                    <li>Her etiketin, kısalan kontrollerin içine kırpılmadan sığdığı doğrulandı</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.2.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Başlık çubuğu tipografisi birleştirildi</div>
+                <div class="feature-highlight">
+                    <h4>📏 Tek boyut, tek kalınlık, tek yükseklik</h4>
+                    <p>Başlık çubuğu daha önce üç farklı yazı boyutunu, üç farklı kalınlığı ve 29 px ile 36 px arasında değişen kontrol yüksekliklerini bir arada kullanıyordu.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Artık her kontrol aynı yükseklikte, aynı boyutta, aynı kalınlıkta ve aynı köşe yarıçapında</strong>
+                        <ul>
+                            <li>Görsel hiyerarşi boyuttan ya da kalınlıktan değil, metin renginden geliyor</li>
+                            <li>Baud hızı, rakamlar hizalı kalsın diye eşaralıklı yazı tipini koruyor</li>
+                        </ul>
+                    </li>
+                    <li><strong>%36 daha kısa başlık çubuğu</strong>, terminale daha çok yer bırakıyor</li>
+                    <li>Durum göstergesi, hap biçiminden diğer kontrollerle uyumlu köşeleri yuvarlatılmış bir dikdörtgene dönüştü</li>
+                    <li>Giriş satırındaki düğmeler ve renk seçici özgün boyutlarını koruyor</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.1.0</span>
+                <span class="version-date">2026-07-30</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Bağlanma ve bağlantıyı kesme için tek düğme</div>
+                <div class="feature-highlight">
+                    <h4>🔌 "Port Seç" ve "Bağlantıyı Kes" tek bir bölünmüş düğmede birleşti</h4>
+                    <p>Boştayken mavi "Bağlan", bağlandıktan sonra kırmızı "Bağlantıyı Kes" — üstelik her kullanımda port penceresi açılmıyor.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Port penceresi artık her seferinde açılmıyor.</strong> Bağlan'a tıklandığında sırasıyla şunlar denenir:
+                        <ul>
+                            <li>en son kullanılan port</li>
+                            <li>yonga seti tanınan bir port (CH340 / CP210x / FTDI / ESP32 / Arduino ve benzerleri)</li>
+                            <li>tek bir yetkilendirilmiş port varsa o port</li>
+                            <li>ve ancak bundan sonra tarayıcının port seçicisi</li>
+                        </ul>
+                    </li>
+                    <li><strong>▾ oku bir port menüsü açar</strong>
+                        <ul>
+                            <li>Yetkilendirilmiş her portu özel etiketiyle veya yonga seti adıyla listeler; birbirinin aynısı cihazlar <code>#index</code> ile ayırt edilir</li>
+                            <li>En son kullanılan port ★ ile işaretlenir</li>
+                            <li>Son satır olan <em>Diğer… (tarayıcı seçicisi)</em>, yeni bir cihazı yetkilendirir</li>
+                        </ul>
+                    </li>
+                    <li>Son port; VID/PID'si ve dizin numarasıyla birlikte yerel depolamada hatırlanır</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.0.0</span>
+                <span class="version-date">2026-07-30</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Yıl tabanlı sürüm numaraları</div>
+                <div class="feature-highlight">
+                    <h4>🔢 V<em>a</em>.<em>b</em>.<em>c</em> biçimine geçiş</h4>
+                    <p>Bu sürümden itibaren <strong>a</strong> yılın son iki hanesidir (2026 → 26), <strong>b</strong> özellikleri, <strong>c</strong> ise düzeltmeleri sayar; bir bölüm artırıldığında kendisinden sonrakiler sıfırlanır. v3.0.1, eski anlamsal sürümleme düzeninin son sürümüydü.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong><code>&lt;title&gt;</code> öğesi, sürüm numarası için tek doğruluk kaynağı hâline geldi</strong>
+                        <ul>
+                            <li>Başlıktaki rozet, numarayı sabit kodlamak yerine çalışma zamanında oradan okur</li>
+                            <li>Konsoldaki başlangıç mesajı da aynısını yapar; böylece numara farklı yerler arasında asla ayrışamaz</li>
+                        </ul>
+                    </li>
+                    <li><strong>Anlık görüntü iş akışı eklendi</strong>: her sürümde, değişikliklere başlanmadan önce mevcut dosya <code>backup/</code> içine dondurulur</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v3.0.1</span>
+                <span class="version-date">2026-03-18</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Otomatik yeniden bağlanma iyileştirmeleri</div>
+                <ul class="change-list">
+                    <li><strong>Yeniden deneme süresi artık sınırsız.</strong> Daha önce yaklaşık 30 denemeden sonra vazgeçiyordu; artık cihaz geri gelene ya da otomatik yeniden bağlanmayı kapatana kadar her saniye yeniden deniyor</li>
+                    <li>Uzun süreli kopmalarda işe yarar: aygıt yazılımını yeniden yükleme, cihazın yeniden başlaması, beslemeli USB hub'larının kapanıp açılması</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v3.0.0</span>
+                <span class="version-date">2026-03-10</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Açık tema</div>
+                <ul class="change-list">
+                    <li><strong>GitHub Light tarzında yeni bir tema</strong> ve sağ üst köşede anında geçiş düğmesi
+                        <ul>
+                            <li>Her öğe uyum sağlar: arayüz, terminal ve grafikler</li>
+                            <li>Vurgu renkleri açık arka plan için yeniden ayarlandı</li>
+                        </ul>
+                    </li>
+                    <li><strong>Seçim saklanır</strong> ve oturumlar arasında korunur</li>
+                    <li>Grafik tuvalleri temayı canlı olarak izler; her yeniden çizimde geçerli paleti okur</li>
+                    <li>Tema araç ipucu, 18 arayüz dilinin tamamına çevrildi</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v2.0.0</span>
+                <span class="version-date">2026-01-22</span>
+                <span class="version-tag tag-major">Büyük</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Çizici elden geçirildi</div>
+                <ul class="change-list">
+                    <li><strong>Genişletilmiş veri biçimi</strong> — <code>#number</code> ile örnek sayaçları, <code>map:</code> ile koordinatlar</li>
+                    <li>Yedinci grafik türü olarak <strong>yığılmış alan grafiği</strong> (<code>stack</code>) eklendi</li>
+                    <li><strong>X ekseni imleci</strong> — grafiğin üzerine gelerek o örnekteki tüm serilerin değerini okuyun</li>
+                    <li>OpenStreetMap altlık katmanı üzerinde <strong>GPS izi</strong>; iz noktası sayısı ayarlanabilir ve bir görünüm kilidi var</li>
+                    <li>Terminalde <strong>URL algılama</strong>, adresleri tıklanabilir bağlantılara dönüştürür</li>
+                    <li>Uygulamayla birlikte HTML biçiminde kullanıcı kılavuzu yayımlandı</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.9.0</span>
+                <span class="version-date">2026-01-21</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Terminal renklerinin özelleştirilmesi</div>
+                <ul class="change-list">
+                    <li>TX, RX ve sistem mesajlarının her biri bağımsız olarak ayarlanabilen bir renk alır</li>
+                    <li>Renkler görsel bir renk örneği penceresinden seçilir ve oturumlar arasında saklanır</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.8.0</span>
+                <span class="version-date">2026-01-14</span>
+                <span class="version-tag tag-major">Büyük</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>18 dilli arayüz</div>
+                <ul class="change-list">
+                    <li>Arayüzün 18 dile tam çevirisi ve bayrak tabanlı bir seçici</li>
+                    <li>Tarayıcı dilinin otomatik algılanması; seçim sonrasında hatırlanır</li>
+                    <li>Arapça, İbranice ve Farsça için sağdan sola yerleşim desteği</li>
+                    <li>Yalnızca sabit etiketler değil, dinamik olarak üretilen mesajlar da çevrilir</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.7.0</span>
+                <span class="version-date">2026-01-14</span>
+                <span class="version-tag tag-feature">Özellik</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Basitleştirilmiş grup söz dizimi ve çizici anahtarı</div>
+                <ul class="change-list">
+                    <li>Grup tanımlama söz dizimi, bugünkü <code>{Name|min|max|type}</code> biçimine dönüştürüldü</li>
+                    <li>Grafik çizimini tamamen kapatıp NuMonitor'u düz bir terminal olarak kullanmayı sağlayan bir anahtar</li>
+                    <li>Grafik sekmeleri tek tek yeniden adlandırılabilir ve kapatılabilir</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.6.0</span>
+                <span class="version-date">2026-01-08</span>
+                <span class="version-tag tag-major">Büyük</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Seri Çizici</div>
+                <ul class="change-list">
+                    <li><strong>Grafik motoru geldi</strong> — seri porttan gelen metinden canlı olarak çizilen altı grafik türü</li>
+                    <li>Her biri kendi sekmesinde olmak üzere birden çok veri grubu</li>
+                    <li>Kaç örneğin gösterileceğini değiştirmek için kaydırın</li>
+                    <li>İsteğe bağlı yumuşatma, ayarlanabilir Y ekseni aralığı, seri bazında renkler ve gösterge</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.5.0</span>
+                <span class="version-date">2026-01-04</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Komut geçmişi ve cihaz etiketleri</div>
+                <ul class="change-list">
+                    <li>Gönderilen komutlar, hızlıca yeniden gönderilebilsin diye bir geçmiş listesinde tutulur</li>
+                    <li>Cihazlara özel adlar atanabilir; bu adlar VID:PID ile hatırlanır</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.4.0</span>
+                <span class="version-date">2026-01-03</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Hata düzeltmeleri</div>
+                <ul class="change-list">
+                    <li>Bağlanma, bağlantıyı kesme ve akış temizliği çevresinde kararlılık düzeltmeleri</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.3.0</span>
+                <span class="version-date">2026-01-02</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Terminal özellikleri</div>
+                <ul class="change-list">
+                    <li>Zaman damgaları, otomatik kaydırma, TXT/HEX görüntüleme modları ve satır sonu seçimi</li>
+                    <li>Anlaşılır bir cihaz adı gösteren USB yonga seti tanıma</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.0.0 ~ v1.2.0</span>
+                <span class="version-date">2025-12-30 ~ 2026-01-01</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>İlk sürümler</div>
+                <ul class="change-list">
+                    <li>İlk çalışan Web Serial bağlantısı: port seçimi, baud hızı, gönderme ve alma</li>
+                    <li>Tek dosyalı mimari ve GitHub'dan esinlenen koyu arayüz oluşturuldu</li>
+                    <li>Otomatik yeniden bağlanma eklendi</li>
+                </ul>
+            </div>
+        </article>
+
+        <footer class="footer">
+            <p>NuMonitor for Serial Port | Geliştiren: <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
+            <p style="margin-top: 10px;">
+                <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">NuMonitor'u çalıştır</a> |
+                <a href="manual.html" data-sibling="manual.html">Kullanıcı kılavuzu</a> |
+                <a href="https://github.com/Nuxtack-tw/NuMonitor4SerialPort">Kaynak kodu</a>
+            </p>
+        </footer>
+    </div>
+
