@@ -1,0 +1,411 @@
+
+    <header class="header">
+        <h1>📡 NuMonitor User Manual</h1>
+        <p class="subtitle">Professional Web Serial monitoring and data visualization</p>
+        <span class="version">V26.11.0</span>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#intro">Introduction</a>
+            <a href="#requirements">Requirements</a>
+            <a href="#quickstart">Quick start</a>
+            <a href="#terminal">Terminal</a>
+            <a href="#signals">Signal panel</a>
+            <a href="#plotter">Plotter</a>
+            <a href="#charts">Chart types</a>
+            <a href="#map">GPS map</a>
+            <a href="#format">Data format</a>
+            <a href="#faq">FAQ</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="intro">
+            <h2><span class="icon">🎯</span> Introduction</h2>
+            <p>NuMonitor is a serial port monitor for Arduino, ESP32, modems and general embedded work. It replaces the Arduino IDE Serial Monitor with live charting, GPS tracking and full RS-232 signal control — all from a single HTML file that runs directly in the browser.</p>
+            <div class="highlight">
+                <strong>Nothing to install.</strong> Run it online at
+                <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">nuxtack-tw.github.io/NuMonitor4SerialPort</a>,
+                or download the single HTML file and open it locally.
+            </div>
+        </section>
+
+        <section id="requirements">
+            <h2><span class="icon">💻</span> Requirements</h2>
+
+            <h3>Browser support</h3>
+            <table>
+                <tr><th>Browser</th><th>Version</th><th>Status</th></tr>
+                <tr><td>Google Chrome</td><td>89+</td><td>✅ Recommended</td></tr>
+                <tr><td>Microsoft Edge</td><td>89+</td><td>✅ Supported</td></tr>
+                <tr><td>Opera</td><td>75+</td><td>✅ Supported</td></tr>
+                <tr><td>Firefox</td><td>—</td><td>❌ No Web Serial API</td></tr>
+                <tr><td>Safari</td><td>—</td><td>❌ No Web Serial API</td></tr>
+            </table>
+            <p>NuMonitor is built on the <strong>Web Serial API</strong>, which is only implemented in Chromium-based browsers. The API also requires a <strong>secure context</strong>: HTTPS, <code>localhost</code>, or a local <code>file://</code> page — all three work.</p>
+
+            <h3>Hardware</h3>
+            <p>Anything that presents itself as a serial port: Arduino boards, ESP32 modules, USB-to-serial adapters (CH340/CH343, CP210x, FTDI, PL2303), cellular modems, industrial equipment with an RS-232 port, and so on. NuMonitor recognises around twenty common USB-serial chipsets by VID:PID and shows a friendly name.</p>
+        </section>
+
+        <section id="quickstart">
+            <h2><span class="icon">🚀</span> Quick start</h2>
+
+            <h3>Step 1 — Open NuMonitor</h3>
+            <p>Either open the hosted version, or open <code>NuMonitor4SerialPort.html</code> from a local copy. No installation, no build step.</p>
+
+            <h3>Step 2 — Connect a device</h3>
+            <ol>
+                <li>Plug the device into a USB port</li>
+                <li>Click <strong>Connect</strong>
+                    <ul>
+                        <li><strong>First time:</strong> the browser shows its port picker — choose your device</li>
+                        <li><strong>After that:</strong> it reconnects to the same port automatically, no dialog</li>
+                    </ul>
+                </li>
+                <li>To use a different port, click the <strong>▾</strong> next to the button and pick one from the list, or choose <em>Other… (browser picker)</em> to authorise a new device</li>
+                <li>Once connected the button turns <strong>green “Connected”</strong> with a slow breathing glow and the port menu arrow disappears. Hover the button and it turns red — click to <strong>Disconnect</strong></li>
+                <li>If the device is unplugged the button turns <strong>orange “Connecting…”</strong> and retries every second until it comes back; clicking it then cancels the retry</li>
+            </ol>
+
+            <figure class="shot">
+                <img src="img/port-menu.png" alt="Port dropdown listing authorised serial ports">
+                <figcaption>The ▾ menu lists every authorised port. ★ marks the one used last; the final entry opens the browser's permission dialog.</figcaption>
+            </figure>
+
+            <h3>Step 3 — Set the baud rate</h3>
+            <p>Pick the rate that matches your device — for Arduino sketches that is whatever you passed to <code>Serial.begin()</code>. Available rates: 300, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 74880, 115200 (default), 230400, 250000, 500000, 1000000 and 2000000 baud.</p>
+            <p>The baud rate is saved together with the port, so a page reload restores both.</p>
+            <div class="highlight">
+                <strong>Garbled characters?</strong> That is almost always a baud rate mismatch. Ports are opened as <strong>8N1</strong> (8 data bits, no parity, 1 stop bit), which is what the overwhelming majority of devices use.
+            </div>
+        </section>
+
+        <section id="terminal">
+            <h2><span class="icon">📟</span> Terminal</h2>
+
+            <figure class="shot">
+                <img src="img/terminal-connected.png" alt="Terminal showing an AT command exchange">
+                <figcaption>→ marks data you sent, ← marks data received. TX, RX and system messages each get their own colour. Shown here: an AT command session with a cellular modem.</figcaption>
+            </figure>
+
+            <h3>Features</h3>
+            <table>
+                <tr><th>Feature</th><th>What it does</th></tr>
+                <tr><td>Auto-scroll</td><td>Follows the newest line as data arrives</td></tr>
+                <tr><td>Timestamps</td><td>Prefixes every line with its arrival time</td></tr>
+                <tr><td>Clear</td><td>Empties the terminal view</td></tr>
+                <tr><td>Send</td><td>Sends the text in the input box — press Enter or click Send</td></tr>
+                <tr><td>Command history</td><td>The clock icon left of the input box recalls, resends or copies earlier commands</td></tr>
+                <tr><td>Echo</td><td>Shows what you sent in the terminal, so you can confirm it actually went out</td></tr>
+                <tr><td>TXT / HEX</td><td>Switches between text and hexadecimal display — essential for binary protocols</td></tr>
+                <tr><td>Colours</td><td>TX, RX and system colours are individually adjustable and stored separately per theme</td></tr>
+            </table>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/terminal-hex.png" alt="Terminal in HEX mode">
+                    <figcaption>HEX mode — hexadecimal on the left, matching ASCII on the right</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/color-picker.png" alt="Colour picker dialog">
+                    <figcaption>Colour picker — TX, RX and SYS are configured independently</figcaption>
+                </figure>
+            </div>
+
+            <h3>URL detection</h3>
+            <p>Links appearing in the stream become clickable automatically: <code>https://</code>, <code>http://</code>, <code>www.</code> (https is assumed) and <code>ftp://</code>.</p>
+
+            <h3>Line endings</h3>
+            <p>The selector to the right of the input box controls what is appended to everything you send:</p>
+            <table>
+                <tr><th>Option</th><th>Bytes sent</th><th>Use it for</th></tr>
+                <tr><td>None</td><td>(nothing appended)</td><td>When you control every byte yourself</td></tr>
+                <tr><td>LF</td><td><code>\n</code> (0x0A)</td><td>Arduino/ESP32 sketches using <code>readStringUntil('\n')</code> — the default</td></tr>
+                <tr><td>CR</td><td><code>\r</code> (0x0D)</td><td><strong>Modem AT commands and most CLI firmware</strong></td></tr>
+                <tr><td>CRLF</td><td><code>\r\n</code></td><td>Windows-style devices and some modules</td></tr>
+            </table>
+            <div class="highlight">
+                <strong>⚠️ Talking to a modem? Select CR.</strong> The AT command set terminates commands with a carriage return. Send <code>LF</code> or nothing and the modem keeps waiting for the terminator — you get <strong>no response at all</strong>. That is not a connection failure; the command was simply never considered complete.
+            </div>
+            <p>This setting is <strong>remembered</strong> and restored the next time you open the page.</p>
+        </section>
+
+        <section id="signals">
+            <h2><span class="icon">🚦</span> RS-232 signal panel</h2>
+            <p>A row of handshake indicators appears under the header once you are connected; while disconnected the whole row is hidden.</p>
+
+            <figure class="shot">
+                <img src="img/header-signalbar.png" alt="Header with the RS-232 signal panel">
+                <figcaption>RTS and DTR (blue) are outputs you control; DCD, DSR and CTS (green) are inputs from the device</figcaption>
+            </figure>
+
+            <h3>LOCAL (OUT) — your outputs, click to toggle</h3>
+            <table>
+                <tr><th>Indicator</th><th>Full name</th><th>Notes</th></tr>
+                <tr><td><strong>BRK</strong></td><td>Break</td><td>Asserts a break condition. Click once to start, again to release</td></tr>
+                <tr><td><strong>RTS</strong></td><td>Request To Send</td><td>Usually required by devices doing hardware flow control</td></tr>
+                <tr><td><strong>DTR</strong></td><td>Data Terminal Ready</td><td><strong>Most modems will not accept commands unless DTR is asserted</strong></td></tr>
+            </table>
+            <p><strong>Why do they start unlit?</strong> The Web Serial API can <em>set</em> output signals but cannot <em>read them back</em>. Until you click one, NuMonitor genuinely does not know its state, so it shows the honest answer rather than guessing what the browser did on open.</p>
+            <div class="highlight">
+                <strong>⚠️ Arduino and ESP32 users:</strong> on most development boards DTR and RTS drive the auto-reset circuit, so toggling them <strong>may reboot the board</strong>. NuMonitor deliberately never touches these signals on connect — the decision is entirely yours.
+            </div>
+
+            <h3>REMOTE (IN) — device outputs, read-only</h3>
+            <table>
+                <tr><th>Indicator</th><th>Full name</th><th>Lit means</th></tr>
+                <tr><td><strong>DCD</strong></td><td>Data Carrier Detect</td><td>Carrier present — a modem has established a link</td></tr>
+                <tr><td><strong>DSR</strong></td><td>Data Set Ready</td><td>The device is powered and ready</td></tr>
+                <tr><td><strong>CTS</strong></td><td>Clear To Send</td><td>The device is willing to accept data</td></tr>
+                <tr><td><strong>RI</strong></td><td>Ring Indicator</td><td>A ring signal was detected</td></tr>
+            </table>
+            <p>These four are polled every 250 ms — the Web Serial API exposes no signal-change events, so polling is the only option.</p>
+
+            <h3>ACT and ERR</h3>
+            <ul>
+                <li><strong>ACT</strong> — blinks whenever bytes move in either direction. During continuous transfer it appears to stay lit</li>
+                <li><strong>ERR</strong> — turns red and blinks for three seconds on a framing, parity, buffer-overrun or received-break condition; click it to clear early. The connection is <strong>not</strong> dropped — reading resumes automatically</li>
+            </ul>
+            <p><strong>About parity errors:</strong> ports are currently opened as <strong>8N1</strong> — without a parity bit a parity error cannot occur, so in practice ERR responds to framing, overrun and break conditions.</p>
+        </section>
+
+        <section id="plotter">
+            <h2><span class="icon">📈</span> Plotter</h2>
+
+            <figure class="shot">
+                <img src="img/plotter-line.png" alt="Plotter showing a line chart with three series">
+                <figcaption>Each data group becomes its own tab. The legend below the chart shows live values and doubles as a show/hide toggle.</figcaption>
+            </figure>
+
+            <h3>Automatic parsing</h3>
+            <p>Nothing needs to be configured. Print plain text from the device and NuMonitor decides what to chart: any line containing at least one parsable number becomes data; anything else stays plain terminal text.</p>
+
+            <h3>Chart controls</h3>
+            <table>
+                <tr><th>Button</th><th>What it does</th></tr>
+                <tr><td>Pause</td><td>Freezes the chart while data keeps arriving in the background</td></tr>
+                <tr><td>Smooth</td><td>Draws line and area charts as smooth curves</td></tr>
+                <tr><td>Clear</td><td>Discards the data for that group</td></tr>
+                <tr><td>CSV</td><td>Exports the group's data as a CSV file</td></tr>
+                <tr><td>Background</td><td>Sets a custom chart background colour, remembered per group</td></tr>
+                <tr><td>Map</td><td>Appears only when the group contains <code>map:</code> coordinates</td></tr>
+            </table>
+
+            <h3>X-axis cursor</h3>
+            <p>Move the pointer across the chart to read the exact value of every series at that sample.</p>
+
+            <h3>Scroll to zoom</h3>
+            <p>Scrolling over a chart changes how many samples are displayed, from 20 up to 2000 (100 by default). Up to 500 samples per series are retained in memory.</p>
+
+            <h3>Legend interaction</h3>
+            <p>Click a legend entry to hide or show that series; click its colour swatch to change the colour, which is remembered.</p>
+        </section>
+
+        <section id="charts">
+            <h2><span class="icon">📊</span> Chart types</h2>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/plotter-line.png" alt="Line chart">
+                    <figcaption><code>line</code> — continuous time series, supports smoothing</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-area.png" alt="Area chart">
+                    <figcaption><code>area</code> — translucent fill, emphasises magnitude</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-stack.png" alt="Stacked area chart">
+                    <figcaption><code>stack</code> — composition changing over time</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-scatter.png" alt="Scatter chart">
+                    <figcaption><code>scatter</code> — distribution, noise and outliers</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-bar.png" alt="Bar chart">
+                    <figcaption><code>bar</code> — compares the latest value of several categories</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-gauge.png" alt="Gauge chart">
+                    <figcaption><code>gauge</code> — single-value monitoring; several values auto-arrange into a grid</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-pie.png" alt="Pie chart">
+                    <figcaption><code>pie</code> — proportions, best with 2–8 categories</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/gps-map.png" alt="GPS track map">
+                    <figcaption>🗺️ Map view — not a chart type, but an extra view that appears when the data contains <code>map:</code></figcaption>
+                </figure>
+            </div>
+
+            <div class="highlight">
+                <strong>Note:</strong> <code>map</code> is <strong>not</strong> a valid chart type. Writing <code>{X|0|1|map}</code> falls back to <code>line</code>. The map is a view toggle that appears on any tab whose data carries coordinates.
+            </div>
+        </section>
+
+        <section id="map">
+            <h2><span class="icon">🗺️</span> GPS tracking</h2>
+
+            <figure class="shot">
+                <img src="img/gps-map.png" alt="GPS track on an OpenStreetMap base layer">
+                <figcaption>Base map from OpenStreetMap. The controls below set how many trail points are kept and whether the view follows the newest position; the button top-right switches back to the chart.</figcaption>
+            </figure>
+
+            <h3>Enabling the map</h3>
+            <p>Append <code>map:latitude,longitude</code> to any data line. A 🗺️ button appears on that tab.</p>
+
+            <h3>Coordinate formats</h3>
+            <table>
+                <tr><th>Format</th><th>Example</th></tr>
+                <tr><td>Decimal degrees (may be negative)</td><td><code>map:25.051075,121.630951</code></td></tr>
+                <tr><td>Decimal degrees with hemisphere</td><td><code>map:25.051075N,121.630951E</code></td></tr>
+                <tr><td>Degrees and minutes</td><td><code>map:25°3.0645'N,121°37.857'E</code></td></tr>
+                <tr><td>Degrees, minutes and seconds</td><td><code>map:25°3'3.87"N,121°37'51.4"E</code></td></tr>
+            </table>
+            <p>Coordinates outside latitude ±90° or longitude ±180° are rejected.</p>
+
+            <h3>Map controls</h3>
+            <ul>
+                <li><strong>Trail points</strong> — how many recent positions stay on the map, from 1 to 100 (10 by default)</li>
+                <li><strong>Follow</strong> — keeps the newest position centred; turn it off to pan and zoom freely without the map snapping back</li>
+                <li>Clicking a trail marker shows the coordinates and the data values recorded at that point</li>
+            </ul>
+        </section>
+
+        <section id="format">
+            <h2><span class="icon">📝</span> Data format reference</h2>
+
+            <h3>Full syntax</h3>
+            <div class="code-block">{GroupName|Ymin|Ymax|chartType}#counter Label:Value Label=Value map:lat,lng</div>
+
+            <h3>Fields</h3>
+            <table>
+                <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+                <tr><td>Group name</td><td>No</td><td>Becomes a tab. Any text, including non-Latin scripts</td></tr>
+                <tr><td>Y min / Y max</td><td>No</td><td>A number, or <code>auto</code>. Anything unparsable is treated as auto</td></tr>
+                <tr><td>Chart type</td><td>No</td><td><code>line</code> <code>area</code> <code>stack</code> <code>scatter</code> <code>bar</code> <code>gauge</code> <code>pie</code>; anything else falls back to <code>line</code></td></tr>
+                <tr><td><code>#counter</code></td><td>No</td><td>Immediately after <code>}</code>. Labels the X axis; negatives and decimals accepted</td></tr>
+                <tr><td>Data points</td><td><strong>Yes</strong></td><td>At least one parsable number, otherwise the line stays plain text</td></tr>
+                <tr><td><code>map:</code></td><td>No</td><td>Adds the map view to that tab</td></tr>
+            </table>
+
+            <h3>Writing data points</h3>
+            <div class="code-block">Serial.println("Temp:25.5 Humidity:60.2");   // Key:Value — recommended
+Serial.println("Temp=25.5 Humidity=60.2");   // Key=Value
+Serial.println("25.5 60.2 1013.2");          // bare numbers → CH1, CH2, CH3
+Serial.println("Temp\t25.5");                // Label [tab/space] Value</div>
+            <ul>
+                <li>Separators: space, comma or tab</li>
+                <li>Label/value separator: <code>:</code> or <code>=</code></li>
+                <li><strong>Units are stripped automatically</strong> — <code>25.5°C</code>, <code>60.2%</code> and <code>40.5km/h</code> all parse to their leading number</li>
+                <li>Unparsable tokens are skipped without discarding the rest of the line</li>
+            </ul>
+
+            <h3>Example sketches</h3>
+            <div class="code-block">// Environment monitoring with units and a sample counter
+void loop() {
+  Serial.print("{Environment|0|100|line}#");
+  Serial.print(seq++);
+  Serial.print(" Temp:"); Serial.print(readTemp(), 1); Serial.print("°C");
+  Serial.print(" RH:");   Serial.print(readRH(), 1);   Serial.println("%");
+  delay(100);   // 10 Hz
+}
+
+// Three tabs at once
+void loop() {
+  Serial.print("{Temperature|15|35|line}Indoor:");  Serial.print(t1);
+  Serial.print(" Outdoor:"); Serial.println(t2);
+
+  Serial.print("{System|0|100|bar}CPU:"); Serial.print(cpu);
+  Serial.print(" MEM:"); Serial.println(mem);
+
+  Serial.print("{Battery|0|100|gauge}Level:"); Serial.println(bat);
+  delay(500);
+}
+
+// Drone telemetry with a GPS trail
+void loop() {
+  Serial.print("{Drone|0|120|line}#"); Serial.print(frame++);
+  Serial.print(" Alt:");   Serial.print(alt, 1);
+  Serial.print(" Speed:"); Serial.print(spd, 1);
+  Serial.print(" map:");   Serial.print(lat, 6);
+  Serial.print(",");       Serial.println(lng, 6);
+  delay(200);
+}</div>
+
+            <h3>Limits</h3>
+            <table>
+                <tr><th>Item</th><th>Limit</th></tr>
+                <tr><td>Simultaneous groups (tabs)</td><td>10 — additional groups are silently ignored</td></tr>
+                <tr><td>Samples retained per series</td><td>500</td></tr>
+                <tr><td>Samples displayed</td><td>100 by default, 20–2000 via scroll wheel</td></tr>
+                <tr><td>GPS trail points</td><td>10 by default, adjustable 1–100</td></tr>
+                <tr><td>Colour palette</td><td>32 colours, then it cycles</td></tr>
+                <tr><td>Baud rate</td><td>300 – 2,000,000</td></tr>
+            </table>
+        </section>
+
+        <section id="faq">
+            <h2><span class="icon">❓</span> FAQ</h2>
+
+            <h3>Q: No ports are listed.</h3>
+            <p><strong>A:</strong> Check that the device is plugged in, the USB driver is installed, you are using Chrome/Edge/Opera, and that no other program is holding the port — the Arduino IDE Serial Monitor is the usual culprit.</p>
+
+            <h3>Q: I only get garbled characters.</h3>
+            <p><strong>A:</strong> The baud rate does not match. Set NuMonitor to the same rate as your device's <code>Serial.begin()</code>.</p>
+
+            <h3>Q: No chart appears.</h3>
+            <p><strong>A:</strong> Check that the plotter toggle (📊) is on, that the line contains at least one parsable number, and that you have not already hit the 10-group limit.</p>
+
+            <h3>Q: My modem does not answer AT commands at all.</h3>
+            <p><strong>A:</strong> Work through these in order:</p>
+            <ol>
+                <li><strong>Set the line ending to CR</strong> — by far the most common cause. AT commands must end with a carriage return; with the default LF the modem never responds</li>
+                <li><strong>Assert DTR</strong> (and RTS if the modem uses hardware flow control) from the signal panel. Other terminal programs raise these automatically on open; NuMonitor deliberately does not, to avoid resetting development boards</li>
+                <li><strong>Check DSR and CTS</strong> — DSR dark means the device is unpowered or miswired; CTS dark means it is not accepting data</li>
+                <li><strong>Confirm the baud rate</strong></li>
+                <li>Turn on <strong>echo</strong> and watch the <strong>TX bytes</strong> counter to prove the data actually left the computer</li>
+            </ol>
+
+            <h3>Q: What is the difference between auto-reconnect and auto-connect?</h3>
+            <p><strong>A:</strong> One switch governs two behaviours:</p>
+            <ul>
+                <li><strong>Device unplugged while connected</strong> → retries every second, indefinitely, until it returns</li>
+                <li><strong>Page reloaded or reopened</strong> → reconnects to the last port and restores its baud rate</li>
+            </ul>
+            <p>If you disconnected <strong>deliberately</strong> before leaving, it will not reconnect on its own. The switch state itself is remembered too.</p>
+
+            <h3>Q: ESP32 connections are unstable.</h3>
+            <p><strong>A:</strong> ESP32 USB CDC devices can invalidate their port object after a reboot. NuMonitor discards the stale handle and re-acquires the port through the browser, which is why reconnection works without you re-picking the device.</p>
+
+            <h3>Q: How do I export data?</h3>
+            <p><strong>A:</strong> Click <strong>CSV</strong> in the chart's control row to export that group.</p>
+
+            <h3>Q: How do I switch theme or language?</h3>
+            <p><strong>A:</strong> Use the moon/sun toggle and the language selector at the top right. Both are remembered. Chart and terminal colours follow the theme.</p>
+            <p>The <strong>Manual</strong> link and the version badge follow the interface language too. This manual is available in English, 日本語, Tiếng Việt, Bahasa Indonesia, Bahasa Melayu and <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/doc/manual.html">繁體中文</a> — pick one from the selector at the top right. Interface languages without their own manual yet fall back to English.</p>
+
+            <figure class="shot">
+                <img src="img/language-menu.png" alt="Language menu listing 18 languages">
+                <figcaption>18 interface languages, including right-to-left scripts (Arabic, Hebrew, Persian)</figcaption>
+            </figure>
+
+            <figure class="shot">
+                <img src="img/theme-light.png" alt="Light theme">
+                <figcaption>Light theme — chart grid, text and background all follow the theme</figcaption>
+            </figure>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>NuMonitor V26.11.0 | Developed by <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
+        <p style="margin-top: 10px;">
+            <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">Run NuMonitor</a> |
+            <a href="changelog.html" data-sibling="changelog.html">Changelog</a> |
+            <a href="https://github.com/Nuxtack-tw/NuMonitor4SerialPort">Source code</a>
+        </p>
+    </footer>
+

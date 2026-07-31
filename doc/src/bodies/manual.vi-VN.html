@@ -1,0 +1,409 @@
+    <header class="header">
+        <h1>📡 Hướng dẫn sử dụng NuMonitor</h1>
+        <p class="subtitle">Giám sát cổng nối tiếp và trực quan hoá dữ liệu chuyên nghiệp trên trình duyệt</p>
+        <span class="version">V26.11.0</span>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#intro">Giới thiệu</a>
+            <a href="#requirements">Yêu cầu</a>
+            <a href="#quickstart">Bắt đầu nhanh</a>
+            <a href="#terminal">Terminal</a>
+            <a href="#signals">Bảng tín hiệu</a>
+            <a href="#plotter">Bộ vẽ đồ thị</a>
+            <a href="#charts">Các loại biểu đồ</a>
+            <a href="#map">Bản đồ GPS</a>
+            <a href="#format">Định dạng dữ liệu</a>
+            <a href="#faq">Câu hỏi thường gặp</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="intro">
+            <h2><span class="icon">🎯</span> Giới thiệu</h2>
+            <p>NuMonitor là công cụ giám sát cổng nối tiếp dành cho Arduino, ESP32, modem và công việc nhúng nói chung. Nó thay thế Serial Monitor của Arduino IDE, bổ sung vẽ đồ thị thời gian thực, theo dõi GPS và điều khiển đầy đủ tín hiệu RS-232 — tất cả gói trong một tệp HTML duy nhất chạy thẳng trên trình duyệt.</p>
+            <div class="highlight">
+                <strong>Không cần cài đặt.</strong> Chạy trực tuyến tại
+                <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">nuxtack-tw.github.io/NuMonitor4SerialPort</a>,
+                hoặc tải tệp HTML về và mở tại máy.
+            </div>
+        </section>
+
+        <section id="requirements">
+            <h2><span class="icon">💻</span> Yêu cầu</h2>
+
+            <h3>Trình duyệt hỗ trợ</h3>
+            <table>
+                <tr><th>Trình duyệt</th><th>Phiên bản</th><th>Trạng thái</th></tr>
+                <tr><td>Google Chrome</td><td>89 trở lên</td><td>✅ Khuyến nghị</td></tr>
+                <tr><td>Microsoft Edge</td><td>89 trở lên</td><td>✅ Hỗ trợ</td></tr>
+                <tr><td>Opera</td><td>75 trở lên</td><td>✅ Hỗ trợ</td></tr>
+                <tr><td>Firefox</td><td>—</td><td>❌ Không có Web Serial API</td></tr>
+                <tr><td>Safari</td><td>—</td><td>❌ Không có Web Serial API</td></tr>
+            </table>
+            <p>NuMonitor dựa trên <strong>Web Serial API</strong>, hiện chỉ có trên các trình duyệt nhân Chromium. API này còn đòi hỏi <strong>ngữ cảnh an toàn</strong>: HTTPS, <code>localhost</code>, hoặc một trang <code>file://</code> cục bộ — cả ba đều dùng được.</p>
+
+            <h3>Phần cứng</h3>
+            <p>Bất cứ thứ gì hiện ra như một cổng nối tiếp: bo Arduino, mô-đun ESP32, mạch chuyển USB sang serial (CH340/CH343, CP210x, FTDI, PL2303), modem di động, thiết bị công nghiệp có cổng RS-232, v.v. NuMonitor nhận diện khoảng hai mươi chip USB-serial phổ biến theo VID:PID và hiển thị tên dễ đọc.</p>
+        </section>
+
+        <section id="quickstart">
+            <h2><span class="icon">🚀</span> Bắt đầu nhanh</h2>
+
+            <h3>Bước 1 — Mở NuMonitor</h3>
+            <p>Mở bản trực tuyến, hoặc mở tệp <code>NuMonitor4SerialPort.html</code> đã tải về. Không cài đặt, không cần biên dịch.</p>
+
+            <h3>Bước 2 — Kết nối thiết bị</h3>
+            <ol>
+                <li>Cắm thiết bị vào cổng USB</li>
+                <li>Bấm <strong>Kết nối</strong>
+                    <ul>
+                        <li><strong>Lần đầu:</strong> trình duyệt hiện hộp chọn cổng — hãy chọn thiết bị của bạn</li>
+                        <li><strong>Những lần sau:</strong> chương trình tự kết nối lại đúng cổng đó, không hỏi lại</li>
+                    </ul>
+                </li>
+                <li>Muốn dùng cổng khác, bấm dấu <strong>▾</strong> cạnh nút và chọn trong danh sách, hoặc chọn <em>Khác… (hộp chọn của trình duyệt)</em> để cấp quyền cho thiết bị mới</li>
+                <li>Khi đã kết nối, nút chuyển sang <strong>màu xanh lá “Đã kết nối”</strong> với vầng sáng nhấp nháy chậm và mũi tên menu cổng biến mất. Đưa chuột lên nút, nút chuyển đỏ — bấm để <strong>Ngắt kết nối</strong></li>
+                <li>Nếu rút thiết bị ra, nút chuyển <strong>màu cam “Đang kết nối…”</strong> và thử lại mỗi giây cho đến khi thiết bị quay lại; lúc đó bấm nút sẽ huỷ việc thử lại</li>
+            </ol>
+
+            <figure class="shot">
+                <img src="img/port-menu.png" alt="Menu cổng liệt kê các cổng nối tiếp đã được cấp quyền">
+                <figcaption>Menu ▾ liệt kê mọi cổng đã được cấp quyền. Dấu ★ đánh dấu cổng dùng lần trước; mục cuối cùng mở hộp thoại cấp quyền của trình duyệt.</figcaption>
+            </figure>
+
+            <h3>Bước 3 — Đặt tốc độ baud</h3>
+            <p>Chọn tốc độ khớp với thiết bị — với sketch Arduino thì đó là giá trị bạn truyền vào <code>Serial.begin()</code>. Các tốc độ có sẵn: 300, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 74880, 115200 (mặc định), 230400, 250000, 500000, 1000000 và 2000000 baud.</p>
+            <p>Tốc độ baud được lưu cùng với cổng, nên tải lại trang sẽ khôi phục cả hai.</p>
+            <div class="highlight">
+                <strong>Chữ hiện ra lộn xộn?</strong> Gần như chắc chắn là sai tốc độ baud. Cổng luôn được mở ở chế độ <strong>8N1</strong> (8 bit dữ liệu, không chẵn lẻ, 1 bit dừng) — đúng như phần lớn thiết bị đang dùng.
+            </div>
+        </section>
+
+        <section id="terminal">
+            <h2><span class="icon">📟</span> Terminal</h2>
+
+            <figure class="shot">
+                <img src="img/terminal-connected.png" alt="Terminal hiển thị một phiên lệnh AT">
+                <figcaption>Dấu → là dữ liệu bạn gửi đi, dấu ← là dữ liệu nhận về. TX, RX và thông báo hệ thống mỗi loại một màu riêng. Hình trên: một phiên lệnh AT với modem di động.</figcaption>
+            </figure>
+
+            <h3>Tính năng</h3>
+            <table>
+                <tr><th>Tính năng</th><th>Tác dụng</th></tr>
+                <tr><td>Tự cuộn</td><td>Luôn bám theo dòng mới nhất khi dữ liệu về</td></tr>
+                <tr><td>Dấu thời gian</td><td>Thêm thời điểm nhận vào đầu mỗi dòng</td></tr>
+                <tr><td>Xoá</td><td>Làm trống khung terminal</td></tr>
+                <tr><td>Gửi</td><td>Gửi nội dung trong ô nhập — nhấn Enter hoặc bấm Gửi</td></tr>
+                <tr><td>Lịch sử lệnh</td><td>Biểu tượng đồng hồ bên trái ô nhập cho phép gọi lại, gửi lại hoặc sao chép lệnh cũ</td></tr>
+                <tr><td>Echo</td><td>Hiển thị lại nội dung bạn gửi trong terminal, để xác nhận nó thực sự đã đi ra</td></tr>
+                <tr><td>TXT / HEX</td><td>Chuyển giữa hiển thị văn bản và thập lục phân — thiết yếu với giao thức nhị phân</td></tr>
+                <tr><td>Màu sắc</td><td>Màu TX, RX và hệ thống chỉnh riêng được, lưu tách biệt theo từng giao diện sáng/tối</td></tr>
+            </table>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/terminal-hex.png" alt="Terminal ở chế độ HEX">
+                    <figcaption>Chế độ HEX — thập lục phân bên trái, ASCII tương ứng bên phải</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/color-picker.png" alt="Hộp thoại chọn màu">
+                    <figcaption>Bảng chọn màu — TX, RX và SYS được đặt độc lập với nhau</figcaption>
+                </figure>
+            </div>
+
+            <h3>Nhận diện đường dẫn</h3>
+            <p>Các liên kết xuất hiện trong luồng dữ liệu tự động bấm được: <code>https://</code>, <code>http://</code>, <code>www.</code> (mặc định hiểu là https) và <code>ftp://</code>.</p>
+
+            <h3>Ký tự kết thúc dòng</h3>
+            <p>Ô chọn bên phải khung nhập quyết định phần được thêm vào cuối mọi thứ bạn gửi:</p>
+            <table>
+                <tr><th>Lựa chọn</th><th>Byte được gửi</th><th>Dùng khi</th></tr>
+                <tr><td>Không</td><td>(không thêm gì)</td><td>Khi bạn tự kiểm soát từng byte</td></tr>
+                <tr><td>LF</td><td><code>\n</code> (0x0A)</td><td>Sketch Arduino/ESP32 dùng <code>readStringUntil('\n')</code> — mặc định</td></tr>
+                <tr><td>CR</td><td><code>\r</code> (0x0D)</td><td><strong>Lệnh AT của modem và hầu hết firmware dạng dòng lệnh</strong></td></tr>
+                <tr><td>CRLF</td><td><code>\r\n</code></td><td>Thiết bị kiểu Windows và một số mô-đun</td></tr>
+            </table>
+            <div class="highlight">
+                <strong>⚠️ Làm việc với modem? Hãy chọn CR.</strong> Tập lệnh AT kết thúc bằng ký tự carriage return. Gửi <code>LF</code> hoặc không gửi gì thì modem cứ chờ ký tự kết thúc — và bạn <strong>không nhận được hồi đáp nào cả</strong>. Đó không phải lỗi kết nối; đơn giản là lệnh chưa bao giờ được coi là hoàn chỉnh.
+            </div>
+            <p>Thiết lập này được <strong>ghi nhớ</strong> và khôi phục ở lần mở trang kế tiếp.</p>
+        </section>
+
+        <section id="signals">
+            <h2><span class="icon">🚦</span> Bảng tín hiệu RS-232</h2>
+            <p>Một hàng đèn báo bắt tay xuất hiện dưới phần tiêu đề ngay khi kết nối thành công; lúc chưa kết nối thì cả hàng được ẩn đi.</p>
+
+            <figure class="shot">
+                <img src="img/header-signalbar.png" alt="Thanh tiêu đề kèm bảng tín hiệu RS-232">
+                <figcaption>RTS và DTR (xanh dương) là ngõ ra do bạn điều khiển; DCD, DSR và CTS (xanh lá) là ngõ vào từ thiết bị</figcaption>
+            </figure>
+
+            <h3>LOCAL (OUT) — ngõ ra của bạn, bấm để bật/tắt</h3>
+            <table>
+                <tr><th>Đèn</th><th>Tên đầy đủ</th><th>Ghi chú</th></tr>
+                <tr><td><strong>BRK</strong></td><td>Break</td><td>Tạo trạng thái break. Bấm một lần để bắt đầu, bấm lần nữa để thả</td></tr>
+                <tr><td><strong>RTS</strong></td><td>Request To Send</td><td>Thường bắt buộc với thiết bị dùng điều khiển luồng phần cứng</td></tr>
+                <tr><td><strong>DTR</strong></td><td>Data Terminal Ready</td><td><strong>Phần lớn modem sẽ không nhận lệnh nếu DTR chưa được kích hoạt</strong></td></tr>
+            </table>
+            <p><strong>Vì sao ban đầu chúng đều tắt?</strong> Web Serial API chỉ có thể <em>đặt</em> tín hiệu ngõ ra chứ không <em>đọc ngược lại</em> được. Cho tới khi bạn bấm, NuMonitor thực sự không biết trạng thái của chúng, nên nó hiển thị câu trả lời trung thực thay vì đoán xem trình duyệt đã làm gì lúc mở cổng.</p>
+            <div class="highlight">
+                <strong>⚠️ Người dùng Arduino và ESP32 lưu ý:</strong> trên phần lớn bo phát triển, DTR và RTS nối vào mạch tự động reset, nên bật/tắt chúng <strong>có thể khiến bo khởi động lại</strong>. NuMonitor cố ý không bao giờ đụng vào hai tín hiệu này khi kết nối — quyền quyết định hoàn toàn thuộc về bạn.
+            </div>
+
+            <h3>REMOTE (IN) — ngõ ra của thiết bị, chỉ đọc</h3>
+            <table>
+                <tr><th>Đèn</th><th>Tên đầy đủ</th><th>Sáng nghĩa là</th></tr>
+                <tr><td><strong>DCD</strong></td><td>Data Carrier Detect</td><td>Có sóng mang — modem đã thiết lập được liên kết</td></tr>
+                <tr><td><strong>DSR</strong></td><td>Data Set Ready</td><td>Thiết bị đã có điện và sẵn sàng</td></tr>
+                <tr><td><strong>CTS</strong></td><td>Clear To Send</td><td>Thiết bị sẵn sàng nhận dữ liệu</td></tr>
+                <tr><td><strong>RI</strong></td><td>Ring Indicator</td><td>Phát hiện tín hiệu chuông</td></tr>
+            </table>
+            <p>Bốn đèn này được đọc mỗi 250 ms — Web Serial API không cung cấp sự kiện báo tín hiệu thay đổi, nên đọc định kỳ là cách duy nhất.</p>
+
+            <h3>ACT và ERR</h3>
+            <ul>
+                <li><strong>ACT</strong> — nháy mỗi khi có byte đi qua theo bất kỳ chiều nào. Khi truyền liên tục, nó trông như sáng thường trực</li>
+                <li><strong>ERR</strong> — chuyển đỏ và nháy trong ba giây khi gặp lỗi khung, lỗi chẵn lẻ, tràn bộ đệm hoặc nhận được break; bấm vào để tắt sớm. Kết nối <strong>không</strong> bị ngắt — việc đọc tự động tiếp tục</li>
+            </ul>
+            <p><strong>Về lỗi chẵn lẻ:</strong> hiện cổng được mở ở chế độ <strong>8N1</strong> — không có bit chẵn lẻ thì không thể có lỗi chẵn lẻ, nên trên thực tế ERR phản ứng với lỗi khung, tràn bộ đệm và break.</p>
+        </section>
+
+        <section id="plotter">
+            <h2><span class="icon">📈</span> Bộ vẽ đồ thị</h2>
+
+            <figure class="shot">
+                <img src="img/plotter-line.png" alt="Bộ vẽ đồ thị hiển thị biểu đồ đường với ba chuỗi dữ liệu">
+                <figcaption>Mỗi nhóm dữ liệu trở thành một thẻ riêng. Chú giải bên dưới biểu đồ hiển thị giá trị hiện thời, đồng thời dùng để ẩn/hiện từng chuỗi.</figcaption>
+            </figure>
+
+            <h3>Tự động phân tích</h3>
+            <p>Không cần cấu hình gì. Cứ in văn bản thuần từ thiết bị, NuMonitor sẽ tự quyết định vẽ gì: dòng nào chứa ít nhất một con số đọc được sẽ thành dữ liệu; phần còn lại vẫn là văn bản thường trong terminal.</p>
+
+            <h3>Điều khiển biểu đồ</h3>
+            <table>
+                <tr><th>Nút</th><th>Tác dụng</th></tr>
+                <tr><td>Tạm dừng</td><td>Đóng băng biểu đồ trong khi dữ liệu vẫn tiếp tục về ở nền</td></tr>
+                <tr><td>Làm mượt</td><td>Vẽ biểu đồ đường và biểu đồ vùng thành đường cong mượt</td></tr>
+                <tr><td>Xoá</td><td>Bỏ toàn bộ dữ liệu của nhóm đó</td></tr>
+                <tr><td>CSV</td><td>Xuất dữ liệu của nhóm ra tệp CSV</td></tr>
+                <tr><td>Nền</td><td>Đặt màu nền riêng cho biểu đồ, ghi nhớ theo từng nhóm</td></tr>
+                <tr><td>Bản đồ</td><td>Chỉ xuất hiện khi nhóm có toạ độ <code>map:</code></td></tr>
+            </table>
+
+            <h3>Con trỏ trục X</h3>
+            <p>Rê con trỏ ngang qua biểu đồ để đọc giá trị chính xác của mọi chuỗi tại mẫu đó.</p>
+
+            <h3>Cuộn để phóng to thu nhỏ</h3>
+            <p>Cuộn chuột trên biểu đồ sẽ thay đổi số mẫu được hiển thị, từ 20 đến 2000 (mặc định 100). Bộ nhớ giữ tối đa 500 mẫu cho mỗi chuỗi.</p>
+
+            <h3>Tương tác với chú giải</h3>
+            <p>Bấm vào một mục trong chú giải để ẩn hoặc hiện chuỗi đó; bấm vào ô màu của nó để đổi màu, và màu này được ghi nhớ.</p>
+        </section>
+
+        <section id="charts">
+            <h2><span class="icon">📊</span> Các loại biểu đồ</h2>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/plotter-line.png" alt="Biểu đồ đường">
+                    <figcaption><code>line</code> — chuỗi thời gian liên tục, có thể làm mượt</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-area.png" alt="Biểu đồ vùng">
+                    <figcaption><code>area</code> — tô mờ, nhấn mạnh độ lớn</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-stack.png" alt="Biểu đồ vùng chồng">
+                    <figcaption><code>stack</code> — tỷ trọng thay đổi theo thời gian</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-scatter.png" alt="Biểu đồ phân tán">
+                    <figcaption><code>scatter</code> — phân bố, nhiễu và giá trị ngoại lai</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-bar.png" alt="Biểu đồ cột">
+                    <figcaption><code>bar</code> — so sánh giá trị mới nhất của nhiều hạng mục</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-gauge.png" alt="Đồng hồ đo">
+                    <figcaption><code>gauge</code> — theo dõi một giá trị; nhiều giá trị sẽ tự xếp thành lưới</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-pie.png" alt="Biểu đồ tròn">
+                    <figcaption><code>pie</code> — tỷ lệ phần trăm, hợp nhất với 2–8 hạng mục</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/gps-map.png" alt="Bản đồ hành trình GPS">
+                    <figcaption>🗺️ Chế độ bản đồ — không phải một loại biểu đồ, mà là chế độ xem bổ sung xuất hiện khi dữ liệu có <code>map:</code></figcaption>
+                </figure>
+            </div>
+
+            <div class="highlight">
+                <strong>Lưu ý:</strong> <code>map</code> <strong>không</strong> phải là một loại biểu đồ hợp lệ. Viết <code>{X|0|1|map}</code> sẽ bị trả về <code>line</code>. Bản đồ là một nút chuyển chế độ xem, xuất hiện ở mọi thẻ có dữ liệu chứa toạ độ.
+            </div>
+        </section>
+
+        <section id="map">
+            <h2><span class="icon">🗺️</span> Theo dõi GPS</h2>
+
+            <figure class="shot">
+                <img src="img/gps-map.png" alt="Hành trình GPS trên nền bản đồ OpenStreetMap">
+                <figcaption>Bản đồ nền lấy từ OpenStreetMap. Các ô điều khiển bên dưới quy định số điểm hành trình được giữ lại và việc bản đồ có bám theo vị trí mới nhất hay không; nút góc trên bên phải quay lại biểu đồ.</figcaption>
+            </figure>
+
+            <h3>Bật bản đồ</h3>
+            <p>Thêm <code>map:vĩ_độ,kinh_độ</code> vào bất kỳ dòng dữ liệu nào. Nút 🗺️ sẽ xuất hiện trên thẻ đó.</p>
+
+            <h3>Các định dạng toạ độ</h3>
+            <table>
+                <tr><th>Định dạng</th><th>Ví dụ</th></tr>
+                <tr><td>Độ thập phân (cho phép số âm)</td><td><code>map:25.051075,121.630951</code></td></tr>
+                <tr><td>Độ thập phân kèm bán cầu</td><td><code>map:25.051075N,121.630951E</code></td></tr>
+                <tr><td>Độ và phút</td><td><code>map:25°3.0645'N,121°37.857'E</code></td></tr>
+                <tr><td>Độ, phút và giây</td><td><code>map:25°3'3.87"N,121°37'51.4"E</code></td></tr>
+            </table>
+            <p>Toạ độ vượt quá vĩ độ ±90° hoặc kinh độ ±180° sẽ bị loại bỏ.</p>
+
+            <h3>Điều khiển bản đồ</h3>
+            <ul>
+                <li><strong>Số điểm hành trình</strong> — bao nhiêu vị trí gần nhất còn nằm trên bản đồ, từ 1 đến 100 (mặc định 10)</li>
+                <li><strong>Bám theo</strong> — luôn giữ vị trí mới nhất ở giữa; tắt đi để tự do kéo và phóng to mà bản đồ không nhảy về</li>
+                <li>Bấm vào một điểm đánh dấu trên hành trình sẽ hiện toạ độ và các giá trị dữ liệu ghi được tại điểm đó</li>
+            </ul>
+        </section>
+
+        <section id="format">
+            <h2><span class="icon">📝</span> Tra cứu định dạng dữ liệu</h2>
+
+            <h3>Cú pháp đầy đủ</h3>
+            <div class="code-block">{TênNhóm|Ymin|Ymax|loạiBiểuĐồ}#bộĐếm Nhãn:GiáTrị Nhãn=GiáTrị map:vĩđộ,kinhđộ</div>
+
+            <h3>Các thành phần</h3>
+            <table>
+                <tr><th>Thành phần</th><th>Bắt buộc</th><th>Ghi chú</th></tr>
+                <tr><td>Tên nhóm</td><td>Không</td><td>Trở thành một thẻ. Nhận mọi văn bản, kể cả chữ không thuộc hệ La-tinh</td></tr>
+                <tr><td>Y min / Y max</td><td>Không</td><td>Một con số, hoặc <code>auto</code>. Giá trị không đọc được đều coi như auto</td></tr>
+                <tr><td>Loại biểu đồ</td><td>Không</td><td><code>line</code> <code>area</code> <code>stack</code> <code>scatter</code> <code>bar</code> <code>gauge</code> <code>pie</code>; giá trị khác sẽ trả về <code>line</code></td></tr>
+                <tr><td><code>#bộĐếm</code></td><td>Không</td><td>Đặt ngay sau dấu <code>}</code>. Ghi nhãn cho trục X; chấp nhận số âm và số thập phân</td></tr>
+                <tr><td>Điểm dữ liệu</td><td><strong>Có</strong></td><td>Ít nhất một con số đọc được, nếu không dòng đó chỉ là văn bản thường</td></tr>
+                <tr><td><code>map:</code></td><td>Không</td><td>Thêm chế độ xem bản đồ cho thẻ đó</td></tr>
+            </table>
+
+            <h3>Cách viết điểm dữ liệu</h3>
+            <div class="code-block">Serial.println("Temp:25.5 Humidity:60.2");   // Khoá:GiáTrị — khuyến nghị
+Serial.println("Temp=25.5 Humidity=60.2");   // Khoá=GiáTrị
+Serial.println("25.5 60.2 1013.2");          // chỉ số → CH1, CH2, CH3
+Serial.println("Temp\t25.5");                // Nhãn [tab/khoảng trắng] GiáTrị</div>
+            <ul>
+                <li>Dấu phân cách: khoảng trắng, dấu phẩy hoặc tab</li>
+                <li>Dấu ngăn nhãn với giá trị: <code>:</code> hoặc <code>=</code></li>
+                <li><strong>Đơn vị được cắt bỏ tự động</strong> — <code>25.5°C</code>, <code>60.2%</code> và <code>40.5km/h</code> đều được đọc thành con số đứng đầu</li>
+                <li>Phần không đọc được sẽ bị bỏ qua mà không làm hỏng phần còn lại của dòng</li>
+            </ul>
+
+            <h3>Sketch ví dụ</h3>
+            <div class="code-block">// Giám sát môi trường, có đơn vị và bộ đếm mẫu
+void loop() {
+  Serial.print("{Environment|0|100|line}#");
+  Serial.print(seq++);
+  Serial.print(" Temp:"); Serial.print(readTemp(), 1); Serial.print("°C");
+  Serial.print(" RH:");   Serial.print(readRH(), 1);   Serial.println("%");
+  delay(100);   // 10 Hz
+}
+
+// Ba thẻ cùng lúc
+void loop() {
+  Serial.print("{Temperature|15|35|line}Indoor:");  Serial.print(t1);
+  Serial.print(" Outdoor:"); Serial.println(t2);
+
+  Serial.print("{System|0|100|bar}CPU:"); Serial.print(cpu);
+  Serial.print(" MEM:"); Serial.println(mem);
+
+  Serial.print("{Battery|0|100|gauge}Level:"); Serial.println(bat);
+  delay(500);
+}
+
+// Dữ liệu bay của drone kèm hành trình GPS
+void loop() {
+  Serial.print("{Drone|0|120|line}#"); Serial.print(frame++);
+  Serial.print(" Alt:");   Serial.print(alt, 1);
+  Serial.print(" Speed:"); Serial.print(spd, 1);
+  Serial.print(" map:");   Serial.print(lat, 6);
+  Serial.print(",");       Serial.println(lng, 6);
+  delay(200);
+}</div>
+
+            <h3>Giới hạn</h3>
+            <table>
+                <tr><th>Hạng mục</th><th>Giới hạn</th></tr>
+                <tr><td>Số nhóm (thẻ) cùng lúc</td><td>10 — nhóm vượt quá sẽ bị bỏ qua âm thầm</td></tr>
+                <tr><td>Số mẫu giữ lại cho mỗi chuỗi</td><td>500</td></tr>
+                <tr><td>Số mẫu hiển thị</td><td>Mặc định 100, cuộn chuột để chỉnh 20–2000</td></tr>
+                <tr><td>Số điểm hành trình GPS</td><td>Mặc định 10, chỉnh được 1–100</td></tr>
+                <tr><td>Bảng màu</td><td>32 màu, sau đó quay vòng</td></tr>
+                <tr><td>Tốc độ baud</td><td>300 – 2.000.000</td></tr>
+            </table>
+        </section>
+
+        <section id="faq">
+            <h2><span class="icon">❓</span> Câu hỏi thường gặp</h2>
+
+            <h3>Hỏi: Không có cổng nào hiện ra.</h3>
+            <p><strong>Đáp:</strong> Kiểm tra xem thiết bị đã cắm chưa, driver USB đã cài chưa, bạn có đang dùng Chrome/Edge/Opera không, và có chương trình nào khác đang giữ cổng không — thủ phạm quen thuộc là Serial Monitor của Arduino IDE.</p>
+
+            <h3>Hỏi: Chỉ nhận được ký tự lộn xộn.</h3>
+            <p><strong>Đáp:</strong> Tốc độ baud không khớp. Hãy đặt NuMonitor đúng bằng giá trị trong <code>Serial.begin()</code> của thiết bị.</p>
+
+            <h3>Hỏi: Không thấy biểu đồ nào xuất hiện.</h3>
+            <p><strong>Đáp:</strong> Kiểm tra công tắc bộ vẽ đồ thị (📊) đã bật chưa, dòng dữ liệu có ít nhất một con số đọc được không, và bạn đã chạm giới hạn 10 nhóm hay chưa.</p>
+
+            <h3>Hỏi: Modem của tôi hoàn toàn không trả lời lệnh AT.</h3>
+            <p><strong>Đáp:</strong> Hãy làm lần lượt theo thứ tự sau:</p>
+            <ol>
+                <li><strong>Đặt ký tự kết thúc dòng thành CR</strong> — đây là nguyên nhân phổ biến nhất. Lệnh AT phải kết thúc bằng carriage return; với LF mặc định thì modem sẽ không bao giờ trả lời</li>
+                <li><strong>Kích hoạt DTR</strong> (và cả RTS nếu modem dùng điều khiển luồng phần cứng) từ bảng tín hiệu. Các phần mềm terminal khác tự bật hai tín hiệu này khi mở cổng; NuMonitor cố ý không làm vậy để tránh reset bo phát triển</li>
+                <li><strong>Xem DSR và CTS</strong> — DSR tối nghĩa là thiết bị chưa có điện hoặc đấu dây sai; CTS tối nghĩa là nó chưa sẵn sàng nhận dữ liệu</li>
+                <li><strong>Xác nhận lại tốc độ baud</strong></li>
+                <li>Bật <strong>echo</strong> và theo dõi bộ đếm <strong>TX bytes</strong> để chứng minh dữ liệu thực sự đã rời khỏi máy tính</li>
+            </ol>
+
+            <h3>Hỏi: Tự kết nối lại và tự động kết nối khác nhau thế nào?</h3>
+            <p><strong>Đáp:</strong> Một công tắc điều khiển hai hành vi:</p>
+            <ul>
+                <li><strong>Thiết bị bị rút ra khi đang kết nối</strong> → thử lại mỗi giây, không giới hạn số lần, cho đến khi nó quay lại</li>
+                <li><strong>Tải lại hoặc mở lại trang</strong> → kết nối lại cổng dùng lần trước và khôi phục tốc độ baud của nó</li>
+            </ul>
+            <p>Nếu bạn đã <strong>chủ động ngắt kết nối</strong> trước khi rời trang thì nó sẽ không tự kết nối lại. Trạng thái của chính công tắc này cũng được ghi nhớ.</p>
+
+            <h3>Hỏi: Kết nối ESP32 không ổn định.</h3>
+            <p><strong>Đáp:</strong> Thiết bị USB CDC của ESP32 có thể làm đối tượng cổng mất hiệu lực sau khi khởi động lại. NuMonitor bỏ handle đã cũ và lấy lại cổng thông qua trình duyệt — nhờ vậy việc kết nối lại vẫn chạy mà bạn không phải chọn lại thiết bị.</p>
+
+            <h3>Hỏi: Xuất dữ liệu ra bằng cách nào?</h3>
+            <p><strong>Đáp:</strong> Bấm <strong>CSV</strong> trên hàng điều khiển của biểu đồ để xuất nhóm đó.</p>
+
+            <h3>Hỏi: Đổi giao diện sáng/tối hoặc đổi ngôn ngữ ở đâu?</h3>
+            <p><strong>Đáp:</strong> Dùng nút trăng/mặt trời và ô chọn ngôn ngữ ở góc trên bên phải. Cả hai đều được ghi nhớ. Màu biểu đồ và terminal đi theo giao diện.</p>
+            <p>Liên kết <strong>Hướng dẫn</strong> và huy hiệu phiên bản cũng đi theo ngôn ngữ giao diện. Tài liệu này có bản English, 日本語, Tiếng Việt, Bahasa Indonesia, Bahasa Melayu và <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/doc/manual.html">繁體中文</a> — chọn trong ô ở góc trên bên phải. Những ngôn ngữ giao diện chưa có bản dịch riêng sẽ hiển thị bản tiếng Anh.</p>
+
+            <figure class="shot">
+                <img src="img/language-menu.png" alt="Menu ngôn ngữ liệt kê 18 thứ tiếng">
+                <figcaption>18 ngôn ngữ giao diện, gồm cả các hệ chữ viết từ phải sang trái (Ả Rập, Hebrew, Ba Tư)</figcaption>
+            </figure>
+
+            <figure class="shot">
+                <img src="img/theme-light.png" alt="Giao diện sáng">
+                <figcaption>Giao diện sáng — lưới biểu đồ, chữ và nền đều đi theo giao diện</figcaption>
+            </figure>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>NuMonitor V26.11.0 | Phát triển bởi <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
+        <p style="margin-top: 10px;">
+            <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">Chạy NuMonitor</a> |
+            <a href="changelog.html" data-sibling="changelog.html">Nhật ký thay đổi</a> |
+            <a href="https://github.com/Nuxtack-tw/NuMonitor4SerialPort">Mã nguồn</a>
+        </p>
+    </footer>

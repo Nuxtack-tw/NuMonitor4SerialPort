@@ -1,0 +1,542 @@
+
+    <div class="container">
+        <header class="header">
+            <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/" class="logo-link">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 32373 33553" fill="#81D8D0">
+                        <path d="M32306.51 13651.25l-11174.46 -5592.01 0 -7198.5c12113.32,6376.73 11174.53,3823.33 11174.46,12790.52z"/>
+                        <path d="M16.96 19856.56l11174.46 5592.01 0 7198.5c-12113.32,-6376.73 -11174.53,-3823.33 -11174.46,-12790.52z"/>
+                        <polygon points="16.96,9927.52 32373.56,26094.99 32373.56,33553.52 16.89,17370.21"/>
+                        <polygon points="16.89,0 32373.5,16167.46 32373.5,23625.99 16.83,7442.68"/>
+                    </svg>
+                </div>
+                <div class="logo-text"><span class="nu-color">NuMonitor</span> for Serial Port</div>
+            </a>
+            <div class="header-subtitle">変更履歴</div>
+        </header>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.11.0</span>
+                <span class="version-date">2026-07-31</span>
+                <span class="version-tag tag-latest">最新</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>マニュアルと変更履歴が 5 言語に</div>
+                <ul class="change-list">
+                    <li><strong>この変更履歴とユーザーマニュアルが English、日本語、Tiếng Việt、Bahasa Indonesia、Bahasa Melayu で読めるようになりました</strong>。既存の 繁體中文 版はそのままです</li>
+                    <li>NuMonitor からどちらの文書を開いても画面の言語がそのまま引き継がれるため、開いた時点ですでに適切な言語になっています</li>
+                    <li>どちらの文書にも右上に言語セレクタがあり、選んだ言語は記憶されます</li>
+                    <li>まだ専用の翻訳がない画面言語では英語版が表示され、その理由も画面に明示されます。黙って切り替わることはありません</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.10.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>文書へのリンクが画面の言語に追従</div>
+                <ul class="change-list">
+                    <li><strong>画面を別の言語に切り替えても、開かれるのは中国語の文書のままでした</strong> — この 2 つのリンクは固定値で、言語とは無関係だったためです</li>
+                    <li>マニュアルのリンクとバージョンバッジが、現在の言語に応じた行き先を選ぶようになりました</li>
+                    <li>選んだ言語にかかわらずページの言語属性が常に <code>zh-TW</code> のままでしたが、実際の言語を反映するようになりました。スクリーンリーダーや翻訳ツールにとって重要な点です</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.10.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>行末コードを記憶</div>
+                <ul class="change-list">
+                    <li><strong>行末コードの選択（なし / LF / CR / CRLF）が保存されるようになり</strong>、ページを開き直したときに復元されます</li>
+                    <li>モデムを扱うときに特に有用です。AT コマンドは <strong>CR</strong> で終える必要があり、既定の LF では一切応答が返りません</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.9.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>信号パネルの視認性</div>
+                <ul class="change-list">
+                    <li>信号表示の文字と背景のコントラストが低すぎたため、この列全体をヘッダーのボタンと同じ配色に揃えました。背景・枠線・文字色・角の丸みまで同一です</li>
+                    <li>文字をわずかに大きくし、消灯時の表示も「あるけれど点いていない」と読めるよう明るくしました。以前はほとんど見えませんでした</li>
+                    <li>信号の色（出力は青、入力は緑、ACT はオレンジ、ERR は赤）は、実際にその信号が立っているときだけ現れます</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.9.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>未接続時は信号パネルを非表示に</div>
+                <ul class="change-list">
+                    <li><strong>未接続のあいだ RS-232 信号パネルを薄く表示するのではなく、完全に隠すようにしました</strong> — 接続がなければ表示に意味はなく、場所を取るだけだったためです</li>
+                    <li>接続すると現れ、切断すると即座に消えて、ポーリングも一緒に止まります</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.8.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>RS-232 信号パネル</div>
+                <div class="feature-highlight">
+                    <h4>🚦 ヘッダーの下にハンドシェイク信号の列</h4>
+                    <p>RS-232 の制御線をひと目で把握でき、出力信号はクリックで切り替えられます。</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>LOCAL (OUT)：BRK / RTS / DTR</strong> — 表示をクリックするとその出力を切り替えます。未接続時は無効です
+                        <ul>
+                            <li>最初にクリックするまでは消灯のまま表示されます。ブラウザは出力信号を設定できますが、現在の状態を読み取ることはできません</li>
+                            <li>NuMonitor は接続時に DTR/RTS を意図的に設定しません。ほとんどの Arduino・ESP32 ボードでは、その線が自動リセット回路につながっているためです</li>
+                        </ul>
+                    </li>
+                    <li><strong>REMOTE (IN)：DCD / DSR / CTS / RI</strong> — 読み取り専用で、250 ms ごとに更新します</li>
+                    <li><strong>ACT</strong> — どちらの向きであれバイトが流れるたびに点滅します</li>
+                    <li><strong>ERR</strong> — フレーミング、パリティ、バッファオーバーラン、ブレーク受信のエラーで赤く 3 秒点滅します。クリックで消せます。接続を切らずに受信が自動的に復帰するようになりました</li>
+                </ul>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">⚠️</span>パリティエラーについて</div>
+                <ul class="change-list">
+                    <li>ポートは <strong>8N1（パリティなし）</strong> で開かれるため、パリティエラーは発生し得ません。実際には ERR はフレーミング・オーバーラン・ブレークに反応します</li>
+                    <li>本物のパリティエラーを検出するには、まず画面にパリティ / データビット / ストップビットの設定を追加する必要があります</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.7.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>ヘッダーの折り返しを修正</div>
+                <ul class="change-list">
+                    <li><strong>実際には詰まっていないのに、ヘッダーがかなり早い段階で 2 行目へ折り返していました</strong> — 原因は、幅 1200 px を下回るとヘッダーを縦に積む固定のブレークポイントで、コントロールのあいだにまだ 400 px の余白があっても折り返していました</li>
+                    <li>そのブレークポイントを削除し、本当に収まらなくなったときだけ折り返すようにしました</li>
+                    <li>実測の折り返し位置は 1200 px から約 899 px に移動しました。その幅では最後の 2 つのコントロールの間隔はおよそ 13 px しかありません</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.7.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>ヘッダーの配置</div>
+                <ul class="change-list">
+                    <li><strong>テーマ切り替えと言語セレクタを右端にぴったり寄せました</strong>。接続関連（左）と設定関連（右）が分かれます</li>
+                    <li>その手前にあった区切り線は削除しました。間隔だけで 2 つのまとまりは十分に分かれます</li>
+                    <li>ウィンドウが狭くなって折り返したときも、右寄せのままです</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.6.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>ページ再読み込み後に自動で接続</div>
+                <div class="feature-highlight">
+                    <h4>🔄 更新のたびに「接続」を押す必要はもうありません</h4>
+                    <p>前回使ったポートがまだ存在していれば、読み込み時に接続し、ボーレートも一緒に復元します。</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>次の 3 つの条件をすべて満たす必要があります</strong>
+                        <ul>
+                            <li>自動再接続がオンであること</li>
+                            <li>前回、自分で<strong>切断していない</strong>こと（デバイスが抜かれた場合は該当しません）</li>
+                            <li>そのポートが今も存在し、許可されていること</li>
+                        </ul>
+                    </li>
+                    <li>ポートが見つからない場合、NuMonitor はポーリングを <strong>開始しません</strong>。ページを開いた瞬間にポートを掴むと、Arduino IDE など他のプログラムを妨げるためです</li>
+                    <li>自動接続に失敗したときは、トラブルシューティングのパネルを開かず 1 行だけ記録します</li>
+                </ul>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>修正</div>
+                <ul class="change-list">
+                    <li><strong>自動再接続スイッチの状態が記憶されるようになりました</strong> — 以前は再読み込みのたびにオンへ戻っていました</li>
+                    <li>記憶するポートの情報にボーレートを含めたため、そちらも復元されます</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.5.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>呼吸する光をより明るく</div>
+                <ul class="change-list">
+                    <li>「接続済み」の光は暗い背景ではまったく気づけないほど淡かったため、大幅に明るくしました</li>
+                    <li>2 層構成に作り直しました。輪郭をはっきりさせる実線と、広がっていく柔らかな光暈を重ねることで呼吸が見えるようになり、ピーク時の明るさは以前の 6 倍以上です</li>
+                    <li>再接続中のオレンジの光も同じ強さに合わせました</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.5.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>接続ボタンの改良</div>
+                <ul class="change-list">
+                    <li><strong>呼吸する表示を、ボタン全体を囲む光暈に変更しました</strong>。「接続済み」の横にあった小さな点を置き換えたもので、分かりやすく、ボタンもすっきりします
+                        <ul>
+                            <li>接続済み：緑の光、周期 2.6 秒</li>
+                            <li>再接続中：オレンジの光、周期 1.1 秒</li>
+                            <li>ボタンにカーソルを乗せるとアニメーションが止まります</li>
+                        </ul>
+                    </li>
+                    <li><strong>接続中はポートメニューの矢印を薄くするのではなく、完全に隠すようにしました</strong> — 接続が開いているあいだに選ぶべきポートはないためです</li>
+                    <li>再接続中は矢印が使えるままなので、再試行の途中で別のポートに切り替えられます</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.4.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>接続状態をボタンに統合</div>
+                <div class="feature-highlight">
+                    <h4>🔗 独立した「未接続 / 接続済み」表示を廃止</h4>
+                    <p>ボタンそのものが状態ランプです。色が今の状態を、文字がクリックしたときに起きることを示します。</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>3 つの状態、3 つの色</strong>
+                        <ul>
+                            <li><strong>青「接続」</strong> — 未接続</li>
+                            <li><strong>緑「接続済み」</strong> — 接続中。ゆっくり呼吸する光つき</li>
+                            <li><strong>オレンジ「接続中…」</strong> — デバイスを見失い、自動再接続の最中。リズムは速めです</li>
+                        </ul>
+                    </li>
+                    <li><strong>カーソルを乗せると結果が先に分かります</strong>。接続済みなら赤くなって「切断」、再接続中なら赤くなって「取消」と表示されます。動く的をクリックさせないよう、アニメーションは止まります</li>
+                    <li><strong>再接続中にクリックすると再試行を中止します</strong>（以前は別の接続試行が始まっていました）</li>
+                    <li>プラグと×のアイコンは状態色に任せて廃止し、ボタンを細くしました</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.3.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>ヘッダーの文字色を統一</div>
+                <ul class="change-list">
+                    <li><strong>「説明書」、バージョンバッジ、「自動再接続」だけが他より一段暗い色でした</strong>。ヘッダー全体を単一の文字色に揃えました</li>
+                    <li>ヘッダーの文字とアイコンはすべて 1 つの変数に従います。ダークモードでは <code>#e6edf3</code>、ライトモードでは <code>#1f2328</code> です</li>
+                    <li>唯一の例外は、塗りつぶされた接続／切断ボタン上の白い文字です。これはボタンの前景色にあたります</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.3.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>ヘッダーをさらに詰め、太字を廃止</div>
+                <ul class="change-list">
+                    <li><strong>コントロールの高さを 26 px から 22 px へ縮小</strong>。ヘッダー全体の高さは 33.7 px となり、作り直す前と比べて 45 % 低くなりました</li>
+                    <li><strong>ヘッダーから太字をすべて排除</strong>しました。ロゴも含め、すべて通常の太さです</li>
+                    <li>低くなったコントロールの中に、すべてのラベルが切れずに収まることを個別に確認しました</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.2.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>ヘッダーの書体を統一</div>
+                <div class="feature-highlight">
+                    <h4>📏 サイズも太さも高さも 1 種類に</h4>
+                    <p>それまでのヘッダーは 3 種類の文字サイズ、3 種類の太さ、29 px から 36 px までばらついた高さが混在していました。</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>すべてのコントロールが同じ高さ・サイズ・太さ・角の丸みになりました</strong>
+                        <ul>
+                            <li>視覚的な階層は、大きさや太さではなく文字色で表します</li>
+                            <li>ボーレートだけは等幅書体のままとし、数字の桁が揃うようにしています</li>
+                        </ul>
+                    </li>
+                    <li><strong>ヘッダーの高さを 36 % 削減</strong>し、ターミナルの領域を広げました</li>
+                    <li>状態表示を丸型から、他のコントロールに合わせた角丸長方形に変更しました</li>
+                    <li>入力列のボタンとカラーピッカーは元の大きさのままです</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.1.0</span>
+                <span class="version-date">2026-07-30</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>接続と切断を 1 つのボタンに</div>
+                <div class="feature-highlight">
+                    <h4>🔌 「ポート選択」と「切断」を分割ボタンに統合</h4>
+                    <p>待機中は青い「接続」、接続すると赤い「切断」。しかも毎回ポート選択ダイアログが出ることはありません。</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>ポート選択ダイアログが毎回出ることはなくなりました。</strong>「接続」をクリックすると、次の順に試します。
+                        <ul>
+                            <li>前回使ったポート</li>
+                            <li>チップが判別できるポート（CH340 / CP210x / FTDI / ESP32 / Arduino など）</li>
+                            <li>許可済みのポートがちょうど 1 つだけなら、そのポート</li>
+                            <li>そこまで駄目なら、はじめてブラウザのポート選択画面</li>
+                        </ul>
+                    </li>
+                    <li><strong>▾ の矢印でポートメニューが開きます</strong>
+                        <ul>
+                            <li>許可済みのすべてのポートを、独自ラベルまたはチップ名とともに並べます。同一機種は <code>#番号</code> で区別します</li>
+                            <li>前回使ったポートには ★ が付きます</li>
+                            <li>最後の項目 <em>その他…（ブラウザの選択画面）</em> から新しいデバイスを許可できます</li>
+                        </ul>
+                    </li>
+                    <li>最後に使ったポートは、VID/PID と番号とともにローカルストレージへ記憶されます</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.0.0</span>
+                <span class="version-date">2026-07-30</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>年度制のバージョン番号</div>
+                <div class="feature-highlight">
+                    <h4>🔢 V<em>a</em>.<em>b</em>.<em>c</em> へ移行</h4>
+                    <p>このリリースから <strong>a</strong> は西暦の下 2 桁（2026 → 26）、<strong>b</strong> は機能追加の回数、<strong>c</strong> は修正の回数を表します。ある桁が増えると、それ以降の桁は 0 に戻ります。v3.0.1 が旧来のセマンティックバージョンでの最後のリリースです。</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong><code>&lt;title&gt;</code> 要素がバージョン番号の唯一の情報源になりました</strong>
+                        <ul>
+                            <li>ヘッダーのバッジは値を埋め込まず、実行時にそこから読み取ります</li>
+                            <li>コンソールの起動メッセージも同様なので、場所によって番号がずれることはありません</li>
+                        </ul>
+                    </li>
+                    <li><strong>スナップショットの手順を追加</strong>：リリースごとに、変更を始める前に現行ファイルを <code>backup/</code> に凍結します</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v3.0.1</span>
+                <span class="version-date">2026-03-18</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>自動再接続の改良</div>
+                <ul class="change-list">
+                    <li><strong>再試行の回数制限を撤廃しました。</strong>以前はおよそ 30 回で諦めていましたが、デバイスが戻るか自動再接続をオフにするまで、1 秒ごとに試し続けます</li>
+                    <li>長く離れる場面で有用です。ファームウェアの書き換え、デバイスの再起動、電源付き USB ハブの電源入れ直しなど</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v3.0.0</span>
+                <span class="version-date">2026-03-10</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>ライトテーマ</div>
+                <ul class="change-list">
+                    <li><strong>GitHub Light 風の新しいテーマ</strong>。右上のボタンで即座に切り替えられます
+                        <ul>
+                            <li>画面、ターミナル、グラフのすべてが追従します</li>
+                            <li>アクセントカラーは明るい背景向けに調整し直しました</li>
+                        </ul>
+                    </li>
+                    <li><strong>選んだテーマは保存され</strong>、次に開いたときも維持されます</li>
+                    <li>グラフのキャンバスは再描画のたびに現在の配色を読み、テーマにその場で追従します</li>
+                    <li>テーマのツールチップを 18 の画面言語すべてに翻訳しました</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v2.0.0</span>
+                <span class="version-date">2026-01-22</span>
+                <span class="version-tag tag-major">大型</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>プロッタの全面刷新</div>
+                <ul class="change-list">
+                    <li><strong>データ形式の拡張</strong> — <code>#数値</code> によるサンプル番号と、<code>map:</code> による座標</li>
+                    <li><strong>積み上げ面グラフ</strong>（<code>stack</code>）を 7 番目のグラフ種別として追加</li>
+                    <li><strong>X 軸カーソル</strong> — グラフにカーソルを乗せると、その位置の全系列の値を読み取れます</li>
+                    <li><strong>GPS 軌跡</strong> を OpenStreetMap 上に表示。軌跡の点数を調整でき、視界の固定も可能です</li>
+                    <li>ターミナルの <strong>URL 検出</strong> により、リンクがクリックできるようになりました</li>
+                    <li>アプリケーションと合わせて HTML 版のユーザーマニュアルを公開しました</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.9.0</span>
+                <span class="version-date">2026-01-21</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>ターミナル配色のカスタマイズ</div>
+                <ul class="change-list">
+                    <li>TX・RX・システムメッセージの色を、それぞれ独立して設定できます</li>
+                    <li>色は見本つきのダイアログから選び、次回以降も保存されます</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.8.0</span>
+                <span class="version-date">2026-01-14</span>
+                <span class="version-tag tag-major">大型</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>18 言語の画面表示</div>
+                <ul class="change-list">
+                    <li>18 言語への完全な画面翻訳と、国旗つきの言語セレクタ</li>
+                    <li>ブラウザの言語を自動検出し、その後は選んだ言語を記憶します</li>
+                    <li>アラビア語・ヘブライ語・ペルシア語のための右横書きレイアウトに対応</li>
+                    <li>固定のラベルだけでなく、動的に生成されるメッセージも翻訳されます</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.7.0</span>
+                <span class="version-date">2026-01-14</span>
+                <span class="version-tag tag-feature">機能</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>グループ構文の簡素化とプロッタ切り替え</div>
+                <ul class="change-list">
+                    <li>グループ定義の構文を、現在の <code>{名前|最小|最大|種別}</code> の形に整理しました</li>
+                    <li>グラフ描画を完全に切り、NuMonitor を素のターミナルとして使う切り替えを追加</li>
+                    <li>グラフのタブは個別に名前の変更と閉じる操作ができます</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.6.0</span>
+                <span class="version-date">2026-01-08</span>
+                <span class="version-tag tag-major">大型</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>シリアルプロッタ</div>
+                <ul class="change-list">
+                    <li><strong>グラフ描画エンジンの登場</strong> — シリアルのテキストから 6 種類のグラフをリアルタイムに描画します</li>
+                    <li>複数のデータグループに対応し、それぞれが独立したタブになります</li>
+                    <li>スクロールで表示するサンプル数を変更できます</li>
+                    <li>スムージング、Y 軸範囲の指定、系列ごとの色と凡例</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.5.0</span>
+                <span class="version-date">2026-01-04</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>コマンド履歴とデバイス名</div>
+                <ul class="change-list">
+                    <li>送信したコマンドを履歴に残し、すばやく再送信できます</li>
+                    <li>デバイスに独自の名前を付けられ、VID:PID をもとに記憶されます</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.4.0</span>
+                <span class="version-date">2026-01-03</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>不具合修正</div>
+                <ul class="change-list">
+                    <li>接続・切断・ストリームの後始末まわりの安定性を修正</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.3.0</span>
+                <span class="version-date">2026-01-02</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>ターミナルの機能</div>
+                <ul class="change-list">
+                    <li>タイムスタンプ、自動スクロール、TXT/HEX の表示切り替え、行末コードの選択</li>
+                    <li>USB チップを識別し、分かりやすいデバイス名を表示</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.0.0 ~ v1.2.0</span>
+                <span class="version-date">2025-12-30 ~ 2026-01-01</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>最初のリリース</div>
+                <ul class="change-list">
+                    <li>Web Serial による接続が動作。ポート選択、ボーレート、送受信</li>
+                    <li>単一ファイル構成と、GitHub 風のダークな画面を確立</li>
+                    <li>自動再接続を導入</li>
+                </ul>
+            </div>
+        </article>
+
+        <footer class="footer">
+            <p>NuMonitor for Serial Port | 開発元 <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
+            <p style="margin-top: 10px;">
+                <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">NuMonitor を実行</a> |
+                <a href="manual.html" data-sibling="manual.html">ユーザーマニュアル</a> |
+                <a href="https://github.com/Nuxtack-tw/NuMonitor4SerialPort">ソースコード</a>
+            </p>
+        </footer>
+    </div>
+

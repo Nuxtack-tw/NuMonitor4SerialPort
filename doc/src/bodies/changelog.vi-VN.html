@@ -1,0 +1,542 @@
+
+    <div class="container">
+        <header class="header">
+            <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/" class="logo-link">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 32373 33553" fill="#81D8D0">
+                        <path d="M32306.51 13651.25l-11174.46 -5592.01 0 -7198.5c12113.32,6376.73 11174.53,3823.33 11174.46,12790.52z"/>
+                        <path d="M16.96 19856.56l11174.46 5592.01 0 7198.5c-12113.32,-6376.73 -11174.53,-3823.33 -11174.46,-12790.52z"/>
+                        <polygon points="16.96,9927.52 32373.56,26094.99 32373.56,33553.52 16.89,17370.21"/>
+                        <polygon points="16.89,0 32373.5,16167.46 32373.5,23625.99 16.83,7442.68"/>
+                    </svg>
+                </div>
+                <div class="logo-text"><span class="nu-color">NuMonitor</span> for Serial Port</div>
+            </a>
+            <div class="header-subtitle">Nhật ký thay đổi</div>
+        </header>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.11.0</span>
+                <span class="version-date">2026-07-31</span>
+                <span class="version-tag tag-latest">Mới nhất</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Hướng dẫn và nhật ký thay đổi có năm thứ tiếng</div>
+                <ul class="change-list">
+                    <li><strong>Nhật ký thay đổi này và bản hướng dẫn sử dụng nay đã có bằng English, 日本語, Tiếng Việt, Bahasa Indonesia và Bahasa Melayu</strong>, bên cạnh bản 繁體中文 sẵn có</li>
+                    <li>Mở một trong hai tài liệu từ NuMonitor sẽ mang theo ngôn ngữ giao diện của bạn, nên trang mở ra đã đúng thứ tiếng ngay từ đầu</li>
+                    <li>Ô chọn ngôn ngữ nằm ở góc trên bên phải của cả hai tài liệu; lựa chọn của bạn được ghi nhớ</li>
+                    <li>Những ngôn ngữ giao diện chưa có bản dịch riêng sẽ hiện bản tiếng Anh, và trang sẽ nói rõ điều đó thay vì lặng lẽ đổi ngôn ngữ</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.10.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Liên kết tài liệu đi theo ngôn ngữ giao diện</div>
+                <ul class="change-list">
+                    <li><strong>Đổi giao diện sang thứ tiếng khác nhưng tài liệu mở ra vẫn là bản tiếng Trung</strong> — hai liên kết đó vốn được ghi cứng và không phụ thuộc ngôn ngữ</li>
+                    <li>Liên kết Hướng dẫn và huy hiệu phiên bản nay được xác định theo ngôn ngữ hiện hành</li>
+                    <li>Thuộc tính ngôn ngữ của trang luôn là <code>zh-TW</code> bất kể bạn chọn thứ tiếng nào; nay nó phản ánh đúng ngôn ngữ thật — điều này quan trọng với trình đọc màn hình và công cụ dịch</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.10.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Ghi nhớ ký tự kết thúc dòng</div>
+                <ul class="change-list">
+                    <li><strong>Lựa chọn ký tự kết thúc dòng (Không / LF / CR / CRLF) nay được lưu lại</strong> và khôi phục khi bạn mở lại trang</li>
+                    <li>Đặc biệt hữu ích với modem: lệnh AT bắt buộc kết thúc bằng <strong>CR</strong>, còn LF mặc định thì không nhận được hồi đáp nào</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.9.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Bảng tín hiệu dễ đọc hơn</div>
+                <ul class="change-list">
+                    <li>Chữ trên đèn báo tín hiệu quá ít tương phản so với nền; cả hàng nay dùng chung bảng màu với các nút trên thanh tiêu đề — cùng nền, cùng viền, cùng màu chữ và cùng độ bo góc</li>
+                    <li>Cỡ chữ nhỉnh hơn một chút, và các chấm báo lúc tắt được làm sáng lên để đọc ra là “có nhưng đang tắt” thay vì gần như vô hình</li>
+                    <li>Màu tín hiệu (ngõ ra xanh dương, ngõ vào xanh lá, ACT cam, ERR đỏ) chỉ hiện lên khi tín hiệu thực sự được kích hoạt</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.9.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Ẩn bảng tín hiệu khi chưa kết nối</div>
+                <ul class="change-list">
+                    <li><strong>Bảng tín hiệu RS-232 nay được ẩn hoàn toàn khi chưa kết nối</strong> thay vì chỉ làm mờ — không có kết nối thì các đèn báo chẳng mang ý nghĩa gì, hàng đó chỉ tổ chiếm chỗ</li>
+                    <li>Nó hiện ra khi kết nối và biến mất ngay khi ngắt, đồng thời dừng luôn việc đọc định kỳ</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.8.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Bảng tín hiệu RS-232</div>
+                <div class="feature-highlight">
+                    <h4>🚦 Một hàng đèn báo bắt tay ngay dưới phần tiêu đề</h4>
+                    <p>Toàn bộ đường điều khiển RS-232 trong một cái nhìn — và các tín hiệu ngõ ra bấm được để bật/tắt.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>LOCAL (OUT): BRK / RTS / DTR</strong> — bấm vào một đèn để đổi trạng thái ngõ ra đó; bị vô hiệu khi chưa kết nối
+                        <ul>
+                            <li>Hiển thị tắt cho đến lần bấm đầu tiên: trình duyệt đặt được tín hiệu ngõ ra nhưng không đọc lại được trạng thái hiện thời của chúng</li>
+                            <li>NuMonitor cố ý không đặt DTR/RTS lúc kết nối, bởi trên phần lớn bo Arduino và ESP32, hai đường này điều khiển mạch tự động reset</li>
+                        </ul>
+                    </li>
+                    <li><strong>REMOTE (IN): DCD / DSR / CTS / RI</strong> — chỉ đọc, làm mới mỗi 250 ms</li>
+                    <li><strong>ACT</strong> — nháy mỗi khi có byte đi qua theo bất kỳ chiều nào</li>
+                    <li><strong>ERR</strong> — nháy đỏ ba giây khi gặp lỗi khung, lỗi chẵn lẻ, tràn bộ đệm hoặc nhận được break; bấm để tắt. Việc đọc nay tự phục hồi thay vì ngắt kết nối</li>
+                </ul>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">⚠️</span>Về lỗi chẵn lẻ</div>
+                <ul class="change-list">
+                    <li>Cổng được mở ở chế độ <strong>8N1 (không chẵn lẻ)</strong>, nên lỗi chẵn lẻ không thể xảy ra — trên thực tế ERR phản ứng với lỗi khung, tràn bộ đệm và break</li>
+                    <li>Muốn phát hiện lỗi chẵn lẻ thật sự thì trước hết phải đưa thiết lập chẵn lẻ / số bit dữ liệu / bit dừng ra giao diện</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.7.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Sửa lỗi xuống dòng của thanh tiêu đề</div>
+                <ul class="change-list">
+                    <li><strong>Thanh tiêu đề xuống hàng thứ hai từ rất sớm, dù thực tế chưa hề chật</strong> — nguyên nhân là một điểm ngắt ghi cứng, xếp chồng thanh tiêu đề theo chiều dọc ngay khi cửa sổ hẹp dưới 1200 px, kể cả khi giữa các nút vẫn còn trống 400 px</li>
+                    <li>Điểm ngắt đó đã bị bỏ; bố cục nay chỉ xuống dòng khi các nút thực sự không còn chỗ</li>
+                    <li>Điểm xuống dòng đo được đã dịch từ 1200 px xuống khoảng 899 px — ở bề rộng đó, hai nút cuối chỉ còn cách nhau chừng 13 px</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.7.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Bố cục thanh tiêu đề</div>
+                <ul class="change-list">
+                    <li><strong>Nút đổi giao diện sáng/tối và ô chọn ngôn ngữ nay nằm sát mép phải</strong>, tách phần điều khiển kết nối (bên trái) khỏi phần tuỳ chọn (bên phải)</li>
+                    <li>Vạch ngăn phía trước chúng đã được bỏ đi — khoảng trống tự nó đã phân tách hai nhóm rồi</li>
+                    <li>Chúng vẫn bám lề phải khi cửa sổ hẹp đến mức phải xuống dòng</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.6.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Tự kết nối lại sau khi tải lại trang</div>
+                <div class="feature-highlight">
+                    <h4>🔄 Không phải bấm Kết nối sau mỗi lần làm mới nữa</h4>
+                    <p>Nếu cổng bạn dùng lần trước vẫn còn đó, NuMonitor sẽ kết nối ngay khi tải trang và khôi phục luôn tốc độ baud.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Phải thoả cả ba điều kiện</strong>
+                        <ul>
+                            <li>Chức năng tự kết nối lại đang bật</li>
+                            <li>Lần trước bạn <strong>không</strong> chủ động ngắt kết nối (thiết bị bị rút ra thì không tính)</li>
+                            <li>Cổng đó vẫn còn và vẫn được cấp quyền</li>
+                        </ul>
+                    </li>
+                    <li>Nếu không thấy cổng, NuMonitor <strong>không</strong> bắt đầu dò liên tục — giành lấy cổng ngay lúc tải trang sẽ chặn các chương trình khác, chẳng hạn Arduino IDE</li>
+                    <li>Khi tự kết nối thất bại, chương trình chỉ ghi một dòng thay vì mở cả bảng hướng dẫn xử lý sự cố</li>
+                </ul>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Sửa lỗi</div>
+                <ul class="change-list">
+                    <li><strong>Công tắc tự kết nối lại nay ghi nhớ trạng thái của nó</strong> — trước đây cứ tải lại trang là nó tự bật</li>
+                    <li>Bản ghi cổng được nhớ nay kèm cả tốc độ baud, nên giá trị đó cũng được khôi phục</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.5.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Vầng sáng nhấp nháy rõ hơn</div>
+                <ul class="change-list">
+                    <li>Vầng sáng “Đã kết nối” quá nhạt để nhận ra trên nền tối; nay nó sáng hơn hẳn</li>
+                    <li>Được dựng lại thành hai lớp — một đường viền đặc cho rõ hình khối, cộng thêm một quầng sáng mềm loang ra để thấy được nhịp nhấp nháy; độ sáng lúc đỉnh cao hơn sáu lần so với trước</li>
+                    <li>Vầng sáng màu cam lúc đang kết nối lại cũng được tăng cường tương ứng</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.5.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Tinh chỉnh nút kết nối</div>
+                <ul class="change-list">
+                    <li><strong>Đèn nhấp nháy trở thành vầng sáng bao quanh cả nút</strong>, thay cho chấm nhỏ bên cạnh chữ “Đã kết nối” — tín hiệu rõ hơn và nút gọn hơn
+                        <ul>
+                            <li>Đã kết nối: vầng sáng xanh lá, chu kỳ 2,6 giây</li>
+                            <li>Đang kết nối lại: vầng sáng cam, chu kỳ 1,1 giây</li>
+                            <li>Đưa chuột lên nút thì hiệu ứng dừng lại</li>
+                        </ul>
+                    </li>
+                    <li><strong>Mũi tên menu cổng bị ẩn hoàn toàn khi đang kết nối</strong> thay vì chỉ làm mờ — đang có kết nối thì chẳng có cổng nào để chọn cả</li>
+                    <li>Mũi tên vẫn dùng được trong lúc đang kết nối lại, nên bạn có thể chuyển sang cổng khác giữa chừng</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.4.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Gộp trạng thái kết nối vào chính cái nút</div>
+                <div class="feature-highlight">
+                    <h4>🔗 Đèn báo “Chưa kết nối / Đã kết nối” riêng biệt đã biến mất</h4>
+                    <p>Cái nút chính là đèn trạng thái: màu cho biết đang ở trạng thái nào, chữ cho biết bấm vào sẽ xảy ra chuyện gì.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Ba trạng thái, ba màu</strong>
+                        <ul>
+                            <li><strong>Xanh dương “Kết nối”</strong> — chưa kết nối</li>
+                            <li><strong>Xanh lá “Đã kết nối”</strong> — đang kết nối, kèm vầng sáng nhấp nháy chậm</li>
+                            <li><strong>Cam “Đang kết nối…”</strong> — mất thiết bị, đang tự kết nối lại, nhịp nhanh hơn</li>
+                        </ul>
+                    </li>
+                    <li><strong>Đưa chuột lên là thấy trước hậu quả</strong>: đang kết nối thì chuyển đỏ và ghi “Ngắt kết nối”; đang kết nối lại thì chuyển đỏ và ghi “Huỷ”. Hiệu ứng dừng hẳn để bạn không phải bấm vào một mục tiêu đang động đậy</li>
+                    <li><strong>Bấm trong lúc đang kết nối lại sẽ huỷ việc thử lại</strong> (trước đây nó lại mở một lượt kết nối riêng)</li>
+                    <li>Biểu tượng phích cắm và dấu nhân đã bỏ đi, nhường việc cho màu trạng thái, nhờ vậy nút hẹp lại</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.3.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Thống nhất màu chữ trên thanh tiêu đề</div>
+                <ul class="change-list">
+                    <li><strong>“Hướng dẫn”, huy hiệu phiên bản và “Tự kết nối lại” tối hơn một bậc</strong> so với mọi thứ còn lại trên hàng đó; cả thanh tiêu đề nay dùng chung một màu chữ</li>
+                    <li>Toàn bộ chữ và biểu tượng trên thanh tiêu đề đi theo một biến duy nhất: <code>#e6edf3</code> ở chế độ tối, <code>#1f2328</code> ở chế độ sáng</li>
+                    <li>Ngoại lệ duy nhất là dòng chữ trắng trên nút Kết nối/Ngắt kết nối có nền đặc, vốn là màu chữ riêng của nút đó</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.3.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Thanh tiêu đề gọn hơn, bỏ chữ đậm</div>
+                <ul class="change-list">
+                    <li><strong>Chiều cao các nút giảm từ 26 px xuống 22 px</strong>; tổng chiều cao thanh tiêu đề nay là 33,7 px, thấp hơn 45 % so với trước khi thiết kế lại</li>
+                    <li><strong>Bỏ toàn bộ chữ đậm khỏi thanh tiêu đề</strong>, kể cả logo — tất cả đều dùng nét thường</li>
+                    <li>Mọi nhãn đều đã được kiểm tra là vẫn nằm gọn trong các nút thấp hơn mà không bị cắt chữ</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.2.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Thống nhất kiểu chữ trên thanh tiêu đề</div>
+                <div class="feature-highlight">
+                    <h4>📏 Một cỡ chữ, một độ đậm, một chiều cao</h4>
+                    <p>Trước đây thanh tiêu đề trộn lẫn ba cỡ chữ, ba độ đậm và chiều cao nút chạy từ 29 px đến 36 px.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Mọi nút nay cùng chiều cao, cùng cỡ chữ, cùng độ đậm và cùng độ bo góc</strong>
+                        <ul>
+                            <li>Thứ bậc thị giác đến từ màu chữ, không phải từ cỡ chữ hay độ đậm</li>
+                            <li>Riêng tốc độ baud giữ phông đều nét để các chữ số thẳng hàng</li>
+                        </ul>
+                    </li>
+                    <li><strong>Thanh tiêu đề thấp đi 36 %</strong>, nhường thêm chỗ cho terminal</li>
+                    <li>Đèn báo trạng thái đổi từ hình viên thuốc sang hình chữ nhật bo góc, khớp với các nút còn lại</li>
+                    <li>Các nút ở hàng nhập liệu và trong bảng chọn màu vẫn giữ nguyên kích thước cũ</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.1.0</span>
+                <span class="version-date">2026-07-30</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Một nút cho cả kết nối lẫn ngắt kết nối</div>
+                <div class="feature-highlight">
+                    <h4>🔌 Gộp “Chọn cổng” và “Ngắt kết nối” thành một nút tách đôi</h4>
+                    <p>Màu xanh dương “Kết nối” khi rảnh, màu đỏ “Ngắt kết nối” khi đã nối — và không còn hộp thoại chọn cổng mỗi lần dùng.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Hộp thoại chọn cổng không còn hiện lên mỗi lần nữa.</strong> Bấm Kết nối, chương trình thử lần lượt:
+                        <ul>
+                            <li>cổng đã dùng lần trước</li>
+                            <li>một cổng có chipset nhận diện được (CH340 / CP210x / FTDI / ESP32 / Arduino và tương tự)</li>
+                            <li>cổng duy nhất đã được cấp quyền, nếu chỉ có đúng một cổng</li>
+                            <li>và chỉ khi đó mới đến hộp chọn cổng của trình duyệt</li>
+                        </ul>
+                    </li>
+                    <li><strong>Mũi tên ▾ mở ra một menu cổng</strong>
+                        <ul>
+                            <li>Liệt kê mọi cổng đã cấp quyền kèm nhãn tự đặt hoặc tên chipset; các thiết bị giống hệt nhau được phân biệt bằng <code>#số thứ tự</code></li>
+                            <li>Cổng dùng lần trước được đánh dấu ★</li>
+                            <li>Mục cuối cùng, <em>Khác… (hộp chọn của trình duyệt)</em>, dùng để cấp quyền cho thiết bị mới</li>
+                        </ul>
+                    </li>
+                    <li>Cổng gần nhất được ghi nhớ trong bộ nhớ cục bộ cùng với VID/PID và số thứ tự của nó</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.0.0</span>
+                <span class="version-date">2026-07-30</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Số phiên bản theo năm</div>
+                <div class="feature-highlight">
+                    <h4>🔢 Chuyển sang V<em>a</em>.<em>b</em>.<em>c</em></h4>
+                    <p>Từ bản này, <strong>a</strong> là hai chữ số cuối của năm (2026 → 26), <strong>b</strong> đếm số lần thêm tính năng và <strong>c</strong> đếm số lần sửa lỗi; tăng một đoạn thì các đoạn sau nó trở về 0. v3.0.1 là bản cuối cùng theo lối đánh số ngữ nghĩa cũ.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Phần tử <code>&lt;title&gt;</code> trở thành nguồn sự thật duy nhất</strong> cho số phiên bản
+                        <ul>
+                            <li>Huy hiệu trên thanh tiêu đề đọc nó lúc chạy thay vì ghi cứng</li>
+                            <li>Dòng thông báo khởi động trong console cũng vậy, nên con số không bao giờ lệch nhau giữa các nơi</li>
+                        </ul>
+                    </li>
+                    <li><strong>Bổ sung quy trình lưu ảnh chụp</strong>: mỗi bản phát hành đều đóng băng tệp hiện hành vào <code>backup/</code> trước khi bắt đầu sửa</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v3.0.1</span>
+                <span class="version-date">2026-03-18</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Cải tiến tự kết nối lại</div>
+                <ul class="change-list">
+                    <li><strong>Bỏ hẳn giới hạn số lần thử lại.</strong> Trước đây nó bỏ cuộc sau chừng 30 lần; nay nó thử lại mỗi giây cho đến khi thiết bị quay lại hoặc bạn tắt chức năng tự kết nối lại</li>
+                    <li>Hữu ích cho những lần vắng mặt lâu: nạp lại firmware, thiết bị khởi động lại, hub USB có nguồn bị tắt bật</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v3.0.0</span>
+                <span class="version-date">2026-03-10</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Giao diện sáng</div>
+                <ul class="change-list">
+                    <li><strong>Giao diện sáng theo phong cách GitHub Light</strong>, đổi tức thì bằng nút ở góc trên bên phải
+                        <ul>
+                            <li>Mọi thành phần đều thích ứng: giao diện, terminal và biểu đồ</li>
+                            <li>Các màu nhấn được chỉnh lại cho hợp với nền sáng</li>
+                        </ul>
+                    </li>
+                    <li><strong>Lựa chọn được lưu lại</strong> và giữ nguyên qua các phiên làm việc</li>
+                    <li>Khung vẽ biểu đồ bám theo giao diện ngay lập tức, đọc bảng màu hiện hành mỗi lần vẽ lại</li>
+                    <li>Chú thích của nút đổi giao diện đã được dịch sang cả 18 ngôn ngữ</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v2.0.0</span>
+                <span class="version-date">2026-01-22</span>
+                <span class="version-tag tag-major">Lớn</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Đại tu bộ vẽ đồ thị</div>
+                <ul class="change-list">
+                    <li><strong>Mở rộng định dạng dữ liệu</strong> — bộ đếm mẫu bằng <code>#số</code> và toạ độ bằng <code>map:</code></li>
+                    <li><strong>Biểu đồ vùng chồng</strong> (<code>stack</code>) được thêm vào, thành loại biểu đồ thứ bảy</li>
+                    <li><strong>Con trỏ trục X</strong> — rê chuột trên biểu đồ để đọc mọi chuỗi tại mẫu đó</li>
+                    <li><strong>Hành trình GPS</strong> trên nền OpenStreetMap, số điểm hành trình chỉnh được và có khoá khung nhìn</li>
+                    <li><strong>Nhận diện đường dẫn</strong> trong terminal biến các liên kết thành chỗ bấm được</li>
+                    <li>Bản hướng dẫn sử dụng dạng HTML được phát hành cùng ứng dụng</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.9.0</span>
+                <span class="version-date">2026-01-21</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Tuỳ chỉnh màu terminal</div>
+                <ul class="change-list">
+                    <li>TX, RX và thông báo hệ thống mỗi loại có một màu chỉnh riêng được</li>
+                    <li>Màu được chọn từ hộp thoại trực quan và lưu lại giữa các phiên</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.8.0</span>
+                <span class="version-date">2026-01-14</span>
+                <span class="version-tag tag-major">Lớn</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Giao diện 18 ngôn ngữ</div>
+                <ul class="change-list">
+                    <li>Dịch toàn bộ giao diện sang 18 thứ tiếng, kèm ô chọn có cờ</li>
+                    <li>Tự nhận ngôn ngữ trình duyệt, sau đó ghi nhớ lựa chọn của bạn</li>
+                    <li>Hỗ trợ bố cục viết từ phải sang trái cho tiếng Ả Rập, Hebrew và Ba Tư</li>
+                    <li>Cả những thông báo sinh ra lúc chạy cũng được dịch, không riêng gì nhãn tĩnh</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.7.0</span>
+                <span class="version-date">2026-01-14</span>
+                <span class="version-tag tag-feature">Tính năng</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Đơn giản hoá cú pháp nhóm và công tắc bộ vẽ</div>
+                <ul class="change-list">
+                    <li>Cú pháp định nghĩa nhóm được viết lại thành dạng <code>{Tên|min|max|loại}</code> như hiện nay</li>
+                    <li>Thêm công tắc tắt hẳn việc vẽ đồ thị để dùng NuMonitor như một terminal thuần tuý</li>
+                    <li>Các thẻ biểu đồ có thể đổi tên và đóng riêng từng cái</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.6.0</span>
+                <span class="version-date">2026-01-08</span>
+                <span class="version-tag tag-major">Lớn</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Serial Plotter</div>
+                <ul class="change-list">
+                    <li><strong>Bộ máy vẽ đồ thị ra mắt</strong> — sáu loại biểu đồ vẽ trực tiếp từ văn bản trên cổng nối tiếp</li>
+                    <li>Nhiều nhóm dữ liệu, mỗi nhóm một thẻ riêng</li>
+                    <li>Cuộn chuột để đổi số mẫu được hiển thị</li>
+                    <li>Tuỳ chọn làm mượt, đặt khoảng trục Y, màu riêng cho từng chuỗi và chú giải</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.5.0</span>
+                <span class="version-date">2026-01-04</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Lịch sử lệnh và tên thiết bị</div>
+                <ul class="change-list">
+                    <li>Các lệnh đã gửi được giữ trong danh sách lịch sử để gửi lại cho nhanh</li>
+                    <li>Có thể đặt tên riêng cho thiết bị, và tên đó được nhớ theo VID:PID</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.4.0</span>
+                <span class="version-date">2026-01-03</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Sửa lỗi</div>
+                <ul class="change-list">
+                    <li>Sửa các vấn đề ổn định quanh việc kết nối, ngắt kết nối và dọn dẹp luồng dữ liệu</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.3.0</span>
+                <span class="version-date">2026-01-02</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Các tính năng terminal</div>
+                <ul class="change-list">
+                    <li>Dấu thời gian, tự cuộn, chế độ hiển thị TXT/HEX và chọn ký tự kết thúc dòng</li>
+                    <li>Nhận diện chipset USB và hiển thị tên thiết bị dễ đọc</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.0.0 ~ v1.2.0</span>
+                <span class="version-date">2025-12-30 ~ 2026-01-01</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Những bản phát hành đầu tiên</div>
+                <ul class="change-list">
+                    <li>Kết nối Web Serial đầu tiên chạy được: chọn cổng, tốc độ baud, gửi và nhận</li>
+                    <li>Xác lập kiến trúc một tệp duy nhất và giao diện tối lấy cảm hứng từ GitHub</li>
+                    <li>Bắt đầu có tự động kết nối lại</li>
+                </ul>
+            </div>
+        </article>
+
+        <footer class="footer">
+            <p>NuMonitor for Serial Port | Phát triển bởi <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
+            <p style="margin-top: 10px;">
+                <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">Chạy NuMonitor</a> |
+                <a href="manual.html" data-sibling="manual.html">Hướng dẫn sử dụng</a> |
+                <a href="https://github.com/Nuxtack-tw/NuMonitor4SerialPort">Mã nguồn</a>
+            </p>
+        </footer>
+    </div>
+
