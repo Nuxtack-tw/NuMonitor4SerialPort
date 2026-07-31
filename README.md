@@ -5,7 +5,7 @@
 
   **專業的 Web Serial Port 監控與數據視覺化工具**
 
-  [![Version](https://img.shields.io/badge/version-V26.10.0-blue.svg)](https://github.com/Nuxtack-tw/NuMonitor4SerialPort/releases)
+  [![Version](https://img.shields.io/badge/version-V26.10.1-blue.svg)](https://github.com/Nuxtack-tw/NuMonitor4SerialPort/releases)
   [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
   [![Browser](https://img.shields.io/badge/browser-Chrome%20%7C%20Edge%20%7C%20Opera-orange.svg)](#瀏覽器支援)
   [![Languages](https://img.shields.io/badge/languages-18-purple.svg)](#多語言支援)
@@ -236,6 +236,11 @@ npx serve
 
 > **版本編號制度**：自 V26.0.0 起改用年度制 `Va.b.c`（`a` = 西元年後兩碼、`b` = 功能擴充、`c` = bug 修正）。版號的唯一來源是主程式 `<title>`。
 > **完整變更記錄請看 [doc/changelog.html](doc/changelog.html)** —— 這裡只列各版重點。
+
+### V26.10.1 (2026-07-31)
+
+**修正**
+- 🔗 說明書／版本記錄連結會跟著介面語言走（切成英文後會開英文版文件）
 
 ### V26.10.0 (2026-07-31)
 - 💾 行結尾設定（無行尾／LF／CR／CRLF）記憶到 localStorage，重新整理後自動還原
