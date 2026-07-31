@@ -10,7 +10,7 @@
   [![Browser](https://img.shields.io/badge/browser-Chrome%20%7C%20Edge%20%7C%20Opera-orange.svg)](#瀏覽器支援)
   [![Languages](https://img.shields.io/badge/languages-18-purple.svg)](#多語言支援)
 
-  [**線上執行**](https://nuxtack-tw.github.io/NuMonitor4SerialPort/) · [使用說明書](doc/manual.html) · [版本記錄](doc/changelog.html) · [回報問題](https://github.com/Nuxtack-tw/NuMonitor4SerialPort/issues)
+  [**線上執行**](https://nuxtack-tw.github.io/NuMonitor4SerialPort/) · [**English**](https://nuxtack.github.io/NuMonitor4SerialPort/) · [使用說明書](doc/manual.html) · [版本記錄](doc/changelog.html) · [回報問題](https://github.com/Nuxtack-tw/NuMonitor4SerialPort/issues)
 
 </div>
 
