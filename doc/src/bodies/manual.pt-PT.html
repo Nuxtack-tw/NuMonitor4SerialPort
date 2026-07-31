@@ -1,0 +1,411 @@
+
+    <header class="header">
+        <h1>📡 Manual do Utilizador do NuMonitor</h1>
+        <p class="subtitle">Monitorização Web Serial profissional e visualização de dados</p>
+        <span class="version">V26.12.0</span>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#intro">Introdução</a>
+            <a href="#requirements">Requisitos</a>
+            <a href="#quickstart">Início rápido</a>
+            <a href="#terminal">Terminal</a>
+            <a href="#signals">Painel de sinais</a>
+            <a href="#plotter">Plotter</a>
+            <a href="#charts">Tipos de gráfico</a>
+            <a href="#map">Mapa GPS</a>
+            <a href="#format">Formato dos dados</a>
+            <a href="#faq">FAQ</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="intro">
+            <h2><span class="icon">🎯</span> Introdução</h2>
+            <p>O NuMonitor é um monitor de porta série para Arduino, ESP32, modems e trabalho geral com sistemas embebidos. Substitui o Serial Monitor do Arduino IDE por gráficos em tempo real, seguimento por GPS e controlo total dos sinais RS-232 — tudo a partir de um único ficheiro HTML que corre diretamente no navegador.</p>
+            <div class="highlight">
+                <strong>Nada para instalar.</strong> Execute-o online em
+                <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">nuxtack-tw.github.io/NuMonitor4SerialPort</a>,
+                ou transfira o ficheiro HTML único e abra-o localmente.
+            </div>
+        </section>
+
+        <section id="requirements">
+            <h2><span class="icon">💻</span> Requisitos</h2>
+
+            <h3>Compatibilidade com navegadores</h3>
+            <table>
+                <tr><th>Navegador</th><th>Versão</th><th>Estado</th></tr>
+                <tr><td>Google Chrome</td><td>89+</td><td>✅ Recomendado</td></tr>
+                <tr><td>Microsoft Edge</td><td>89+</td><td>✅ Suportado</td></tr>
+                <tr><td>Opera</td><td>75+</td><td>✅ Suportado</td></tr>
+                <tr><td>Firefox</td><td>—</td><td>❌ Sem Web Serial API</td></tr>
+                <tr><td>Safari</td><td>—</td><td>❌ Sem Web Serial API</td></tr>
+            </table>
+            <p>O NuMonitor assenta na <strong>Web Serial API</strong>, que só está implementada em navegadores baseados em Chromium. A API exige também um <strong>contexto seguro</strong>: HTTPS, <code>localhost</code> ou uma página local <code>file://</code> — os três funcionam.</p>
+
+            <h3>Hardware</h3>
+            <p>Tudo o que se apresente como uma porta série: placas Arduino, módulos ESP32, adaptadores USB-série (CH340/CH343, CP210x, FTDI, PL2303), modems celulares, equipamento industrial com porta RS-232, e assim por diante. O NuMonitor reconhece cerca de vinte chipsets USB-série comuns pelo VID:PID e mostra um nome legível.</p>
+        </section>
+
+        <section id="quickstart">
+            <h2><span class="icon">🚀</span> Início rápido</h2>
+
+            <h3>Passo 1 — Abrir o NuMonitor</h3>
+            <p>Abra a versão alojada ou abra o <code>NuMonitor4SerialPort.html</code> a partir de uma cópia local. Sem instalação, sem passo de compilação.</p>
+
+            <h3>Passo 2 — Ligar um dispositivo</h3>
+            <ol>
+                <li>Ligue o dispositivo a uma porta USB</li>
+                <li>Clique em <strong>Ligar</strong>
+                    <ul>
+                        <li><strong>Da primeira vez:</strong> o navegador mostra o seu seletor de portas — escolha o seu dispositivo</li>
+                        <li><strong>A partir daí:</strong> volta a ligar-se automaticamente à mesma porta, sem caixa de diálogo</li>
+                    </ul>
+                </li>
+                <li>Para usar outra porta, clique no <strong>▾</strong> ao lado do botão e escolha uma da lista, ou selecione <em>Outra… (seletor do navegador)</em> para autorizar um novo dispositivo</li>
+                <li>Depois de ligado, o botão fica <strong>verde “Conectado”</strong> com um brilho pulsante lento e a seta do menu de portas desaparece. Passe o cursor sobre o botão e este fica vermelho — clique para <strong>Desconectar</strong></li>
+                <li>Se o dispositivo for desligado da porta, o botão fica <strong>laranja “Conectando…”</strong> e tenta de novo a cada segundo até que este volte; clicar nele nessa altura cancela as tentativas</li>
+            </ol>
+
+            <figure class="shot">
+                <img src="img/port-menu.png" alt="Lista pendente de portas com as portas série autorizadas">
+                <figcaption>O menu ▾ lista todas as portas autorizadas. ★ assinala a que foi usada por último; a última entrada abre a caixa de diálogo de permissões do navegador.</figcaption>
+            </figure>
+
+            <h3>Passo 3 — Definir a velocidade de transmissão</h3>
+            <p>Escolha a velocidade que corresponde ao seu dispositivo — nos sketches Arduino é o valor que passou a <code>Serial.begin()</code>. Velocidades disponíveis: 300, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 74880, 115200 (predefinição), 230400, 250000, 500000, 1000000 e 2000000 baud.</p>
+            <p>A velocidade de transmissão é guardada juntamente com a porta, pelo que recarregar a página restaura ambas.</p>
+            <div class="highlight">
+                <strong>Carateres ilegíveis?</strong> Isso é quase sempre uma velocidade de transmissão errada. As portas são abertas como <strong>8N1</strong> (8 bits de dados, sem paridade, 1 bit de paragem), que é o que a esmagadora maioria dos dispositivos utiliza.
+            </div>
+        </section>
+
+        <section id="terminal">
+            <h2><span class="icon">📟</span> Terminal</h2>
+
+            <figure class="shot">
+                <img src="img/terminal-connected.png" alt="Terminal a mostrar uma troca de comandos AT">
+                <figcaption>→ assinala os dados que enviou, ← assinala os dados recebidos. TX, RX e as mensagens de sistema têm cada um a sua própria cor. Aqui: uma sessão de comandos AT com um modem celular.</figcaption>
+            </figure>
+
+            <h3>Funcionalidades</h3>
+            <table>
+                <tr><th>Funcionalidade</th><th>O que faz</th></tr>
+                <tr><td>Deslocamento automático</td><td>Acompanha a linha mais recente à medida que os dados chegam</td></tr>
+                <tr><td>Marcas temporais</td><td>Antepõe a cada linha a hora de chegada</td></tr>
+                <tr><td>Limpar</td><td>Esvazia a vista do terminal</td></tr>
+                <tr><td>Enviar</td><td>Envia o texto da caixa de entrada — prima Enter ou clique em Enviar</td></tr>
+                <tr><td>Histórico de comandos</td><td>O ícone de relógio à esquerda da caixa de entrada recupera, reenvia ou copia comandos anteriores</td></tr>
+                <tr><td>Eco</td><td>Mostra no terminal o que enviou, para poder confirmar que saiu mesmo</td></tr>
+                <tr><td>TXT / HEX</td><td>Alterna entre apresentação em texto e em hexadecimal — essencial para protocolos binários</td></tr>
+                <tr><td>Cores</td><td>As cores de TX, RX e sistema são ajustáveis individualmente e guardadas em separado para cada tema</td></tr>
+            </table>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/terminal-hex.png" alt="Terminal em modo HEX">
+                    <figcaption>Modo HEX — hexadecimal à esquerda, o ASCII correspondente à direita</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/color-picker.png" alt="Caixa de diálogo do seletor de cores">
+                    <figcaption>Seletor de cores — TX, RX e SYS são configurados de forma independente</figcaption>
+                </figure>
+            </div>
+
+            <h3>Deteção de URL</h3>
+            <p>As ligações que surgem no fluxo tornam-se clicáveis automaticamente: <code>https://</code>, <code>http://</code>, <code>www.</code> (assume-se https) e <code>ftp://</code>.</p>
+
+            <h3>Terminadores de linha</h3>
+            <p>O seletor à direita da caixa de entrada controla o que é acrescentado a tudo o que envia:</p>
+            <table>
+                <tr><th>Opção</th><th>Bytes enviados</th><th>Usar para</th></tr>
+                <tr><td>Nenhum</td><td>(nada é acrescentado)</td><td>Quando controla você mesmo cada byte</td></tr>
+                <tr><td>LF</td><td><code>\n</code> (0x0A)</td><td>Sketches Arduino/ESP32 que usam <code>readStringUntil('\n')</code> — a predefinição</td></tr>
+                <tr><td>CR</td><td><code>\r</code> (0x0D)</td><td><strong>Comandos AT de modem e a maior parte do firmware com CLI</strong></td></tr>
+                <tr><td>CRLF</td><td><code>\r\n</code></td><td>Dispositivos ao estilo Windows e alguns módulos</td></tr>
+            </table>
+            <div class="highlight">
+                <strong>⚠️ A comunicar com um modem? Selecione CR.</strong> O conjunto de comandos AT termina os comandos com um retorno de carro. Envie <code>LF</code> ou nada e o modem fica à espera do terminador — não obtém <strong>resposta nenhuma</strong>. Isso não é uma falha de ligação; o comando simplesmente nunca foi considerado completo.
+            </div>
+            <p>Esta definição é <strong>memorizada</strong> e reposta da próxima vez que abrir a página.</p>
+        </section>
+
+        <section id="signals">
+            <h2><span class="icon">🚦</span> Painel de sinais RS-232</h2>
+            <p>Assim que a ligação é estabelecida, aparece por baixo do cabeçalho uma linha de indicadores de handshake; enquanto estiver desligado, toda a linha permanece oculta.</p>
+
+            <figure class="shot">
+                <img src="img/header-signalbar.png" alt="Cabeçalho com o painel de sinais RS-232">
+                <figcaption>RTS e DTR (azul) são saídas que você controla; DCD, DSR e CTS (verde) são entradas vindas do dispositivo</figcaption>
+            </figure>
+
+            <h3>LOCAL (OUT) — as suas saídas, clique para alternar</h3>
+            <table>
+                <tr><th>Indicador</th><th>Nome completo</th><th>Notas</th></tr>
+                <tr><td><strong>BRK</strong></td><td>Break</td><td>Ativa uma condição de break (interrupção). Clique uma vez para iniciar, outra para libertar</td></tr>
+                <tr><td><strong>RTS</strong></td><td>Request To Send</td><td>Pedido de envio: normalmente exigido por dispositivos com controlo de fluxo por hardware</td></tr>
+                <tr><td><strong>DTR</strong></td><td>Data Terminal Ready</td><td><strong>A maioria dos modems não aceita comandos enquanto o DTR não estiver ativo</strong></td></tr>
+            </table>
+            <p><strong>Porque começam apagados?</strong> A Web Serial API consegue <em>definir</em> os sinais de saída, mas não consegue <em>lê-los de volta</em>. Enquanto não clicar num deles, o NuMonitor não sabe realmente o seu estado, pelo que mostra a resposta honesta em vez de adivinhar o que o navegador fez ao abrir a porta.</p>
+            <div class="highlight">
+                <strong>⚠️ Utilizadores de Arduino e ESP32:</strong> na maioria das placas de desenvolvimento, o DTR e o RTS comandam o circuito de auto-reset, pelo que alterná-los <strong>pode reiniciar a placa</strong>. O NuMonitor nunca toca nestes sinais ao ligar, deliberadamente — a decisão é inteiramente sua.
+            </div>
+
+            <h3>REMOTE (IN) — saídas do dispositivo, apenas leitura</h3>
+            <table>
+                <tr><th>Indicador</th><th>Nome completo</th><th>Aceso significa</th></tr>
+                <tr><td><strong>DCD</strong></td><td>Data Carrier Detect</td><td>Portadora presente — um modem estabeleceu uma ligação</td></tr>
+                <tr><td><strong>DSR</strong></td><td>Data Set Ready</td><td>O dispositivo está alimentado e pronto</td></tr>
+                <tr><td><strong>CTS</strong></td><td>Clear To Send</td><td>O dispositivo está disposto a aceitar dados</td></tr>
+                <tr><td><strong>RI</strong></td><td>Ring Indicator</td><td>Foi detetado um sinal de toque</td></tr>
+            </table>
+            <p>Estes quatro são consultados a cada 250 ms — a Web Serial API não expõe eventos de mudança de sinal, pelo que a consulta cíclica é a única opção.</p>
+
+            <h3>ACT e ERR</h3>
+            <ul>
+                <li><strong>ACT</strong> — pisca sempre que circulam bytes em qualquer das direções. Durante uma transferência contínua parece ficar sempre aceso</li>
+                <li><strong>ERR</strong> — fica vermelho e pisca durante três segundos perante um erro de enquadramento (framing), de paridade, de excesso de buffer (overrun) ou a receção de um break; clique nele para limpar mais cedo. A ligação <strong>não</strong> é terminada — a leitura prossegue automaticamente</li>
+            </ul>
+            <p><strong>Sobre os erros de paridade:</strong> atualmente as portas são abertas como <strong>8N1</strong> — sem bit de paridade não pode ocorrer um erro de paridade, pelo que, na prática, o ERR responde a condições de enquadramento, excesso de buffer e break.</p>
+        </section>
+
+        <section id="plotter">
+            <h2><span class="icon">📈</span> Plotter</h2>
+
+            <figure class="shot">
+                <img src="img/plotter-line.png" alt="Plotter a mostrar um gráfico de linhas com três séries">
+                <figcaption>Cada grupo de dados dá origem ao seu próprio separador. A legenda por baixo do gráfico mostra os valores em tempo real e serve também para mostrar/ocultar séries.</figcaption>
+            </figure>
+
+            <h3>Interpretação automática</h3>
+            <p>Não é preciso configurar nada. Imprima texto simples a partir do dispositivo e o NuMonitor decide o que representar graficamente: qualquer linha que contenha pelo menos um número interpretável passa a ser dados; tudo o resto continua a ser texto simples do terminal.</p>
+
+            <h3>Controlos do gráfico</h3>
+            <table>
+                <tr><th>Botão</th><th>O que faz</th></tr>
+                <tr><td>Pausa</td><td>Congela o gráfico enquanto os dados continuam a chegar em segundo plano</td></tr>
+                <tr><td>Suavizar</td><td>Desenha os gráficos de linha e de área como curvas suaves</td></tr>
+                <tr><td>Limpar</td><td>Descarta os dados desse grupo</td></tr>
+                <tr><td>CSV</td><td>Exporta os dados do grupo para um ficheiro CSV</td></tr>
+                <tr><td>Fundo</td><td>Define uma cor de fundo personalizada para o gráfico, memorizada por grupo</td></tr>
+                <tr><td>Mapa</td><td>Só aparece quando o grupo contém coordenadas <code>map:</code></td></tr>
+            </table>
+
+            <h3>Cursor do eixo X</h3>
+            <p>Desloque o ponteiro sobre o gráfico para ler o valor exato de cada série nessa amostra.</p>
+
+            <h3>Deslocar para ampliar</h3>
+            <p>Deslocar a roda do rato sobre um gráfico altera quantas amostras são apresentadas, de 20 até 2000 (100 por predefinição). São mantidas em memória até 500 amostras por série.</p>
+
+            <h3>Interação com a legenda</h3>
+            <p>Clique numa entrada da legenda para ocultar ou mostrar essa série; clique na respetiva amostra de cor para mudar a cor, que fica memorizada.</p>
+        </section>
+
+        <section id="charts">
+            <h2><span class="icon">📊</span> Tipos de gráfico</h2>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/plotter-line.png" alt="Gráfico de linhas">
+                    <figcaption><code>line</code> — série temporal contínua, com suporte para suavização</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-area.png" alt="Gráfico de área">
+                    <figcaption><code>area</code> — preenchimento translúcido, realça a magnitude</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-stack.png" alt="Gráfico de área empilhada">
+                    <figcaption><code>stack</code> — composição que muda ao longo do tempo</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-scatter.png" alt="Gráfico de dispersão">
+                    <figcaption><code>scatter</code> — distribuição, ruído e valores atípicos</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-bar.png" alt="Gráfico de barras">
+                    <figcaption><code>bar</code> — compara o valor mais recente de várias categorias</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-gauge.png" alt="Gráfico de mostrador">
+                    <figcaption><code>gauge</code> — monitorização de um único valor; vários valores organizam-se automaticamente numa grelha</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-pie.png" alt="Gráfico circular">
+                    <figcaption><code>pie</code> — proporções, melhor com 2–8 categorias</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/gps-map.png" alt="Mapa com o trajeto GPS">
+                    <figcaption>🗺️ Vista de mapa — não é um tipo de gráfico, mas uma vista adicional que aparece quando os dados contêm <code>map:</code></figcaption>
+                </figure>
+            </div>
+
+            <div class="highlight">
+                <strong>Nota:</strong> <code>map</code> <strong>não</strong> é um tipo de gráfico válido. Escrever <code>{X|0|1|map}</code> recai em <code>line</code>. O mapa é um comutador de vista que aparece em qualquer separador cujos dados incluam coordenadas.
+            </div>
+        </section>
+
+        <section id="map">
+            <h2><span class="icon">🗺️</span> Seguimento por GPS</h2>
+
+            <figure class="shot">
+                <img src="img/gps-map.png" alt="Trajeto GPS sobre uma camada base do OpenStreetMap">
+                <figcaption>Mapa base do OpenStreetMap. Os controlos por baixo definem quantos pontos do rasto são mantidos e se a vista acompanha a posição mais recente; o botão no canto superior direito volta ao gráfico.</figcaption>
+            </figure>
+
+            <h3>Ativar o mapa</h3>
+            <p>Acrescente <code>map:latitude,longitude</code> a qualquer linha de dados. Aparece um botão 🗺️ nesse separador.</p>
+
+            <h3>Formatos de coordenadas</h3>
+            <table>
+                <tr><th>Formato</th><th>Exemplo</th></tr>
+                <tr><td>Graus decimais (podem ser negativos)</td><td><code>map:25.051075,121.630951</code></td></tr>
+                <tr><td>Graus decimais com hemisfério</td><td><code>map:25.051075N,121.630951E</code></td></tr>
+                <tr><td>Graus e minutos</td><td><code>map:25°3.0645'N,121°37.857'E</code></td></tr>
+                <tr><td>Graus, minutos e segundos</td><td><code>map:25°3'3.87"N,121°37'51.4"E</code></td></tr>
+            </table>
+            <p>As coordenadas fora de ±90° de latitude ou ±180° de longitude são rejeitadas.</p>
+
+            <h3>Controlos do mapa</h3>
+            <ul>
+                <li><strong>Pontos de trajeto</strong> — quantas posições recentes permanecem no mapa, de 1 a 100 (10 por predefinição)</li>
+                <li><strong>Seguir</strong> — mantém a posição mais recente centrada; desative-o para deslocar e ampliar livremente sem que o mapa volte a saltar para trás</li>
+                <li>Clicar num marcador do rasto mostra as coordenadas e os valores de dados registados nesse ponto</li>
+            </ul>
+        </section>
+
+        <section id="format">
+            <h2><span class="icon">📝</span> Referência do formato de dados</h2>
+
+            <h3>Sintaxe completa</h3>
+            <div class="code-block">{NomeDoGrupo|Ymin|Ymax|tipoDeGráfico}#contador Etiqueta:Valor Etiqueta=Valor map:lat,lng</div>
+
+            <h3>Campos</h3>
+            <table>
+                <tr><th>Campo</th><th>Obrigatório</th><th>Notas</th></tr>
+                <tr><td>Nome do grupo</td><td>Não</td><td>Passa a ser um separador. Qualquer texto, incluindo escritas não latinas</td></tr>
+                <tr><td>Y mín. / Y máx.</td><td>Não</td><td>Um número ou <code>auto</code>. Tudo o que não seja interpretável é tratado como auto</td></tr>
+                <tr><td>Tipo de gráfico</td><td>Não</td><td><code>line</code> <code>area</code> <code>stack</code> <code>scatter</code> <code>bar</code> <code>gauge</code> <code>pie</code>; qualquer outro valor recai em <code>line</code></td></tr>
+                <tr><td><code>#contador</code></td><td>Não</td><td>Imediatamente a seguir a <code>}</code>. Rotula o eixo X; aceita valores negativos e decimais</td></tr>
+                <tr><td>Pontos de dados</td><td><strong>Sim</strong></td><td>Pelo menos um número interpretável; caso contrário, a linha continua a ser texto simples</td></tr>
+                <tr><td><code>map:</code></td><td>Não</td><td>Acrescenta a vista de mapa a esse separador</td></tr>
+            </table>
+
+            <h3>Escrever pontos de dados</h3>
+            <div class="code-block">Serial.println("Temp:25.5 Humidity:60.2");   // Chave:Valor — recomendado
+Serial.println("Temp=25.5 Humidity=60.2");   // Chave=Valor
+Serial.println("25.5 60.2 1013.2");          // números isolados → CH1, CH2, CH3
+Serial.println("Temp\t25.5");                // Etiqueta [tab/espaço] Valor</div>
+            <ul>
+                <li>Separadores: espaço, vírgula ou tabulação</li>
+                <li>Separador entre etiqueta e valor: <code>:</code> ou <code>=</code></li>
+                <li><strong>As unidades são removidas automaticamente</strong> — <code>25.5°C</code>, <code>60.2%</code> e <code>40.5km/h</code> são todos interpretados pelo número inicial</li>
+                <li>Os elementos que não são interpretáveis são ignorados sem descartar o resto da linha</li>
+            </ul>
+
+            <h3>Sketches de exemplo</h3>
+            <div class="code-block">// Monitorização ambiental com unidades e um contador de amostras
+void loop() {
+  Serial.print("{Environment|0|100|line}#");
+  Serial.print(seq++);
+  Serial.print(" Temp:"); Serial.print(readTemp(), 1); Serial.print("°C");
+  Serial.print(" RH:");   Serial.print(readRH(), 1);   Serial.println("%");
+  delay(100);   // 10 Hz
+}
+
+// Três separadores em simultâneo
+void loop() {
+  Serial.print("{Temperature|15|35|line}Indoor:");  Serial.print(t1);
+  Serial.print(" Outdoor:"); Serial.println(t2);
+
+  Serial.print("{System|0|100|bar}CPU:"); Serial.print(cpu);
+  Serial.print(" MEM:"); Serial.println(mem);
+
+  Serial.print("{Battery|0|100|gauge}Level:"); Serial.println(bat);
+  delay(500);
+}
+
+// Telemetria de drone com rasto GPS
+void loop() {
+  Serial.print("{Drone|0|120|line}#"); Serial.print(frame++);
+  Serial.print(" Alt:");   Serial.print(alt, 1);
+  Serial.print(" Speed:"); Serial.print(spd, 1);
+  Serial.print(" map:");   Serial.print(lat, 6);
+  Serial.print(",");       Serial.println(lng, 6);
+  delay(200);
+}</div>
+
+            <h3>Limites</h3>
+            <table>
+                <tr><th>Item</th><th>Limite</th></tr>
+                <tr><td>Grupos em simultâneo (separadores)</td><td>10 — os grupos adicionais são ignorados silenciosamente</td></tr>
+                <tr><td>Amostras mantidas por série</td><td>500</td></tr>
+                <tr><td>Amostras apresentadas</td><td>100 por predefinição, 20–2000 com a roda do rato</td></tr>
+                <tr><td>Pontos do rasto GPS</td><td>10 por predefinição, ajustável entre 1 e 100</td></tr>
+                <tr><td>Paleta de cores</td><td>32 cores, depois repete o ciclo</td></tr>
+                <tr><td>Velocidade de transmissão</td><td>300 – 2 000 000</td></tr>
+            </table>
+        </section>
+
+        <section id="faq">
+            <h2><span class="icon">❓</span> FAQ</h2>
+
+            <h3>P: Não aparece nenhuma porta na lista.</h3>
+            <p><strong>R:</strong> Verifique se o dispositivo está ligado, se o controlador USB está instalado, se está a usar o Chrome/Edge/Opera e se nenhum outro programa está a ocupar a porta — o Serial Monitor do Arduino IDE é o suspeito do costume.</p>
+
+            <h3>P: Só recebo carateres ilegíveis.</h3>
+            <p><strong>R:</strong> A velocidade de transmissão não corresponde. Defina no NuMonitor a mesma velocidade do <code>Serial.begin()</code> do seu dispositivo.</p>
+
+            <h3>P: Não aparece nenhum gráfico.</h3>
+            <p><strong>R:</strong> Verifique se o comutador do plotter (📊) está ativado, se a linha contém pelo menos um número interpretável e se ainda não atingiu o limite de 10 grupos.</p>
+
+            <h3>P: O meu modem não responde de todo aos comandos AT.</h3>
+            <p><strong>R:</strong> Percorra estes pontos por ordem:</p>
+            <ol>
+                <li><strong>Defina o terminador de linha como CR</strong> — de longe a causa mais comum. Os comandos AT têm de terminar com um retorno de carro; com o LF predefinido, o modem nunca responde</li>
+                <li><strong>Ative o DTR</strong> (e o RTS, se o modem usar controlo de fluxo por hardware) a partir do painel de sinais. Outros programas de terminal ativam-nos automaticamente ao abrir a porta; o NuMonitor não o faz deliberadamente, para evitar reiniciar placas de desenvolvimento</li>
+                <li><strong>Verifique o DSR e o CTS</strong> — DSR apagado significa que o dispositivo não tem alimentação ou está mal ligado; CTS apagado significa que não está a aceitar dados</li>
+                <li><strong>Confirme a velocidade de transmissão</strong></li>
+                <li>Ative o <strong>eco</strong> e observe o contador de <strong>bytes TX</strong> para provar que os dados saíram mesmo do computador</li>
+            </ol>
+
+            <h3>P: Qual é a diferença entre religação automática e ligação automática?</h3>
+            <p><strong>R:</strong> Um único interruptor governa dois comportamentos:</p>
+            <ul>
+                <li><strong>Dispositivo desligado da porta durante a ligação</strong> → tenta de novo a cada segundo, indefinidamente, até que volte</li>
+                <li><strong>Página recarregada ou reaberta</strong> → volta a ligar-se à última porta e repõe a respetiva velocidade de transmissão</li>
+            </ul>
+            <p>Se se desligou <strong>deliberadamente</strong> antes de sair, não volta a ligar-se por iniciativa própria. O próprio estado do interruptor também é memorizado.</p>
+
+            <h3>P: As ligações ao ESP32 são instáveis.</h3>
+            <p><strong>R:</strong> Os dispositivos ESP32 com USB CDC podem invalidar o respetivo objeto de porta após um reinício. O NuMonitor descarta o identificador obsoleto e volta a obter a porta através do navegador, razão pela qual a religação funciona sem que tenha de voltar a escolher o dispositivo.</p>
+
+            <h3>P: Como exporto os dados?</h3>
+            <p><strong>R:</strong> Clique em <strong>CSV</strong> na linha de controlos do gráfico para exportar esse grupo.</p>
+
+            <h3>P: Como mudo o tema ou o idioma?</h3>
+            <p><strong>R:</strong> Use o comutador lua/sol e o seletor de idioma no canto superior direito. Ambos são memorizados. As cores do gráfico e do terminal acompanham o tema.</p>
+            <p>A ligação <strong>Manual</strong> e o distintivo de versão acompanham igualmente o idioma da interface. Este manual está disponível em doze idiomas — English, Deutsch, Français, Español, Português, Italiano, Türkçe, 日本語, Tiếng Việt, Bahasa Indonesia, Bahasa Melayu e <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/doc/manual.html">繁體中文</a> — escolha um no seletor no canto superior direito. Os idiomas de interface que ainda não têm manual próprio recorrem ao inglês.</p>
+
+            <figure class="shot">
+                <img src="img/language-menu.png" alt="Menu de idiomas com 18 idiomas">
+                <figcaption>18 idiomas de interface, incluindo escritas da direita para a esquerda (árabe, hebraico, persa)</figcaption>
+            </figure>
+
+            <figure class="shot">
+                <img src="img/theme-light.png" alt="Tema claro">
+                <figcaption>Tema claro — a grelha do gráfico, o texto e o fundo acompanham todos o tema</figcaption>
+            </figure>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>NuMonitor V26.12.0 | Desenvolvido por <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
+        <p style="margin-top: 10px;">
+            <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">Executar o NuMonitor</a> |
+            <a href="changelog.html" data-sibling="changelog.html">Registo de alterações</a> |
+            <a href="https://github.com/Nuxtack-tw/NuMonitor4SerialPort">Código-fonte</a>
+        </p>
+    </footer>
+

@@ -19,9 +19,16 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, 'out')
 
 # 順序即選單順序。zh-TW 不在本檔內，選到就跳去中文站。
-LANGS = ['en-US', 'ja-JP', 'vi-VN', 'id-ID', 'ms-MY']
+LANGS = ['en-US', 'de-DE', 'fr-FR', 'es-ES', 'pt-PT', 'it-IT', 'tr-TR',
+         'ja-JP', 'vi-VN', 'id-ID', 'ms-MY']
 LANG_NAMES = {
     'en-US': 'English',
+    'de-DE': 'Deutsch',
+    'fr-FR': 'Français',
+    'es-ES': 'Español',
+    'pt-PT': 'Português',
+    'it-IT': 'Italiano',
+    'tr-TR': 'Türkçe',
     'ja-JP': '日本語',
     'vi-VN': 'Tiếng Việt',
     'id-ID': 'Bahasa Indonesia',
@@ -32,6 +39,12 @@ ZH_BASE = 'https://nuxtack-tw.github.io/NuMonitor4SerialPort/doc/'
 TITLES = {
     'manual': {
         'en-US': 'NuMonitor {V} — User Manual',
+        'de-DE': 'NuMonitor {V} — Benutzerhandbuch',
+        'fr-FR': "NuMonitor {V} — Manuel d'utilisation",
+        'es-ES': 'NuMonitor {V} — Manual de usuario',
+        'pt-PT': 'NuMonitor {V} — Manual do utilizador',
+        'it-IT': 'NuMonitor {V} — Manuale utente',
+        'tr-TR': 'NuMonitor {V} — Kullanım Kılavuzu',
         'ja-JP': 'NuMonitor {V} — ユーザーマニュアル',
         'vi-VN': 'NuMonitor {V} — Hướng dẫn sử dụng',
         'id-ID': 'NuMonitor {V} — Panduan Pengguna',
@@ -39,6 +52,12 @@ TITLES = {
     },
     'changelog': {
         'en-US': 'NuMonitor — Changelog',
+        'de-DE': 'NuMonitor — Änderungsprotokoll',
+        'fr-FR': 'NuMonitor — Journal des modifications',
+        'es-ES': 'NuMonitor — Registro de cambios',
+        'pt-PT': 'NuMonitor — Registo de alterações',
+        'it-IT': 'NuMonitor — Registro delle modifiche',
+        'tr-TR': 'NuMonitor — Değişiklik Günlüğü',
         'ja-JP': 'NuMonitor — 変更履歴',
         'vi-VN': 'NuMonitor — Nhật ký thay đổi',
         'id-ID': 'NuMonitor — Catatan Perubahan',
@@ -46,7 +65,7 @@ TITLES = {
     },
 }
 
-VERSION = 'V26.11.0'
+VERSION = 'V26.12.0'
 
 EXTRA_CSS = """
         /* ---- 單檔多語：一次只顯示一個語言區塊 ---- */

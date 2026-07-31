@@ -1,0 +1,557 @@
+
+    <div class="container">
+        <header class="header">
+            <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/" class="logo-link">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 32373 33553" fill="#81D8D0">
+                        <path d="M32306.51 13651.25l-11174.46 -5592.01 0 -7198.5c12113.32,6376.73 11174.53,3823.33 11174.46,12790.52z"/>
+                        <path d="M16.96 19856.56l11174.46 5592.01 0 7198.5c-12113.32,-6376.73 -11174.53,-3823.33 -11174.46,-12790.52z"/>
+                        <polygon points="16.96,9927.52 32373.56,26094.99 32373.56,33553.52 16.89,17370.21"/>
+                        <polygon points="16.89,0 32373.5,16167.46 32373.5,23625.99 16.83,7442.68"/>
+                    </svg>
+                </div>
+                <div class="logo-text"><span class="nu-color">NuMonitor</span> for Serial Port</div>
+            </a>
+            <div class="header-subtitle">Änderungsprotokoll</div>
+        </header>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.12.0</span>
+                <span class="version-date">2026-07-31</span>
+                <span class="version-tag tag-latest">Neueste</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Sechs weitere Sprachen für die Dokumentation</div>
+                <ul class="change-list">
+                    <li><strong>Deutsch, Français, Español, Português, Italiano und Türkçe kommen bei Handbuch und Änderungsprotokoll hinzu</strong>, womit beide Dokumente in zwölf Sprachen vorliegen</li>
+                    <li>Zwei Drittel der achtzehn Oberflächensprachen öffnen die Dokumentation jetzt in der jeweils eigenen Sprache; der Rest greift weiterhin auf Englisch zurück, mit einem Hinweis, warum das so ist</li>
+                    <li>An der Anwendung selbst hat sich nichts geändert — sie reicht lediglich die Oberflächensprache weiter, und die Dokumente entscheiden, was sie anzeigen. Für eine weitere Sprache muss die Anwendung nie wieder angefasst werden</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.11.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Handbuch und Änderungsprotokoll in fünf Sprachen</div>
+                <ul class="change-list">
+                    <li><strong>Dieses Änderungsprotokoll und das Benutzerhandbuch gibt es jetzt in English, 日本語, Tiếng Việt, Bahasa Indonesia und Bahasa Melayu</strong>, zusätzlich zur bestehenden Ausgabe in 繁體中文</li>
+                    <li>Wenn Sie eines der beiden Dokumente aus NuMonitor heraus öffnen, wird Ihre Oberflächensprache mitgegeben — die Seite erscheint also gleich in der richtigen Sprache</li>
+                    <li>In beiden Dokumenten sitzt oben rechts eine Sprachauswahl; Ihre Wahl wird gespeichert</li>
+                    <li>Oberflächensprachen, für die es noch keine eigene Übersetzung gibt, fallen auf Englisch zurück — und die Seite sagt das offen, statt stillschweigend umzuschalten</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.10.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Dokumentationslinks folgen der Oberflächensprache</div>
+                <ul class="change-list">
+                    <li><strong>Beim Umschalten der Oberfläche auf eine andere Sprache öffnete sich weiterhin die chinesische Dokumentation</strong> — diese beiden Links waren fest einprogrammiert und sprachunabhängig</li>
+                    <li>Der Link zum Handbuch und das Versions-Badge richten sich jetzt nach der aktuellen Sprache</li>
+                    <li>Das Sprachattribut der Seite war unabhängig von der gewählten Sprache immer <code>zh-TW</code>; es folgt jetzt der tatsächlichen Sprache, was für Screenreader und Übersetzungswerkzeuge wichtig ist</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.10.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Das Zeilenende wird gespeichert</div>
+                <ul class="change-list">
+                    <li><strong>Die Wahl des Zeilenendes (Kein Zeilenende / LF / CR / CRLF) bleibt jetzt erhalten</strong> und wird beim erneuten Öffnen der Seite wiederhergestellt</li>
+                    <li>Besonders nützlich bei Modems: AT-Befehle müssen mit <strong>CR</strong> enden, und mit dem voreingestellten LF kommt überhaupt keine Antwort</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.9.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Lesbarkeit der Signalleiste</div>
+                <ul class="change-list">
+                    <li>Der Text der Signalanzeigen hatte zu wenig Kontrast zum Hintergrund; die ganze Zeile verwendet jetzt dieselbe Farbpalette wie die Schaltflächen in der Kopfzeile — gleicher Hintergrund, gleicher Rahmen, gleiche Textfarbe, gleicher Eckenradius</li>
+                    <li>Etwas größere Schrift, und die unbeleuchteten Anzeigepunkte wurden aufgehellt, sodass sie als „vorhanden, aber aus“ zu lesen sind statt als nahezu unsichtbar</li>
+                    <li>Die Signalfarben (blau für Ausgänge, grün für Eingänge, orange für ACT, rot für ERR) erscheinen jetzt nur noch, wenn ein Signal tatsächlich aktiv ist</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.9.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Signalleiste im getrennten Zustand ausgeblendet</div>
+                <ul class="change-list">
+                    <li><strong>Die RS-232-Signalleiste wird bei getrennter Verbindung jetzt vollständig ausgeblendet</strong>, statt nur abgedunkelt zu werden — ohne Verbindung haben die Anzeigen keine Bedeutung, die Zeile hat also nur Platz gekostet</li>
+                    <li>Sie erscheint beim Verbinden und verschwindet beim Trennen sofort wieder; die Abfrage endet mit ihr</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.8.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>RS-232-Signalleiste</div>
+                <div class="feature-highlight">
+                    <h4>🚦 Eine Reihe von Handshake-Anzeigen unter der Kopfzeile</h4>
+                    <p>Jede RS-232-Steuerleitung auf einen Blick — und die Ausgangssignale lassen sich per Klick umschalten.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>LOCAL (OUT): BRK / RTS / DTR</strong> — klicken Sie eine Anzeige an, um diesen Ausgang umzuschalten; im getrennten Zustand deaktiviert
+                        <ul>
+                            <li>Bis zum ersten Klick unbeleuchtet: Der Browser kann Ausgangssignale setzen, ihren aktuellen Zustand aber nicht zurücklesen</li>
+                            <li>NuMonitor setzt DTR/RTS beim Verbinden bewusst nicht, denn auf den meisten Arduino- und ESP32-Boards steuern diese Leitungen die Auto-Reset-Schaltung</li>
+                        </ul>
+                    </li>
+                    <li><strong>REMOTE (IN): DCD / DSR / CTS / RI</strong> — nur lesend, alle 250 ms aktualisiert</li>
+                    <li><strong>ACT</strong> — blinkt, sobald in einer der beiden Richtungen Bytes fließen</li>
+                    <li><strong>ERR</strong> — leuchtet bei Framing-, Paritäts-, Puffer-Überlauf- oder empfangenen Break-Fehlern drei Sekunden lang rot auf; zum Zurücksetzen anklicken. Der Lesevorgang erholt sich jetzt automatisch, statt die Verbindung fallen zu lassen</li>
+                </ul>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">⚠️</span>Hinweis zu Paritätsfehlern</div>
+                <ul class="change-list">
+                    <li>Ports werden mit <strong>8N1 (ohne Parität)</strong> geöffnet, ein Paritätsfehler kann also gar nicht auftreten — in der Praxis reagiert ERR auf Framing-, Überlauf- und Break-Zustände</li>
+                    <li>Um echte Paritätsfehler zu erkennen, müssten Parität, Datenbits und Stoppbits zuerst in der Oberfläche einstellbar sein</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.7.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Umbruch der Kopfzeile behoben</div>
+                <ul class="change-list">
+                    <li><strong>Die Kopfzeile brach in eine zweite Reihe um, lange bevor es tatsächlich eng wurde</strong> — Ursache war ein fest einprogrammierter Breakpoint, der die Kopfzeile unterhalb von 1200 px Breite vertikal stapelte, obwohl zwischen den Bedienelementen noch 400 px leerer Raum lagen</li>
+                    <li>Der Breakpoint ist verschwunden; das Layout bricht jetzt erst um, wenn die Bedienelemente wirklich nicht mehr hineinpassen</li>
+                    <li>Gemessen verschob sich der Umbruchpunkt von 1200 px auf rund 899 px — bei dieser Breite trennen die letzten beiden Bedienelemente nur noch etwa 13 px</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.7.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Layout der Kopfzeile</div>
+                <ul class="change-list">
+                    <li><strong>Theme-Umschalter und Sprachauswahl sitzen jetzt bündig am rechten Rand</strong> und trennen so die Verbindungssteuerung (links) von den Einstellungen (rechts)</li>
+                    <li>Der Trennstrich davor ist entfallen — der Abstand trennt die beiden Gruppen bereits</li>
+                    <li>Sie bleiben rechtsbündig, auch wenn das Fenster schmal genug für einen Umbruch ist</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.6.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Verbindet sich nach dem Neuladen der Seite wieder</div>
+                <div class="feature-highlight">
+                    <h4>🔄 Kein Klick mehr auf „Verbinden“ nach jedem Neuladen</h4>
+                    <p>Ist der zuletzt benutzte Port noch da, verbindet sich NuMonitor beim Laden erneut und stellt die Baudrate gleich mit wieder her.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Drei Bedingungen müssen alle erfüllt sein</strong>
+                        <ul>
+                            <li>Die automatische Wiederverbindung ist eingeschaltet</li>
+                            <li>Sie haben die Verbindung beim letzten Mal <strong>nicht</strong> absichtlich getrennt (ein abgezogenes Gerät zählt nicht)</li>
+                            <li>Der Port ist weiterhin vorhanden und freigegeben</li>
+                        </ul>
+                    </li>
+                    <li>Fehlt der Port, beginnt NuMonitor <strong>nicht</strong> mit dem regelmäßigen Abfragen — einen Port schon beim Laden der Seite zu belegen würde andere Programme wie die Arduino IDE blockieren</li>
+                    <li>Ein fehlgeschlagener automatischer Verbindungsversuch schreibt nur eine einzige Zeile, statt das vollständige Diagnose-Panel zu öffnen</li>
+                </ul>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Korrekturen</div>
+                <ul class="change-list">
+                    <li><strong>Der Schalter für die automatische Wiederverbindung merkt sich jetzt seinen Zustand</strong> — vorher stand er nach jedem Neuladen wieder auf Ein</li>
+                    <li>Der gespeicherte Port-Eintrag enthält jetzt auch die Baudrate, sodass diese ebenfalls wiederhergestellt wird</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.5.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Helleres pulsierendes Leuchten</div>
+                <ul class="change-list">
+                    <li>Das Leuchten für „Verbunden“ war auf dunklem Hintergrund viel zu schwach, um aufzufallen; es ist jetzt deutlich heller</li>
+                    <li>Neu aufgebaut aus zwei Schichten — eine deckende Kontur für die klare Abgrenzung und ein sich ausdehnender weicher Hof, damit das Pulsieren sichtbar ist; die Spitzenhelligkeit liegt über dem Sechsfachen des bisherigen Werts</li>
+                    <li>Das orange Leuchten beim erneuten Verbinden wurde entsprechend verstärkt</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.5.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Feinschliff an der Verbindungsschaltfläche</div>
+                <ul class="change-list">
+                    <li><strong>Aus der pulsierenden Anzeige wurde ein Leuchten um die gesamte Schaltfläche</strong>, das den kleinen Punkt neben „Verbunden“ ersetzt — ein klareres Signal und eine aufgeräumtere Schaltfläche
+                        <ul>
+                            <li>Verbunden: grünes Leuchten, Zyklus 2,6 s</li>
+                            <li>Erneutes Verbinden: oranges Leuchten, Zyklus 1,1 s</li>
+                            <li>Beim Überfahren mit der Maus stoppt die Animation</li>
+                        </ul>
+                    </li>
+                    <li><strong>Der Pfeil für das Port-Menü wird bei bestehender Verbindung vollständig ausgeblendet</strong>, statt nur ausgegraut zu werden — solange eine Verbindung offen ist, gibt es keinen Port zu wählen</li>
+                    <li>Während des erneuten Verbindens bleibt der Pfeil verfügbar, sodass Sie mitten im Wiederholungsversuch auf einen anderen Port wechseln können</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.4.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Verbindungsstatus in die Schaltfläche integriert</div>
+                <div class="feature-highlight">
+                    <h4>🔗 Die separate Anzeige „Getrennt / Verbunden“ ist verschwunden</h4>
+                    <p>Die Schaltfläche ist die Statusleuchte: Die Farbe nennt den Zustand, die Beschriftung sagt, was ein Klick bewirkt.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Drei Zustände, drei Farben</strong>
+                        <ul>
+                            <li><strong>Blaues „Verbinden“</strong> — nicht verbunden</li>
+                            <li><strong>Grünes „Verbunden“</strong> — verbunden, mit langsam pulsierendem Leuchten</li>
+                            <li><strong>Oranges „Verbinde…“</strong> — Gerät verloren, automatische Wiederverbindung läuft, schnellerer Rhythmus</li>
+                        </ul>
+                    </li>
+                    <li><strong>Das Überfahren mit der Maus zeigt die Folge vorab</strong>: im verbundenen Zustand wird die Schaltfläche rot und liest sich als „Trennen“, beim erneuten Verbinden rot und „Abbrechen“. Die Animation stoppt, damit Sie nicht auf ein bewegtes Ziel klicken</li>
+                    <li><strong>Ein Klick während des erneuten Verbindens bricht den Wiederholungsversuch ab</strong> (vorher startete er einen separaten Verbindungsversuch)</li>
+                    <li>Die Symbole für Stecker und Kreuz sind zugunsten der Statusfarbe entfallen, wodurch die Schaltfläche schmaler wird</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.3.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Textfarbe der Kopfzeile vereinheitlicht</div>
+                <ul class="change-list">
+                    <li><strong>„Handbuch“, das Versions-Badge und „Auto-Verbinden“ waren einen Farbton dunkler</strong> als alles andere in der Zeile; die gesamte Kopfzeile verwendet jetzt eine einzige Textfarbe</li>
+                    <li>Sämtlicher Text und alle Symbole in der Kopfzeile folgen einer Variablen: <code>#e6edf3</code> im dunklen Modus, <code>#1f2328</code> im hellen Modus</li>
+                    <li>Die einzige Ausnahme ist die weiße Beschriftung auf der gefüllten Schaltfläche zum Verbinden/Trennen, denn das ist die Vordergrundfarbe der Schaltfläche</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.3.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Kompaktere Kopfzeile, kein Fettdruck</div>
+                <ul class="change-list">
+                    <li><strong>Höhe der Bedienelemente von 26 px auf 22 px verringert</strong>; die Kopfzeile ist jetzt insgesamt 33,7 px hoch, 45 % weniger als vor der Überarbeitung</li>
+                    <li><strong>Sämtlicher Fettdruck wurde aus der Kopfzeile entfernt</strong>, das Logo eingeschlossen — alles hat normale Schriftstärke</li>
+                    <li>Für jede Beschriftung wurde geprüft, dass sie auch in die niedrigeren Bedienelemente ohne Abschneiden hineinpasst</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.2.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Typografie der Kopfzeile vereinheitlicht</div>
+                <div class="feature-highlight">
+                    <h4>📏 Eine Größe, eine Schriftstärke, eine Höhe</h4>
+                    <p>Die Kopfzeile mischte zuvor drei Schriftgrößen, drei Schriftstärken und Höhen der Bedienelemente von 29 px bis 36 px.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Alle Bedienelemente haben jetzt dieselbe Höhe, Größe, Schriftstärke und denselben Eckenradius</strong>
+                        <ul>
+                            <li>Die visuelle Hierarchie entsteht über die Textfarbe, nicht über Größe oder Schriftstärke</li>
+                            <li>Die Baudrate behält ihre Monospace-Schrift, damit die Ziffern untereinander stehen bleiben</li>
+                        </ul>
+                    </li>
+                    <li><strong>36 % niedrigere Kopfzeile</strong>, was mehr Platz für das Terminal lässt</li>
+                    <li>Die Statusanzeige wechselte von einer Pillenform zu einem abgerundeten Rechteck, passend zu den übrigen Bedienelementen</li>
+                    <li>Die Schaltflächen in der Eingabezeile und die Farbauswahl behalten ihre ursprüngliche Größe</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.1.0</span>
+                <span class="version-date">2026-07-30</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Eine Schaltfläche für Verbinden und Trennen</div>
+                <div class="feature-highlight">
+                    <h4>🔌 „Port Wählen“ und „Trennen“ zu einer geteilten Schaltfläche zusammengefasst</h4>
+                    <p>Blaues „Verbinden“ im Leerlauf, rotes „Trennen“ sobald verbunden — und kein Port-Dialog bei jeder Benutzung.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Der Port-Dialog erscheint nicht mehr jedes Mal.</strong> Ein Klick auf Verbinden probiert der Reihe nach:
+                        <ul>
+                            <li>den zuletzt benutzten Port</li>
+                            <li>einen Port, dessen Chipsatz erkannt wird (CH340 / CP210x / FTDI / ESP32 / Arduino und Verwandte)</li>
+                            <li>den einzigen freigegebenen Port, sofern es genau einen gibt</li>
+                            <li>und erst dann die Port-Auswahl des Browsers</li>
+                        </ul>
+                    </li>
+                    <li><strong>Der Pfeil ▾ öffnet ein Port-Menü</strong>
+                        <ul>
+                            <li>Listet jeden freigegebenen Port mit seiner eigenen Bezeichnung oder dem Chipsatznamen auf; identische Geräte werden über <code>#index</code> unterschieden</li>
+                            <li>Der zuletzt benutzte Port ist mit ★ markiert</li>
+                            <li>Der letzte Eintrag, <em>Andere… (Browser-Auswahl)</em>, gibt ein neues Gerät frei</li>
+                        </ul>
+                    </li>
+                    <li>Der letzte Port wird zusammen mit VID/PID und Index im lokalen Speicher gemerkt</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.0.0</span>
+                <span class="version-date">2026-07-30</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Versionsnummern nach Jahr</div>
+                <div class="feature-highlight">
+                    <h4>🔢 Umstellung auf V<em>a</em>.<em>b</em>.<em>c</em></h4>
+                    <p>Ab dieser Version steht <strong>a</strong> für die letzten beiden Ziffern des Jahres (2026 → 26), <strong>b</strong> zählt Funktionen und <strong>c</strong> zählt Fehlerbehebungen; wird ein Segment erhöht, werden die nachfolgenden zurückgesetzt. v3.0.1 war die letzte Version nach dem alten semantischen Schema.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Das Element <code>&lt;title&gt;</code> wurde zur einzigen verbindlichen Quelle</strong> für die Versionsnummer
+                        <ul>
+                            <li>Das Badge in der Kopfzeile liest sie zur Laufzeit aus, statt sie fest einzuprogrammieren</li>
+                            <li>Die Startmeldung in der Konsole tut dasselbe, sodass die Nummer zwischen den Stellen nie auseinanderlaufen kann</li>
+                        </ul>
+                    </li>
+                    <li><strong>Snapshot-Ablauf ergänzt</strong>: Vor jeder Version wird die aktuelle Datei in <code>backup/</code> eingefroren, bevor die Änderungen beginnen</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v3.0.1</span>
+                <span class="version-date">2026-03-18</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Verbesserungen der automatischen Wiederverbindung</div>
+                <ul class="change-list">
+                    <li><strong>Das Zeitfenster für Wiederholungen ist jetzt unbegrenzt.</strong> Zuvor gab NuMonitor nach rund 30 Versuchen auf; jetzt wird jede Sekunde erneut versucht, bis das Gerät zurückkehrt oder Sie die automatische Wiederverbindung abschalten</li>
+                    <li>Nützlich bei längerer Abwesenheit: neue Firmware aufspielen, Neustarts des Geräts, aktive USB-Hubs, die aus- und wieder eingeschaltet werden</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v3.0.0</span>
+                <span class="version-date">2026-03-10</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Helles Theme</div>
+                <ul class="change-list">
+                    <li><strong>Neues Theme im Stil von GitHub Light</strong> mit einem sofort wirkenden Umschalter in der rechten oberen Ecke
+                        <ul>
+                            <li>Alles passt sich an: Oberfläche, Terminal und Diagramme</li>
+                            <li>Die Akzentfarben wurden für einen hellen Hintergrund neu abgestimmt</li>
+                        </ul>
+                    </li>
+                    <li><strong>Die Wahl wird gespeichert</strong> und bleibt über Sitzungen hinweg erhalten</li>
+                    <li>Die Diagrammflächen folgen dem Theme live und lesen bei jedem Neuzeichnen die aktuelle Palette</li>
+                    <li>Der Tooltip zum Theme wurde in alle 18 Oberflächensprachen übersetzt</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v2.0.0</span>
+                <span class="version-date">2026-01-22</span>
+                <span class="version-tag tag-major">Hauptversion</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Überarbeitung des Plotters</div>
+                <ul class="change-list">
+                    <li><strong>Erweitertes Datenformat</strong> — Sample-Zähler mit <code>#number</code> und Koordinaten mit <code>map:</code></li>
+                    <li><strong>Gestapeltes Flächendiagramm</strong> (<code>stack</code>) als siebter Diagrammtyp hinzugekommen</li>
+                    <li><strong>Cursor auf der X-Achse</strong> — mit der Maus über das Diagramm fahren, um alle Serien an diesem Sample abzulesen</li>
+                    <li><strong>GPS-Spur</strong> auf einer OpenStreetMap-Grundkarte, mit einstellbarer Anzahl an Spurpunkten und einer Ansichtssperre</li>
+                    <li><strong>URL-Erkennung</strong> im Terminal verwandelt Links in anklickbare Verweise</li>
+                    <li>HTML-Benutzerhandbuch zusammen mit der Anwendung veröffentlicht</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.9.0</span>
+                <span class="version-date">2026-01-21</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Farbanpassung im Terminal</div>
+                <ul class="change-list">
+                    <li>TX, RX und Systemmeldungen erhalten jeweils eine unabhängig einstellbare Farbe</li>
+                    <li>Die Farben werden in einem visuellen Farbfelddialog gewählt und über Sitzungen hinweg gespeichert</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.8.0</span>
+                <span class="version-date">2026-01-14</span>
+                <span class="version-tag tag-major">Hauptversion</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Oberfläche in 18 Sprachen</div>
+                <ul class="change-list">
+                    <li>Vollständige Übersetzung der Oberfläche in 18 Sprachen mit einer Auswahl über Flaggen</li>
+                    <li>Automatische Erkennung der Browsersprache, die getroffene Wahl wird danach gespeichert</li>
+                    <li>Unterstützung für Rechts-nach-links-Layouts bei Arabisch, Hebräisch und Persisch</li>
+                    <li>Auch dynamisch erzeugte Meldungen werden übersetzt, nicht nur statische Beschriftungen</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.7.0</span>
+                <span class="version-date">2026-01-14</span>
+                <span class="version-tag tag-feature">Funktion</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Vereinfachte Gruppensyntax und Plotter-Schalter</div>
+                <ul class="change-list">
+                    <li>Die Syntax für Gruppendefinitionen wurde in die heutige Form <code>{Name|min|max|type}</code> überführt</li>
+                    <li>Ein Schalter, um das Zeichnen von Diagrammen ganz abzuschalten und NuMonitor als reines Terminal zu verwenden</li>
+                    <li>Diagramm-Tabs lassen sich einzeln umbenennen und schließen</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.6.0</span>
+                <span class="version-date">2026-01-08</span>
+                <span class="version-tag tag-major">Hauptversion</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Serial Plotter</div>
+                <ul class="change-list">
+                    <li><strong>Die Diagramm-Engine kommt hinzu</strong> — sechs Diagrammtypen, live aus seriellem Text gezeichnet</li>
+                    <li>Mehrere Datengruppen, jede in einem eigenen Tab</li>
+                    <li>Scrollen ändert, wie viele Samples angezeigt werden</li>
+                    <li>Optionale Glättung, einstellbarer Bereich der Y-Achse, Farben pro Serie und Legende</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.5.0</span>
+                <span class="version-date">2026-01-04</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Befehlsverlauf und Gerätebezeichnungen</div>
+                <ul class="change-list">
+                    <li>Gesendete Befehle werden in einer Verlaufsliste aufbewahrt, um sie schnell erneut zu senden</li>
+                    <li>Geräten lassen sich eigene Namen zuweisen; sie werden anhand von VID:PID gemerkt</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.4.0</span>
+                <span class="version-date">2026-01-03</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Fehlerbehebungen</div>
+                <ul class="change-list">
+                    <li>Stabilitätskorrekturen rund um Verbinden, Trennen und das Aufräumen der Streams</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.3.0</span>
+                <span class="version-date">2026-01-02</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Terminal-Funktionen</div>
+                <ul class="change-list">
+                    <li>Zeitstempel, automatischer Bildlauf, Anzeigemodi TXT/HEX und Auswahl des Zeilenendes</li>
+                    <li>Erkennung des USB-Chipsatzes mit Anzeige eines sprechenden Gerätenamens</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.0.0 ~ v1.2.0</span>
+                <span class="version-date">2025-12-30 ~ 2026-01-01</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Erste Veröffentlichungen</div>
+                <ul class="change-list">
+                    <li>Erste funktionierende Verbindung über Web Serial: Portauswahl, Baudrate, Senden und Empfangen</li>
+                    <li>Einzeldatei-Architektur und die dunkle, an GitHub angelehnte Oberfläche etabliert</li>
+                    <li>Automatische Wiederverbindung eingeführt</li>
+                </ul>
+            </div>
+        </article>
+
+        <footer class="footer">
+            <p>NuMonitor for Serial Port | Entwickelt von <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
+            <p style="margin-top: 10px;">
+                <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">NuMonitor starten</a> |
+                <a href="manual.html" data-sibling="manual.html">Benutzerhandbuch</a> |
+                <a href="https://github.com/Nuxtack-tw/NuMonitor4SerialPort">Quellcode</a>
+            </p>
+        </footer>
+    </div>
+

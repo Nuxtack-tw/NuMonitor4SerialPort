@@ -1,0 +1,410 @@
+
+    <header class="header">
+        <h1>📡 NuMonitor Kullanım Kılavuzu</h1>
+        <p class="subtitle">Profesyonel Web Serial izleme ve veri görselleştirme</p>
+        <span class="version">V26.12.0</span>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#intro">Giriş</a>
+            <a href="#requirements">Gereksinimler</a>
+            <a href="#quickstart">Hızlı başlangıç</a>
+            <a href="#terminal">Terminal</a>
+            <a href="#signals">Sinyal paneli</a>
+            <a href="#plotter">Çizici</a>
+            <a href="#charts">Grafik türleri</a>
+            <a href="#map">GPS haritası</a>
+            <a href="#format">Veri biçimi</a>
+            <a href="#faq">SSS</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="intro">
+            <h2><span class="icon">🎯</span> Giriş</h2>
+            <p>NuMonitor; Arduino, ESP32, modemler ve genel gömülü sistem çalışmaları için bir seri port izleyicisidir. Arduino IDE'nin Serial Monitor'ünün yerini alır; üstüne canlı grafik çizimi, GPS takibi ve tam RS-232 sinyal denetimi ekler — hepsi de doğrudan tarayıcıda çalışan tek bir HTML dosyasından.</p>
+            <div class="highlight">
+                <strong>Kurulum gerektirmez.</strong> Çevrimiçi olarak
+                <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">nuxtack-tw.github.io/NuMonitor4SerialPort</a>
+                adresinden çalıştırın ya da tek HTML dosyasını indirip yerelde açın.
+            </div>
+        </section>
+
+        <section id="requirements">
+            <h2><span class="icon">💻</span> Gereksinimler</h2>
+
+            <h3>Tarayıcı desteği</h3>
+            <table>
+                <tr><th>Tarayıcı</th><th>Sürüm</th><th>Durum</th></tr>
+                <tr><td>Google Chrome</td><td>89+</td><td>✅ Önerilir</td></tr>
+                <tr><td>Microsoft Edge</td><td>89+</td><td>✅ Destekleniyor</td></tr>
+                <tr><td>Opera</td><td>75+</td><td>✅ Destekleniyor</td></tr>
+                <tr><td>Firefox</td><td>—</td><td>❌ Web Serial API yok</td></tr>
+                <tr><td>Safari</td><td>—</td><td>❌ Web Serial API yok</td></tr>
+            </table>
+            <p>NuMonitor <strong>Web Serial API</strong> üzerine kuruludur; bu API yalnızca Chromium tabanlı tarayıcılarda gerçeklenmiştir. API ayrıca <strong>güvenli bağlam</strong> ister: HTTPS, <code>localhost</code> veya yerel bir <code>file://</code> sayfası — üçü de çalışır.</p>
+
+            <h3>Donanım</h3>
+            <p>Kendini seri port olarak tanıtan her şey: Arduino kartları, ESP32 modülleri, USB-seri dönüştürücüler (CH340/CH343, CP210x, FTDI, PL2303), hücresel modemler, RS-232 portu bulunan endüstriyel cihazlar vb. NuMonitor yaklaşık yirmi yaygın USB-seri yongasını VID:PID üzerinden tanır ve okunaklı bir ad gösterir.</p>
+        </section>
+
+        <section id="quickstart">
+            <h2><span class="icon">🚀</span> Hızlı başlangıç</h2>
+
+            <h3>1. Adım — NuMonitor'ü açın</h3>
+            <p>Ya barındırılan sürümü açın ya da yerel bir kopyadaki <code>NuMonitor4SerialPort.html</code> dosyasını açın. Kurulum yok, derleme adımı yok.</p>
+
+            <h3>2. Adım — Bir cihaz bağlayın</h3>
+            <ol>
+                <li>Cihazı bir USB portuna takın</li>
+                <li><strong>Bağlan</strong> düğmesine tıklayın
+                    <ul>
+                        <li><strong>İlk seferde:</strong> tarayıcı kendi port seçicisini gösterir — cihazınızı seçin</li>
+                        <li><strong>Sonrasında:</strong> aynı porta iletişim kutusu çıkmadan otomatik olarak yeniden bağlanır</li>
+                    </ul>
+                </li>
+                <li>Farklı bir port kullanmak için düğmenin yanındaki <strong>▾</strong> işaretine tıklayıp listeden birini seçin ya da yeni bir cihaza yetki vermek için <em>Diğer… (tarayıcı seçici)</em> seçeneğini kullanın</li>
+                <li>Bağlantı kurulduğunda düğme yavaşça nefes alan bir parıltıyla <strong>yeşil “Bağlı”</strong> hâline gelir ve port menüsü oku kaybolur. İmleci düğmenin üzerine getirdiğinizde kırmızıya döner — <strong>Bağlantıyı Kes</strong>mek için tıklayın</li>
+                <li>Cihaz çıkarılırsa düğme <strong>turuncu “Bağlanıyor…”</strong> hâline gelir ve cihaz geri gelene kadar saniyede bir yeniden dener; bu sırada düğmeye tıklamak yeniden denemeyi iptal eder</li>
+            </ol>
+
+            <figure class="shot">
+                <img src="img/port-menu.png" alt="Yetki verilmiş seri portları listeleyen port açılır menüsü">
+                <figcaption>▾ menüsü yetki verilmiş her portu listeler. ★ en son kullanılanı işaretler; son satır tarayıcının izin iletişim kutusunu açar.</figcaption>
+            </figure>
+
+            <h3>3. Adım — Baud hızını ayarlayın</h3>
+            <p>Cihazınızla eşleşen hızı seçin — Arduino kodlarında bu, <code>Serial.begin()</code> içine verdiğiniz değerdir. Kullanılabilir hızlar: 300, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 74880, 115200 (varsayılan), 230400, 250000, 500000, 1000000 ve 2000000 baud.</p>
+            <p>Baud hızı port ile birlikte kaydedilir; böylece sayfa yeniden yüklendiğinde ikisi de geri gelir.</p>
+            <div class="highlight">
+                <strong>Bozuk karakterler mi görüyorsunuz?</strong> Bunun nedeni neredeyse her zaman baud hızı uyuşmazlığıdır. Portlar <strong>8N1</strong> (8 veri biti, eşlik yok, 1 stop biti) olarak açılır; cihazların ezici çoğunluğu bunu kullanır.
+            </div>
+        </section>
+
+        <section id="terminal">
+            <h2><span class="icon">📟</span> Terminal</h2>
+
+            <figure class="shot">
+                <img src="img/terminal-connected.png" alt="AT komut alışverişini gösteren terminal">
+                <figcaption>→ gönderdiğiniz veriyi, ← alınan veriyi işaretler. TX, RX ve sistem iletilerinin her biri kendi rengine sahiptir. Burada görülen: hücresel bir modemle yürütülen AT komut oturumu.</figcaption>
+            </figure>
+
+            <h3>Özellikler</h3>
+            <table>
+                <tr><th>Özellik</th><th>Ne işe yarar</th></tr>
+                <tr><td>Otomatik kaydırma</td><td>Veri geldikçe en yeni satırı izler</td></tr>
+                <tr><td>Zaman damgaları</td><td>Her satırın başına geliş zamanını ekler</td></tr>
+                <tr><td>Temizle</td><td>Terminal görünümünü boşaltır</td></tr>
+                <tr><td>Gönder</td><td>Giriş kutusundaki metni gönderir — Enter'a basın ya da Gönder'e tıklayın</td></tr>
+                <tr><td>Komut geçmişi</td><td>Giriş kutusunun solundaki saat simgesi önceki komutları geri çağırır, yeniden gönderir veya kopyalar</td></tr>
+                <tr><td>Eko</td><td>Gönderdiğinizi terminalde gösterir; böylece verinin gerçekten çıktığını doğrulayabilirsiniz</td></tr>
+                <tr><td>TXT / HEX</td><td>Metin ve onaltılık gösterim arasında geçiş yapar — ikili protokoller için vazgeçilmezdir</td></tr>
+                <tr><td>Renkler</td><td>TX, RX ve sistem renkleri ayrı ayrı ayarlanabilir ve her tema için ayrı saklanır</td></tr>
+            </table>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/terminal-hex.png" alt="HEX modundaki terminal">
+                    <figcaption>HEX modu — solda onaltılık değerler, sağda karşılık gelen ASCII</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/color-picker.png" alt="Renk seçici iletişim kutusu">
+                    <figcaption>Renk seçici — TX, RX ve SYS birbirinden bağımsız olarak yapılandırılır</figcaption>
+                </figure>
+            </div>
+
+            <h3>URL algılama</h3>
+            <p>Akışta beliren bağlantılar kendiliğinden tıklanabilir hâle gelir: <code>https://</code>, <code>http://</code>, <code>www.</code> (https varsayılır) ve <code>ftp://</code>.</p>
+
+            <h3>Satır sonları</h3>
+            <p>Giriş kutusunun sağındaki seçici, gönderdiğiniz her şeyin sonuna neyin ekleneceğini belirler:</p>
+            <table>
+                <tr><th>Seçenek</th><th>Gönderilen baytlar</th><th>Kullanım yeri</th></tr>
+                <tr><td>Satır sonu yok</td><td>(hiçbir şey eklenmez)</td><td>Her baytı kendiniz denetlediğinizde</td></tr>
+                <tr><td>LF</td><td><code>\n</code> (0x0A)</td><td><code>readStringUntil('\n')</code> kullanan Arduino/ESP32 kodları — varsayılan</td></tr>
+                <tr><td>CR</td><td><code>\r</code> (0x0D)</td><td><strong>Modem AT komutları ve çoğu CLI yazılımı</strong></td></tr>
+                <tr><td>CRLF</td><td><code>\r\n</code></td><td>Windows tarzı cihazlar ve bazı modüller</td></tr>
+            </table>
+            <div class="highlight">
+                <strong>⚠️ Bir modemle mi konuşuyorsunuz? CR seçin.</strong> AT komut kümesi komutları satır başı (carriage return) ile sonlandırır. <code>LF</code> gönderirseniz ya da hiçbir şey göndermezseniz modem sonlandırıcıyı beklemeyi sürdürür — <strong>hiçbir yanıt alamazsınız</strong>. Bu bir bağlantı arızası değildir; komut yalnızca hiçbir zaman tamamlanmış sayılmamıştır.
+            </div>
+            <p>Bu ayar <strong>hatırlanır</strong> ve sayfayı bir sonraki açışınızda geri yüklenir.</p>
+        </section>
+
+        <section id="signals">
+            <h2><span class="icon">🚦</span> RS-232 sinyal paneli</h2>
+            <p>Bağlantı kurulduğunda başlığın altında bir el sıkışma göstergeleri satırı belirir; bağlantı yokken satırın tamamı gizlidir.</p>
+
+            <figure class="shot">
+                <img src="img/header-signalbar.png" alt="RS-232 sinyal panelini içeren başlık">
+                <figcaption>RTS ve DTR (mavi) sizin denetlediğiniz çıkışlardır; DCD, DSR ve CTS (yeşil) cihazdan gelen girişlerdir</figcaption>
+            </figure>
+
+            <h3>LOCAL (OUT) — sizin çıkışlarınız, değiştirmek için tıklayın</h3>
+            <table>
+                <tr><th>Gösterge</th><th>Tam adı</th><th>Notlar</th></tr>
+                <tr><td><strong>BRK</strong></td><td>Break</td><td>Bir break (kesme) durumu uygular. Başlatmak için bir kez, bırakmak için yeniden tıklayın</td></tr>
+                <tr><td><strong>RTS</strong></td><td>Request To Send</td><td>Gönderme isteği; donanımsal akış denetimi yapan cihazlar genellikle bunu ister</td></tr>
+                <tr><td><strong>DTR</strong></td><td>Data Terminal Ready</td><td><strong>Çoğu modem, DTR uygulanmadıkça komut kabul etmez</strong></td></tr>
+            </table>
+            <p><strong>Neden başlangıçta sönük duruyorlar?</strong> Web Serial API çıkış sinyallerini <em>ayarlayabilir</em>, ancak <em>geri okuyamaz</em>. Siz birine tıklayana kadar NuMonitor o sinyalin durumunu gerçekten bilmez; bu yüzden tarayıcının port açılışında ne yaptığını tahmin etmek yerine dürüst yanıtı gösterir.</p>
+            <div class="highlight">
+                <strong>⚠️ Arduino ve ESP32 kullanıcıları:</strong> çoğu geliştirme kartında DTR ve RTS otomatik sıfırlama devresini sürer; bu yüzden bunları değiştirmek <strong>kartı yeniden başlatabilir</strong>. NuMonitor bağlantı sırasında bu sinyallere bilerek hiç dokunmaz — karar tümüyle size aittir.
+            </div>
+
+            <h3>REMOTE (IN) — cihazın çıkışları, salt okunur</h3>
+            <table>
+                <tr><th>Gösterge</th><th>Tam adı</th><th>Yanması şu demektir</th></tr>
+                <tr><td><strong>DCD</strong></td><td>Data Carrier Detect</td><td>Taşıyıcı var — bir modem bağlantı kurmuş</td></tr>
+                <tr><td><strong>DSR</strong></td><td>Data Set Ready</td><td>Cihaz güç almış ve hazır</td></tr>
+                <tr><td><strong>CTS</strong></td><td>Clear To Send</td><td>Cihaz veri kabul etmeye istekli</td></tr>
+                <tr><td><strong>RI</strong></td><td>Ring Indicator</td><td>Bir çağrı (zil) sinyali algılandı</td></tr>
+            </table>
+            <p>Bu dördü 250 ms'de bir yoklanır — Web Serial API sinyal değişimi olayları sunmadığından yoklama tek seçenektir.</p>
+
+            <h3>ACT ve ERR</h3>
+            <ul>
+                <li><strong>ACT</strong> — her iki yönde bayt hareket ettiğinde yanıp söner. Kesintisiz aktarım sırasında sürekli yanıyormuş gibi görünür</li>
+                <li><strong>ERR</strong> — çerçeveleme, eşlik, arabellek taşması veya alınan break durumunda kırmızıya döner ve üç saniye yanıp söner; erken temizlemek için üzerine tıklayın. Bağlantı <strong>kesilmez</strong> — okuma kendiliğinden sürer</li>
+            </ul>
+            <p><strong>Eşlik hataları hakkında:</strong> portlar şu anda <strong>8N1</strong> olarak açılıyor — eşlik biti olmadan eşlik hatası oluşamaz; dolayısıyla pratikte ERR, çerçeveleme, taşma ve break durumlarına tepki verir.</p>
+        </section>
+
+        <section id="plotter">
+            <h2><span class="icon">📈</span> Çizici</h2>
+
+            <figure class="shot">
+                <img src="img/plotter-line.png" alt="Üç serili bir çizgi grafiği gösteren Çizici">
+                <figcaption>Her veri grubu kendi sekmesine dönüşür. Grafiğin altındaki gösterge canlı değerleri sunar ve aynı zamanda göster/gizle anahtarı olarak çalışır.</figcaption>
+            </figure>
+
+            <h3>Otomatik ayrıştırma</h3>
+            <p>Yapılandırılması gereken hiçbir şey yok. Cihazdan düz metin yazdırın, neyin grafiğe döküleceğine NuMonitor karar versin: ayrıştırılabilir en az bir sayı içeren her satır veri olur; geri kalan her şey düz terminal metni olarak kalır.</p>
+
+            <h3>Grafik denetimleri</h3>
+            <table>
+                <tr><th>Düğme</th><th>Ne işe yarar</th></tr>
+                <tr><td>Duraklat</td><td>Veri arka planda gelmeyi sürdürürken grafiği dondurur</td></tr>
+                <tr><td>Yumuşat</td><td>Çizgi ve alan grafiklerini yumuşak eğriler olarak çizer</td></tr>
+                <tr><td>Temizle</td><td>O gruba ait veriyi atar</td></tr>
+                <tr><td>CSV</td><td>Grubun verisini CSV dosyası olarak dışa aktarır</td></tr>
+                <tr><td>Arka Plan</td><td>Grafiğe özel bir arka plan rengi verir; her grup için ayrı hatırlanır</td></tr>
+                <tr><td>Harita</td><td>Yalnızca grup <code>map:</code> koordinatları içerdiğinde görünür</td></tr>
+            </table>
+
+            <h3>X ekseni imleci</h3>
+            <p>İşaretçiyi grafiğin üzerinde gezdirerek her serinin o örnekteki tam değerini okuyabilirsiniz.</p>
+
+            <h3>Kaydırarak yakınlaştırma</h3>
+            <p>Bir grafiğin üzerinde tekerleği kaydırmak, gösterilen örnek sayısını 20 ile 2000 arasında değiştirir (varsayılan 100). Bellekte seri başına en fazla 500 örnek tutulur.</p>
+
+            <h3>Gösterge etkileşimi</h3>
+            <p>Bir gösterge satırına tıklayarak o seriyi gizleyin veya gösterin; renk kutucuğuna tıklayarak rengini değiştirin — bu renk hatırlanır.</p>
+        </section>
+
+        <section id="charts">
+            <h2><span class="icon">📊</span> Grafik türleri</h2>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/plotter-line.png" alt="Çizgi grafiği">
+                    <figcaption><code>line</code> — sürekli zaman serisi, yumuşatmayı destekler</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-area.png" alt="Alan grafiği">
+                    <figcaption><code>area</code> — yarı saydam dolgu, büyüklüğü öne çıkarır</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-stack.png" alt="Yığılmış alan grafiği">
+                    <figcaption><code>stack</code> — zaman içinde değişen bileşim</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-scatter.png" alt="Dağılım grafiği">
+                    <figcaption><code>scatter</code> — dağılım, gürültü ve aykırı değerler</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-bar.png" alt="Çubuk grafiği">
+                    <figcaption><code>bar</code> — birkaç kategorinin en son değerini karşılaştırır</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-gauge.png" alt="Gösterge grafiği">
+                    <figcaption><code>gauge</code> — tek değerli izleme; birden çok değer kendiliğinden bir ızgaraya yerleşir</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-pie.png" alt="Pasta grafiği">
+                    <figcaption><code>pie</code> — oranlar; en iyi 2–8 kategoriyle çalışır</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/gps-map.png" alt="GPS iz haritası">
+                    <figcaption>🗺️ Harita görünümü — bir grafik türü değil, veri <code>map:</code> içerdiğinde beliren ek bir görünüm</figcaption>
+                </figure>
+            </div>
+
+            <div class="highlight">
+                <strong>Not:</strong> <code>map</code> geçerli bir grafik türü <strong>değildir</strong>. <code>{X|0|1|map}</code> yazmak <code>line</code> türüne geri düşer. Harita, verisinde koordinat taşıyan her sekmede beliren bir görünüm anahtarıdır.
+            </div>
+        </section>
+
+        <section id="map">
+            <h2><span class="icon">🗺️</span> GPS takibi</h2>
+
+            <figure class="shot">
+                <img src="img/gps-map.png" alt="OpenStreetMap altlık katmanı üzerinde GPS izi">
+                <figcaption>Altlık harita OpenStreetMap'ten gelir. Alttaki denetimler kaç iz noktasının saklanacağını ve görünümün en yeni konumu izleyip izlemeyeceğini belirler; sağ üstteki düğme grafiğe geri döndürür.</figcaption>
+            </figure>
+
+            <h3>Haritayı etkinleştirme</h3>
+            <p>Herhangi bir veri satırının sonuna <code>map:enlem,boylam</code> ekleyin. O sekmede bir 🗺️ düğmesi belirir.</p>
+
+            <h3>Koordinat biçimleri</h3>
+            <table>
+                <tr><th>Biçim</th><th>Örnek</th></tr>
+                <tr><td>Ondalık derece (negatif olabilir)</td><td><code>map:25.051075,121.630951</code></td></tr>
+                <tr><td>Yarım küre harfli ondalık derece</td><td><code>map:25.051075N,121.630951E</code></td></tr>
+                <tr><td>Derece ve dakika</td><td><code>map:25°3.0645'N,121°37.857'E</code></td></tr>
+                <tr><td>Derece, dakika ve saniye</td><td><code>map:25°3'3.87"N,121°37'51.4"E</code></td></tr>
+            </table>
+            <p>Enlemde ±90° veya boylamda ±180° dışında kalan koordinatlar reddedilir.</p>
+
+            <h3>Harita denetimleri</h3>
+            <ul>
+                <li><strong>İz noktaları</strong> — haritada kaç güncel konumun kalacağı, 1 ile 100 arasında (varsayılan 10)</li>
+                <li><strong>Takip</strong> — en yeni konumu merkezde tutar; haritanın geri sıçramadan serbestçe kaydırılıp yakınlaştırılabilmesi için kapatın</li>
+                <li>Bir iz işaretçisine tıklamak, o noktadaki koordinatları ve kaydedilen veri değerlerini gösterir</li>
+            </ul>
+        </section>
+
+        <section id="format">
+            <h2><span class="icon">📝</span> Veri biçimi başvurusu</h2>
+
+            <h3>Tam sözdizimi</h3>
+            <div class="code-block">{GrupAdı|Ymin|Ymaks|grafikTürü}#sayaç Etiket:Değer Etiket=Değer map:enlem,boylam</div>
+
+            <h3>Alanlar</h3>
+            <table>
+                <tr><th>Alan</th><th>Zorunlu</th><th>Notlar</th></tr>
+                <tr><td>Grup adı</td><td>Hayır</td><td>Bir sekmeye dönüşür. Latin dışı yazılar dâhil her türlü metin olabilir</td></tr>
+                <tr><td>Y min / Y maks</td><td>Hayır</td><td>Bir sayı ya da <code>auto</code>. Ayrıştırılamayan her şey auto sayılır</td></tr>
+                <tr><td>Grafik türü</td><td>Hayır</td><td><code>line</code> <code>area</code> <code>stack</code> <code>scatter</code> <code>bar</code> <code>gauge</code> <code>pie</code>; başka her şey <code>line</code> türüne geri düşer</td></tr>
+                <tr><td><code>#sayaç</code></td><td>Hayır</td><td>Doğrudan <code>}</code> işaretinden sonra gelir. X eksenini etiketler; negatif ve ondalık değerler kabul edilir</td></tr>
+                <tr><td>Veri noktaları</td><td><strong>Evet</strong></td><td>Ayrıştırılabilir en az bir sayı; aksi hâlde satır düz metin olarak kalır</td></tr>
+                <tr><td><code>map:</code></td><td>Hayır</td><td>O sekmeye harita görünümünü ekler</td></tr>
+            </table>
+
+            <h3>Veri noktalarını yazma</h3>
+            <div class="code-block">Serial.println("Temp:25.5 Humidity:60.2");   // Anahtar:Değer — önerilen
+Serial.println("Temp=25.5 Humidity=60.2");   // Anahtar=Değer
+Serial.println("25.5 60.2 1013.2");          // yalın sayılar → CH1, CH2, CH3
+Serial.println("Temp\t25.5");                // Etiket [sekme/boşluk] Değer</div>
+            <ul>
+                <li>Ayırıcılar: boşluk, virgül veya sekme</li>
+                <li>Etiket/değer ayırıcısı: <code>:</code> veya <code>=</code></li>
+                <li><strong>Birimler kendiliğinden ayıklanır</strong> — <code>25.5°C</code>, <code>60.2%</code> ve <code>40.5km/h</code> ifadelerinin tamamı baştaki sayıya ayrıştırılır</li>
+                <li>Ayrıştırılamayan parçalar, satırın geri kalanı atılmadan atlanır</li>
+            </ul>
+
+            <h3>Örnek kodlar</h3>
+            <div class="code-block">// Birimler ve örnek sayacı ile ortam izleme
+void loop() {
+  Serial.print("{Environment|0|100|line}#");
+  Serial.print(seq++);
+  Serial.print(" Temp:"); Serial.print(readTemp(), 1); Serial.print("°C");
+  Serial.print(" RH:");   Serial.print(readRH(), 1);   Serial.println("%");
+  delay(100);   // 10 Hz
+}
+
+// Aynı anda üç sekme
+void loop() {
+  Serial.print("{Temperature|15|35|line}Indoor:");  Serial.print(t1);
+  Serial.print(" Outdoor:"); Serial.println(t2);
+
+  Serial.print("{System|0|100|bar}CPU:"); Serial.print(cpu);
+  Serial.print(" MEM:"); Serial.println(mem);
+
+  Serial.print("{Battery|0|100|gauge}Level:"); Serial.println(bat);
+  delay(500);
+}
+
+// GPS izli drone telemetrisi
+void loop() {
+  Serial.print("{Drone|0|120|line}#"); Serial.print(frame++);
+  Serial.print(" Alt:");   Serial.print(alt, 1);
+  Serial.print(" Speed:"); Serial.print(spd, 1);
+  Serial.print(" map:");   Serial.print(lat, 6);
+  Serial.print(",");       Serial.println(lng, 6);
+  delay(200);
+}</div>
+
+            <h3>Sınırlar</h3>
+            <table>
+                <tr><th>Öğe</th><th>Sınır</th></tr>
+                <tr><td>Eşzamanlı grup (sekme) sayısı</td><td>10 — fazladan gruplar sessizce yok sayılır</td></tr>
+                <tr><td>Seri başına saklanan örnek</td><td>500</td></tr>
+                <tr><td>Gösterilen örnek</td><td>Varsayılan 100; fare tekerleğiyle 20–2000</td></tr>
+                <tr><td>GPS iz noktaları</td><td>Varsayılan 10; 1–100 arasında ayarlanabilir</td></tr>
+                <tr><td>Renk paleti</td><td>32 renk, sonra baştan döner</td></tr>
+                <tr><td>Baud hızı</td><td>300 – 2,000,000</td></tr>
+            </table>
+        </section>
+
+        <section id="faq">
+            <h2><span class="icon">❓</span> SSS</h2>
+
+            <h3>S: Hiç port listelenmiyor.</h3>
+            <p><strong>C:</strong> Cihazın takılı olduğunu, USB sürücüsünün kurulu olduğunu, Chrome/Edge/Opera kullandığınızı ve portu başka bir programın tutmadığını denetleyin — olağan şüpheli, Arduino IDE'nin Serial Monitor'üdür.</p>
+
+            <h3>S: Yalnızca bozuk karakterler geliyor.</h3>
+            <p><strong>C:</strong> Baud hızı uyuşmuyor. NuMonitor'ü cihazınızın <code>Serial.begin()</code> çağrısındaki hıza ayarlayın.</p>
+
+            <h3>S: Hiç grafik görünmüyor.</h3>
+            <p><strong>C:</strong> Çizici anahtarının (📊) açık olduğunu, satırın ayrıştırılabilir en az bir sayı içerdiğini ve 10 gruplu sınıra çoktan takılmadığınızı denetleyin.</p>
+
+            <h3>S: Modemim AT komutlarına hiç yanıt vermiyor.</h3>
+            <p><strong>C:</strong> Şunları sırayla uygulayın:</p>
+            <ol>
+                <li><strong>Satır sonunu CR olarak ayarlayın</strong> — açık ara en yaygın neden budur. AT komutları satır başı ile bitmelidir; varsayılan LF ile modem hiç yanıt vermez</li>
+                <li>Sinyal panelinden <strong>DTR'yi uygulayın</strong> (modem donanımsal akış denetimi kullanıyorsa RTS'yi de). Diğer terminal programları port açılışında bunları kendiliğinden yükseltir; NuMonitor, geliştirme kartlarını sıfırlamamak için bunu bilerek yapmaz</li>
+                <li><strong>DSR ve CTS'yi denetleyin</strong> — DSR sönükse cihaz güç almıyordur ya da kablolama yanlıştır; CTS sönükse cihaz veri kabul etmiyordur</li>
+                <li><strong>Baud hızını doğrulayın</strong></li>
+                <li><strong>Eko</strong> seçeneğini açın ve verinin bilgisayardan gerçekten çıktığını kanıtlamak için <strong>TX bayt</strong> sayacını izleyin</li>
+            </ol>
+
+            <h3>S: Otomatik yeniden bağlanma ile otomatik bağlanma arasındaki fark nedir?</h3>
+            <p><strong>C:</strong> Tek bir anahtar iki davranışı yönetir:</p>
+            <ul>
+                <li><strong>Bağlıyken cihazın çıkarılması</strong> → cihaz geri gelene kadar süresiz olarak saniyede bir yeniden dener</li>
+                <li><strong>Sayfanın yeniden yüklenmesi ya da yeniden açılması</strong> → son porta yeniden bağlanır ve baud hızını geri yükler</li>
+            </ul>
+            <p>Ayrılmadan önce bağlantıyı <strong>bilerek</strong> kestiyseniz, kendiliğinden yeniden bağlanmaz. Anahtarın durumu da hatırlanır.</p>
+
+            <h3>S: ESP32 bağlantıları kararsız.</h3>
+            <p><strong>C:</strong> ESP32 USB CDC cihazları, yeniden başlatmanın ardından port nesnelerini geçersiz kılabilir. NuMonitor eskimiş tanıtıcıyı atar ve portu tarayıcı üzerinden yeniden edinir; yeniden bağlanmanın, cihazı tekrar seçmenize gerek kalmadan çalışmasının nedeni budur.</p>
+
+            <h3>S: Veriyi nasıl dışa aktarırım?</h3>
+            <p><strong>C:</strong> O grubu dışa aktarmak için grafiğin denetim satırındaki <strong>CSV</strong> düğmesine tıklayın.</p>
+
+            <h3>S: Temayı veya dili nasıl değiştiririm?</h3>
+            <p><strong>C:</strong> Sağ üstteki ay/güneş anahtarını ve dil seçicisini kullanın. İkisi de hatırlanır. Grafik ve terminal renkleri temayı izler.</p>
+            <p><strong>Kılavuz</strong> bağlantısı ve sürüm rozeti de arayüz dilini izler. Bu kılavuz on iki dilde sunulur — English, Deutsch, Français, Español, Português, Italiano, Türkçe, 日本語, Tiếng Việt, Bahasa Indonesia, Bahasa Melayu ve <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/doc/manual.html">繁體中文</a> — sağ üstteki seçiciden birini seçin. Henüz kendi kılavuzu olmayan arayüz dilleri İngilizceye geri düşer.</p>
+
+            <figure class="shot">
+                <img src="img/language-menu.png" alt="18 dili listeleyen dil menüsü">
+                <figcaption>Sağdan sola yazılan diller (Arapça, İbranice, Farsça) dâhil 18 arayüz dili</figcaption>
+            </figure>
+
+            <figure class="shot">
+                <img src="img/theme-light.png" alt="Açık tema">
+                <figcaption>Açık tema — grafik ızgarası, metin ve arka planın tamamı temayı izler</figcaption>
+            </figure>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>NuMonitor V26.12.0 | Geliştiren: <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
+        <p style="margin-top: 10px;">
+            <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">NuMonitor'ü çalıştır</a> |
+            <a href="changelog.html" data-sibling="changelog.html">Değişiklik günlüğü</a> |
+            <a href="https://github.com/Nuxtack-tw/NuMonitor4SerialPort">Kaynak kodu</a>
+        </p>
+    </footer>
