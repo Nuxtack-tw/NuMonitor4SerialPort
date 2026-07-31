@@ -1,0 +1,409 @@
+    <header class="header">
+        <h1>📡 Panduan Pengguna NuMonitor</h1>
+        <p class="subtitle">Pemantauan port serial dan visualisasi data profesional di peramban</p>
+        <span class="version">V26.11.0</span>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#intro">Pengantar</a>
+            <a href="#requirements">Persyaratan</a>
+            <a href="#quickstart">Mulai cepat</a>
+            <a href="#terminal">Terminal</a>
+            <a href="#signals">Panel sinyal</a>
+            <a href="#plotter">Plotter</a>
+            <a href="#charts">Jenis grafik</a>
+            <a href="#map">Peta GPS</a>
+            <a href="#format">Format data</a>
+            <a href="#faq">Tanya jawab</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="intro">
+            <h2><span class="icon">🎯</span> Pengantar</h2>
+            <p>NuMonitor adalah pemantau port serial untuk Arduino, ESP32, modem, dan pekerjaan embedded pada umumnya. Ia menggantikan Serial Monitor bawaan Arduino IDE dengan tambahan grafik waktu nyata, pelacakan GPS, dan kendali penuh atas sinyal RS-232 — semuanya dari satu berkas HTML yang berjalan langsung di peramban.</p>
+            <div class="highlight">
+                <strong>Tidak perlu instalasi.</strong> Jalankan daring di
+                <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">nuxtack-tw.github.io/NuMonitor4SerialPort</a>,
+                atau unduh berkas HTML-nya dan buka secara lokal.
+            </div>
+        </section>
+
+        <section id="requirements">
+            <h2><span class="icon">💻</span> Persyaratan</h2>
+
+            <h3>Dukungan peramban</h3>
+            <table>
+                <tr><th>Peramban</th><th>Versi</th><th>Status</th></tr>
+                <tr><td>Google Chrome</td><td>89+</td><td>✅ Disarankan</td></tr>
+                <tr><td>Microsoft Edge</td><td>89+</td><td>✅ Didukung</td></tr>
+                <tr><td>Opera</td><td>75+</td><td>✅ Didukung</td></tr>
+                <tr><td>Firefox</td><td>—</td><td>❌ Tidak ada Web Serial API</td></tr>
+                <tr><td>Safari</td><td>—</td><td>❌ Tidak ada Web Serial API</td></tr>
+            </table>
+            <p>NuMonitor dibangun di atas <strong>Web Serial API</strong>, yang hanya tersedia pada peramban berbasis Chromium. API ini juga menuntut <strong>konteks aman</strong>: HTTPS, <code>localhost</code>, atau halaman <code>file://</code> lokal — ketiganya bisa dipakai.</p>
+
+            <h3>Perangkat keras</h3>
+            <p>Apa pun yang tampil sebagai port serial: papan Arduino, modul ESP32, konverter USB ke serial (CH340/CH343, CP210x, FTDI, PL2303), modem seluler, peralatan industri berport RS-232, dan sebagainya. NuMonitor mengenali sekitar dua puluh chip USB-serial umum melalui VID:PID dan menampilkan namanya secara ramah.</p>
+        </section>
+
+        <section id="quickstart">
+            <h2><span class="icon">🚀</span> Mulai cepat</h2>
+
+            <h3>Langkah 1 — Buka NuMonitor</h3>
+            <p>Buka versi daringnya, atau buka berkas <code>NuMonitor4SerialPort.html</code> dari salinan lokal. Tanpa instalasi, tanpa proses build.</p>
+
+            <h3>Langkah 2 — Sambungkan perangkat</h3>
+            <ol>
+                <li>Colokkan perangkat ke port USB</li>
+                <li>Klik <strong>Sambungkan</strong>
+                    <ul>
+                        <li><strong>Pertama kali:</strong> peramban menampilkan pemilih port — pilih perangkat Anda</li>
+                        <li><strong>Berikutnya:</strong> ia menyambung ulang ke port yang sama secara otomatis, tanpa dialog</li>
+                    </ul>
+                </li>
+                <li>Untuk memakai port lain, klik tanda <strong>▾</strong> di sebelah tombol lalu pilih dari daftar, atau pilih <em>Lainnya… (pemilih peramban)</em> untuk memberi izin pada perangkat baru</li>
+                <li>Setelah tersambung, tombol berubah <strong>hijau “Tersambung”</strong> dengan cahaya berdenyut pelan dan panah menu port menghilang. Arahkan kursor ke tombol maka warnanya menjadi merah — klik untuk <strong>Putuskan</strong></li>
+                <li>Bila perangkat dicabut, tombol berubah <strong>oranye “Menyambung…”</strong> dan mencoba lagi setiap detik sampai perangkat kembali; mengklik tombol saat itu akan membatalkan percobaan ulang</li>
+            </ol>
+
+            <figure class="shot">
+                <img src="img/port-menu.png" alt="Menu port menampilkan daftar port serial yang sudah diizinkan">
+                <figcaption>Menu ▾ memuat semua port yang sudah diizinkan. Tanda ★ menunjukkan port yang terakhir dipakai; entri paling bawah membuka dialog izin peramban.</figcaption>
+            </figure>
+
+            <h3>Langkah 3 — Atur baud rate</h3>
+            <p>Pilih kecepatan yang cocok dengan perangkat Anda — untuk sketch Arduino, itu adalah nilai yang Anda berikan ke <code>Serial.begin()</code>. Pilihan yang tersedia: 300, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 74880, 115200 (bawaan), 230400, 250000, 500000, 1000000, dan 2000000 baud.</p>
+            <p>Baud rate disimpan bersama portnya, sehingga memuat ulang halaman akan memulihkan keduanya.</p>
+            <div class="highlight">
+                <strong>Karakter berantakan?</strong> Hampir selalu karena baud rate tidak cocok. Port dibuka sebagai <strong>8N1</strong> (8 bit data, tanpa paritas, 1 bit stop), yang dipakai oleh sebagian besar perangkat.
+            </div>
+        </section>
+
+        <section id="terminal">
+            <h2><span class="icon">📟</span> Terminal</h2>
+
+            <figure class="shot">
+                <img src="img/terminal-connected.png" alt="Terminal menampilkan pertukaran perintah AT">
+                <figcaption>Tanda → menandai data yang Anda kirim, tanda ← data yang diterima. TX, RX, dan pesan sistem masing-masing punya warna sendiri. Yang tampak di sini: sesi perintah AT dengan modem seluler.</figcaption>
+            </figure>
+
+            <h3>Fitur</h3>
+            <table>
+                <tr><th>Fitur</th><th>Fungsinya</th></tr>
+                <tr><td>Gulir otomatis</td><td>Mengikuti baris terbaru begitu data masuk</td></tr>
+                <tr><td>Cap waktu</td><td>Menambahkan waktu tiba di awal setiap baris</td></tr>
+                <tr><td>Bersihkan</td><td>Mengosongkan tampilan terminal</td></tr>
+                <tr><td>Kirim</td><td>Mengirim teks di kotak masukan — tekan Enter atau klik Kirim</td></tr>
+                <tr><td>Riwayat perintah</td><td>Ikon jam di kiri kotak masukan memanggil kembali, mengirim ulang, atau menyalin perintah sebelumnya</td></tr>
+                <tr><td>Echo</td><td>Menampilkan apa yang Anda kirim di terminal, agar Anda yakin data benar-benar keluar</td></tr>
+                <tr><td>TXT / HEX</td><td>Beralih antara tampilan teks dan heksadesimal — wajib untuk protokol biner</td></tr>
+                <tr><td>Warna</td><td>Warna TX, RX, dan sistem dapat diatur sendiri-sendiri dan disimpan terpisah untuk tiap tema</td></tr>
+            </table>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/terminal-hex.png" alt="Terminal dalam mode HEX">
+                    <figcaption>Mode HEX — heksadesimal di kiri, ASCII yang bersesuaian di kanan</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/color-picker.png" alt="Dialog pemilih warna">
+                    <figcaption>Pemilih warna — TX, RX, dan SYS diatur secara terpisah</figcaption>
+                </figure>
+            </div>
+
+            <h3>Deteksi URL</h3>
+            <p>Tautan yang muncul dalam aliran data otomatis dapat diklik: <code>https://</code>, <code>http://</code>, <code>www.</code> (dianggap https), dan <code>ftp://</code>.</p>
+
+            <h3>Akhiran baris</h3>
+            <p>Pemilih di sebelah kanan kotak masukan menentukan apa yang ditambahkan ke setiap kiriman Anda:</p>
+            <table>
+                <tr><th>Pilihan</th><th>Byte yang dikirim</th><th>Dipakai untuk</th></tr>
+                <tr><td>Tidak ada</td><td>(tidak ditambahkan apa pun)</td><td>Bila Anda mengendalikan sendiri setiap byte</td></tr>
+                <tr><td>LF</td><td><code>\n</code> (0x0A)</td><td>Sketch Arduino/ESP32 yang memakai <code>readStringUntil('\n')</code> — bawaan</td></tr>
+                <tr><td>CR</td><td><code>\r</code> (0x0D)</td><td><strong>Perintah AT modem dan sebagian besar firmware berbasis CLI</strong></td></tr>
+                <tr><td>CRLF</td><td><code>\r\n</code></td><td>Perangkat bergaya Windows dan sejumlah modul</td></tr>
+            </table>
+            <div class="highlight">
+                <strong>⚠️ Berurusan dengan modem? Pilih CR.</strong> Kumpulan perintah AT diakhiri dengan carriage return. Kalau Anda mengirim <code>LF</code> atau tidak sama sekali, modem terus menunggu penanda akhir — dan Anda <strong>tidak mendapat balasan apa pun</strong>. Itu bukan kegagalan sambungan; perintahnya memang belum pernah dianggap selesai.
+            </div>
+            <p>Pengaturan ini <strong>diingat</strong> dan dipulihkan saat Anda membuka halaman berikutnya.</p>
+        </section>
+
+        <section id="signals">
+            <h2><span class="icon">🚦</span> Panel sinyal RS-232</h2>
+            <p>Sederet indikator handshake muncul di bawah kepala halaman begitu Anda tersambung; saat terputus, seluruh baris itu disembunyikan.</p>
+
+            <figure class="shot">
+                <img src="img/header-signalbar.png" alt="Kepala halaman dengan panel sinyal RS-232">
+                <figcaption>RTS dan DTR (biru) adalah keluaran yang Anda kendalikan; DCD, DSR, dan CTS (hijau) adalah masukan dari perangkat</figcaption>
+            </figure>
+
+            <h3>LOCAL (OUT) — keluaran Anda, klik untuk mengubah</h3>
+            <table>
+                <tr><th>Indikator</th><th>Nama lengkap</th><th>Catatan</th></tr>
+                <tr><td><strong>BRK</strong></td><td>Break</td><td>Menegaskan kondisi break. Klik sekali untuk mulai, klik lagi untuk melepas</td></tr>
+                <tr><td><strong>RTS</strong></td><td>Request To Send</td><td>Biasanya diperlukan perangkat yang memakai kendali aliran perangkat keras</td></tr>
+                <tr><td><strong>DTR</strong></td><td>Data Terminal Ready</td><td><strong>Sebagian besar modem tidak menerima perintah kecuali DTR diaktifkan</strong></td></tr>
+            </table>
+            <p><strong>Mengapa awalnya padam?</strong> Web Serial API dapat <em>menetapkan</em> sinyal keluaran tetapi tidak dapat <em>membacanya kembali</em>. Sampai Anda mengkliknya, NuMonitor memang tidak tahu keadaannya, jadi ia menampilkan jawaban yang jujur alih-alih menebak apa yang dilakukan peramban saat membuka port.</p>
+            <div class="highlight">
+                <strong>⚠️ Pengguna Arduino dan ESP32:</strong> pada kebanyakan papan pengembangan, DTR dan RTS terhubung ke rangkaian auto-reset, sehingga mengubahnya <strong>bisa membuat papan melakukan boot ulang</strong>. NuMonitor sengaja tidak pernah menyentuh kedua sinyal ini saat menyambung — keputusan sepenuhnya di tangan Anda.
+            </div>
+
+            <h3>REMOTE (IN) — keluaran perangkat, hanya baca</h3>
+            <table>
+                <tr><th>Indikator</th><th>Nama lengkap</th><th>Menyala berarti</th></tr>
+                <tr><td><strong>DCD</strong></td><td>Data Carrier Detect</td><td>Ada pembawa — modem berhasil membangun sambungan</td></tr>
+                <tr><td><strong>DSR</strong></td><td>Data Set Ready</td><td>Perangkat menyala dan siap</td></tr>
+                <tr><td><strong>CTS</strong></td><td>Clear To Send</td><td>Perangkat bersedia menerima data</td></tr>
+                <tr><td><strong>RI</strong></td><td>Ring Indicator</td><td>Terdeteksi sinyal panggilan</td></tr>
+            </table>
+            <p>Keempatnya dibaca setiap 250 ms — Web Serial API tidak menyediakan kejadian perubahan sinyal, jadi pembacaan berkala adalah satu-satunya cara.</p>
+
+            <h3>ACT dan ERR</h3>
+            <ul>
+                <li><strong>ACT</strong> — berkedip setiap kali ada byte bergerak ke arah mana pun. Saat transfer berlangsung terus-menerus, ia tampak menyala tetap</li>
+                <li><strong>ERR</strong> — menjadi merah dan berkedip selama tiga detik pada kondisi framing error, parity error, buffer overrun, atau break yang diterima; klik untuk memadamkannya lebih awal. Sambungan <strong>tidak</strong> diputus — pembacaan dilanjutkan otomatis</li>
+            </ul>
+            <p><strong>Tentang parity error:</strong> saat ini port dibuka sebagai <strong>8N1</strong> — tanpa bit paritas, parity error mustahil terjadi, jadi dalam praktiknya ERR menanggapi framing error, overrun, dan break.</p>
+        </section>
+
+        <section id="plotter">
+            <h2><span class="icon">📈</span> Plotter</h2>
+
+            <figure class="shot">
+                <img src="img/plotter-line.png" alt="Plotter menampilkan grafik garis dengan tiga seri">
+                <figcaption>Setiap grup data menjadi tabnya sendiri. Legenda di bawah grafik menampilkan nilai terkini sekaligus berfungsi sebagai sakelar tampil/sembunyi.</figcaption>
+            </figure>
+
+            <h3>Penguraian otomatis</h3>
+            <p>Tidak ada yang perlu diatur. Cukup cetak teks biasa dari perangkat, dan NuMonitor menentukan sendiri apa yang digambar: baris yang memuat setidaknya satu angka yang bisa diurai menjadi data; sisanya tetap sebagai teks terminal biasa.</p>
+
+            <h3>Kendali grafik</h3>
+            <table>
+                <tr><th>Tombol</th><th>Fungsinya</th></tr>
+                <tr><td>Jeda</td><td>Membekukan grafik sementara data tetap masuk di latar belakang</td></tr>
+                <tr><td>Halus</td><td>Menggambar grafik garis dan area sebagai kurva mulus</td></tr>
+                <tr><td>Bersihkan</td><td>Membuang data grup tersebut</td></tr>
+                <tr><td>CSV</td><td>Mengekspor data grup sebagai berkas CSV</td></tr>
+                <tr><td>Latar</td><td>Menetapkan warna latar grafik, diingat per grup</td></tr>
+                <tr><td>Peta</td><td>Hanya muncul bila grup memuat koordinat <code>map:</code></td></tr>
+            </table>
+
+            <h3>Kursor sumbu X</h3>
+            <p>Gerakkan penunjuk menyusuri grafik untuk membaca nilai persis setiap seri pada sampel tersebut.</p>
+
+            <h3>Gulir untuk memperbesar</h3>
+            <p>Menggulir di atas grafik mengubah berapa banyak sampel yang ditampilkan, dari 20 sampai 2000 (bawaan 100). Memori menyimpan hingga 500 sampel per seri.</p>
+
+            <h3>Interaksi legenda</h3>
+            <p>Klik sebuah entri legenda untuk menyembunyikan atau menampilkan seri itu; klik kotak warnanya untuk mengganti warna, dan warna itu diingat.</p>
+        </section>
+
+        <section id="charts">
+            <h2><span class="icon">📊</span> Jenis grafik</h2>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/plotter-line.png" alt="Grafik garis">
+                    <figcaption><code>line</code> — deret waktu berkelanjutan, mendukung penghalusan</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-area.png" alt="Grafik area">
+                    <figcaption><code>area</code> — isian tembus pandang, menonjolkan besaran</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-stack.png" alt="Grafik area bertumpuk">
+                    <figcaption><code>stack</code> — komposisi yang berubah sepanjang waktu</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-scatter.png" alt="Grafik sebar">
+                    <figcaption><code>scatter</code> — sebaran, derau, dan pencilan</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-bar.png" alt="Grafik batang">
+                    <figcaption><code>bar</code> — membandingkan nilai terbaru dari beberapa kategori</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-gauge.png" alt="Grafik gauge">
+                    <figcaption><code>gauge</code> — memantau satu nilai; beberapa nilai tersusun otomatis menjadi kisi</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-pie.png" alt="Grafik pai">
+                    <figcaption><code>pie</code> — proporsi, paling pas untuk 2–8 kategori</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/gps-map.png" alt="Peta jejak GPS">
+                    <figcaption>🗺️ Tampilan peta — bukan jenis grafik, melainkan tampilan tambahan yang muncul bila data memuat <code>map:</code></figcaption>
+                </figure>
+            </div>
+
+            <div class="highlight">
+                <strong>Catatan:</strong> <code>map</code> <strong>bukan</strong> jenis grafik yang sah. Menulis <code>{X|0|1|map}</code> akan dikembalikan menjadi <code>line</code>. Peta adalah sakelar tampilan yang muncul pada tab mana pun yang datanya membawa koordinat.
+            </div>
+        </section>
+
+        <section id="map">
+            <h2><span class="icon">🗺️</span> Pelacakan GPS</h2>
+
+            <figure class="shot">
+                <img src="img/gps-map.png" alt="Jejak GPS di atas lapisan dasar OpenStreetMap">
+                <figcaption>Peta dasar berasal dari OpenStreetMap. Kendali di bawahnya mengatur berapa titik jejak yang disimpan dan apakah tampilan mengikuti posisi terbaru; tombol di kanan atas kembali ke grafik.</figcaption>
+            </figure>
+
+            <h3>Mengaktifkan peta</h3>
+            <p>Tambahkan <code>map:lintang,bujur</code> pada baris data mana pun. Tombol 🗺️ akan muncul pada tab tersebut.</p>
+
+            <h3>Format koordinat</h3>
+            <table>
+                <tr><th>Format</th><th>Contoh</th></tr>
+                <tr><td>Derajat desimal (boleh negatif)</td><td><code>map:25.051075,121.630951</code></td></tr>
+                <tr><td>Derajat desimal dengan arah mata angin</td><td><code>map:25.051075N,121.630951E</code></td></tr>
+                <tr><td>Derajat dan menit</td><td><code>map:25°3.0645'N,121°37.857'E</code></td></tr>
+                <tr><td>Derajat, menit, dan detik</td><td><code>map:25°3'3.87"N,121°37'51.4"E</code></td></tr>
+            </table>
+            <p>Koordinat di luar lintang ±90° atau bujur ±180° ditolak.</p>
+
+            <h3>Kendali peta</h3>
+            <ul>
+                <li><strong>Titik jejak</strong> — berapa posisi terakhir yang tetap tampil di peta, dari 1 sampai 100 (bawaan 10)</li>
+                <li><strong>Ikuti</strong> — menjaga posisi terbaru tetap di tengah; matikan untuk menggeser dan memperbesar dengan bebas tanpa peta melompat kembali</li>
+                <li>Mengklik penanda jejak menampilkan koordinat dan nilai data yang tercatat di titik itu</li>
+            </ul>
+        </section>
+
+        <section id="format">
+            <h2><span class="icon">📝</span> Rujukan format data</h2>
+
+            <h3>Sintaks lengkap</h3>
+            <div class="code-block">{NamaGrup|Ymin|Ymaks|jenisGrafik}#pencacah Label:Nilai Label=Nilai map:lintang,bujur</div>
+
+            <h3>Bagian-bagiannya</h3>
+            <table>
+                <tr><th>Bagian</th><th>Wajib</th><th>Catatan</th></tr>
+                <tr><td>Nama grup</td><td>Tidak</td><td>Menjadi sebuah tab. Teks apa pun, termasuk aksara non-Latin</td></tr>
+                <tr><td>Y min / Y maks</td><td>Tidak</td><td>Sebuah angka, atau <code>auto</code>. Apa pun yang tak terurai dianggap auto</td></tr>
+                <tr><td>Jenis grafik</td><td>Tidak</td><td><code>line</code> <code>area</code> <code>stack</code> <code>scatter</code> <code>bar</code> <code>gauge</code> <code>pie</code>; selain itu dikembalikan ke <code>line</code></td></tr>
+                <tr><td><code>#pencacah</code></td><td>Tidak</td><td>Tepat setelah <code>}</code>. Memberi label sumbu X; menerima nilai negatif dan desimal</td></tr>
+                <tr><td>Titik data</td><td><strong>Ya</strong></td><td>Minimal satu angka yang bisa diurai, kalau tidak baris itu tetap teks biasa</td></tr>
+                <tr><td><code>map:</code></td><td>Tidak</td><td>Menambahkan tampilan peta pada tab tersebut</td></tr>
+            </table>
+
+            <h3>Menulis titik data</h3>
+            <div class="code-block">Serial.println("Temp:25.5 Humidity:60.2");   // Kunci:Nilai — disarankan
+Serial.println("Temp=25.5 Humidity=60.2");   // Kunci=Nilai
+Serial.println("25.5 60.2 1013.2");          // angka polos → CH1, CH2, CH3
+Serial.println("Temp\t25.5");                // Label [tab/spasi] Nilai</div>
+            <ul>
+                <li>Pemisah: spasi, koma, atau tab</li>
+                <li>Pemisah label/nilai: <code>:</code> atau <code>=</code></li>
+                <li><strong>Satuan dibuang otomatis</strong> — <code>25.5°C</code>, <code>60.2%</code>, dan <code>40.5km/h</code> semuanya terurai menjadi angka di depannya</li>
+                <li>Bagian yang tak terurai dilewati tanpa membuang sisa barisnya</li>
+            </ul>
+
+            <h3>Contoh sketch</h3>
+            <div class="code-block">// Pemantauan lingkungan dengan satuan dan pencacah sampel
+void loop() {
+  Serial.print("{Environment|0|100|line}#");
+  Serial.print(seq++);
+  Serial.print(" Temp:"); Serial.print(readTemp(), 1); Serial.print("°C");
+  Serial.print(" RH:");   Serial.print(readRH(), 1);   Serial.println("%");
+  delay(100);   // 10 Hz
+}
+
+// Tiga tab sekaligus
+void loop() {
+  Serial.print("{Temperature|15|35|line}Indoor:");  Serial.print(t1);
+  Serial.print(" Outdoor:"); Serial.println(t2);
+
+  Serial.print("{System|0|100|bar}CPU:"); Serial.print(cpu);
+  Serial.print(" MEM:"); Serial.println(mem);
+
+  Serial.print("{Battery|0|100|gauge}Level:"); Serial.println(bat);
+  delay(500);
+}
+
+// Telemetri drone dengan jejak GPS
+void loop() {
+  Serial.print("{Drone|0|120|line}#"); Serial.print(frame++);
+  Serial.print(" Alt:");   Serial.print(alt, 1);
+  Serial.print(" Speed:"); Serial.print(spd, 1);
+  Serial.print(" map:");   Serial.print(lat, 6);
+  Serial.print(",");       Serial.println(lng, 6);
+  delay(200);
+}</div>
+
+            <h3>Batasan</h3>
+            <table>
+                <tr><th>Hal</th><th>Batas</th></tr>
+                <tr><td>Grup (tab) serentak</td><td>10 — grup selebihnya diabaikan diam-diam</td></tr>
+                <tr><td>Sampel yang disimpan per seri</td><td>500</td></tr>
+                <tr><td>Sampel yang ditampilkan</td><td>Bawaan 100, 20–2000 lewat roda gulir</td></tr>
+                <tr><td>Titik jejak GPS</td><td>Bawaan 10, dapat diatur 1–100</td></tr>
+                <tr><td>Palet warna</td><td>32 warna, setelah itu berulang</td></tr>
+                <tr><td>Baud rate</td><td>300 – 2.000.000</td></tr>
+            </table>
+        </section>
+
+        <section id="faq">
+            <h2><span class="icon">❓</span> Tanya jawab</h2>
+
+            <h3>T: Tidak ada port yang terdaftar.</h3>
+            <p><strong>J:</strong> Periksa apakah perangkat sudah tercolok, driver USB sudah terpasang, Anda memakai Chrome/Edge/Opera, dan tidak ada program lain yang sedang memegang port itu — biang keladi yang paling sering adalah Serial Monitor Arduino IDE.</p>
+
+            <h3>T: Yang muncul cuma karakter berantakan.</h3>
+            <p><strong>J:</strong> Baud rate tidak cocok. Setel NuMonitor ke nilai yang sama dengan <code>Serial.begin()</code> pada perangkat Anda.</p>
+
+            <h3>T: Grafiknya tidak muncul.</h3>
+            <p><strong>J:</strong> Pastikan sakelar plotter (📊) menyala, baris datanya memuat setidaknya satu angka yang bisa diurai, dan Anda belum menyentuh batas 10 grup.</p>
+
+            <h3>T: Modem saya sama sekali tidak menjawab perintah AT.</h3>
+            <p><strong>J:</strong> Kerjakan berurutan seperti ini:</p>
+            <ol>
+                <li><strong>Setel akhiran baris ke CR</strong> — ini penyebab yang paling sering. Perintah AT harus diakhiri carriage return; dengan LF bawaan, modem tidak pernah menjawab</li>
+                <li><strong>Aktifkan DTR</strong> (dan RTS bila modem memakai kendali aliran perangkat keras) dari panel sinyal. Program terminal lain menaikkan sinyal ini otomatis saat membuka port; NuMonitor sengaja tidak, agar tidak me-reset papan pengembangan</li>
+                <li><strong>Periksa DSR dan CTS</strong> — DSR padam berarti perangkat tidak bertenaga atau salah kabel; CTS padam berarti ia tidak sedang menerima data</li>
+                <li><strong>Pastikan baud rate-nya benar</strong></li>
+                <li>Nyalakan <strong>echo</strong> dan perhatikan pencacah <strong>TX bytes</strong> untuk membuktikan data memang sudah keluar dari komputer</li>
+            </ol>
+
+            <h3>T: Apa beda sambung ulang otomatis dan sambung otomatis?</h3>
+            <p><strong>J:</strong> Satu sakelar mengatur dua perilaku:</p>
+            <ul>
+                <li><strong>Perangkat dicabut saat tersambung</strong> → mencoba lagi setiap detik, tanpa batas, sampai perangkat kembali</li>
+                <li><strong>Halaman dimuat ulang atau dibuka lagi</strong> → menyambung ke port terakhir dan memulihkan baud rate-nya</li>
+            </ul>
+            <p>Kalau Anda memutus sambungan <strong>dengan sengaja</strong> sebelum meninggalkan halaman, ia tidak akan menyambung sendiri. Keadaan sakelarnya sendiri juga diingat.</p>
+
+            <h3>T: Sambungan ESP32 tidak stabil.</h3>
+            <p><strong>J:</strong> Perangkat USB CDC pada ESP32 bisa membuat objek portnya tidak berlaku lagi setelah boot ulang. NuMonitor membuang handle yang basi itu dan mengambil ulang port melalui peramban — karena itulah penyambungan ulang tetap berhasil tanpa Anda perlu memilih perangkat lagi.</p>
+
+            <h3>T: Bagaimana cara mengekspor data?</h3>
+            <p><strong>J:</strong> Klik <strong>CSV</strong> pada baris kendali grafik untuk mengekspor grup tersebut.</p>
+
+            <h3>T: Bagaimana mengganti tema atau bahasa?</h3>
+            <p><strong>J:</strong> Gunakan sakelar bulan/matahari dan pemilih bahasa di kanan atas. Keduanya diingat. Warna grafik dan terminal mengikuti tema.</p>
+            <p>Tautan <strong>Panduan</strong> dan lencana versi juga mengikuti bahasa antarmuka. Dokumen ini tersedia dalam English, 日本語, Tiếng Việt, Bahasa Indonesia, Bahasa Melayu, dan <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/doc/manual.html">繁體中文</a> — pilih lewat kotak di kanan atas. Bahasa antarmuka yang belum punya panduan sendiri akan menampilkan versi bahasa Inggris.</p>
+
+            <figure class="shot">
+                <img src="img/language-menu.png" alt="Menu bahasa yang memuat 18 bahasa">
+                <figcaption>18 bahasa antarmuka, termasuk aksara yang ditulis dari kanan ke kiri (Arab, Ibrani, Persia)</figcaption>
+            </figure>
+
+            <figure class="shot">
+                <img src="img/theme-light.png" alt="Tema terang">
+                <figcaption>Tema terang — kisi grafik, teks, dan latar semuanya mengikuti tema</figcaption>
+            </figure>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>NuMonitor V26.11.0 | Dikembangkan oleh <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
+        <p style="margin-top: 10px;">
+            <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">Jalankan NuMonitor</a> |
+            <a href="changelog.html" data-sibling="changelog.html">Catatan perubahan</a> |
+            <a href="https://github.com/Nuxtack-tw/NuMonitor4SerialPort">Kode sumber</a>
+        </p>
+    </footer>

@@ -1,0 +1,542 @@
+
+    <div class="container">
+        <header class="header">
+            <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/" class="logo-link">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 32373 33553" fill="#81D8D0">
+                        <path d="M32306.51 13651.25l-11174.46 -5592.01 0 -7198.5c12113.32,6376.73 11174.53,3823.33 11174.46,12790.52z"/>
+                        <path d="M16.96 19856.56l11174.46 5592.01 0 7198.5c-12113.32,-6376.73 -11174.53,-3823.33 -11174.46,-12790.52z"/>
+                        <polygon points="16.96,9927.52 32373.56,26094.99 32373.56,33553.52 16.89,17370.21"/>
+                        <polygon points="16.89,0 32373.5,16167.46 32373.5,23625.99 16.83,7442.68"/>
+                    </svg>
+                </div>
+                <div class="logo-text"><span class="nu-color">NuMonitor</span> for Serial Port</div>
+            </a>
+            <div class="header-subtitle">Log Perubahan</div>
+        </header>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.11.0</span>
+                <span class="version-date">2026-07-31</span>
+                <span class="version-tag tag-latest">Terkini</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Panduan dan log perubahan dalam lima bahasa</div>
+                <ul class="change-list">
+                    <li><strong>Log perubahan ini dan panduan pengguna kini tersedia dalam English, 日本語, Tiếng Việt, Bahasa Indonesia dan Bahasa Melayu</strong>, selain edisi 繁體中文 yang sedia ada</li>
+                    <li>Membuka mana-mana satu daripada dua dokumen ini daripada NuMonitor kini membawa sekali bahasa antara muka anda, jadi halaman yang terbuka sudah pun dalam bahasa yang betul</li>
+                    <li>Pemilih bahasa terletak di penjuru kanan atas kedua-dua dokumen; pilihan anda diingati</li>
+                    <li>Bahasa antara muka yang belum mempunyai terjemahan tersendiri akan memaparkan versi bahasa Inggeris, dan halaman itu menyatakannya secara terbuka dan bukan bertukar secara senyap</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.10.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Pautan dokumentasi mengikut bahasa antara muka</div>
+                <ul class="change-list">
+                    <li><strong>Menukar antara muka kepada bahasa lain masih membuka dokumentasi bahasa Cina</strong> — kedua-dua pautan itu ditulis mati dan tidak mengambil kira bahasa</li>
+                    <li>Pautan Panduan dan lencana versi kini ditentukan mengikut bahasa semasa</li>
+                    <li>Atribut bahasa halaman sentiasa <code>zh-TW</code> tidak kira bahasa yang dipilih; kini ia mengikut bahasa yang sebenar, sesuatu yang penting bagi pembaca skrin dan alat terjemahan</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.10.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Penamat baris diingati</div>
+                <ul class="change-list">
+                    <li><strong>Pilihan penamat baris (Tiada / LF / CR / CRLF) kini kekal</strong> dan dipulihkan apabila halaman dibuka semula</li>
+                    <li>Amat berguna dengan modem: arahan AT mesti ditamatkan dengan <strong>CR</strong>, manakala LF yang lalai langsung tidak mendapat jawapan</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.9.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Kebolehbacaan panel isyarat</div>
+                <ul class="change-list">
+                    <li>Teks pada penunjuk isyarat terlalu kurang kontrasnya berbanding latar; keseluruhan baris kini menggunakan palet yang sama dengan butang pada pengepala — sama latar, sama sempadan, sama warna teks dan sama bulatan sudutnya</li>
+                    <li>Saiz huruf sedikit dibesarkan, dan titik penunjuk yang padam dicerahkan supaya terbaca sebagai "ada tetapi tidak menyala" dan bukannya hampir tidak kelihatan</li>
+                    <li>Warna isyarat (output biru, input hijau, ACT jingga, ERR merah) kini muncul hanya apabila isyarat itu benar-benar ditegaskan</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.9.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Panel isyarat disembunyikan ketika terputus</div>
+                <ul class="change-list">
+                    <li><strong>Panel isyarat RS-232 kini disembunyikan sepenuhnya ketika terputus</strong> dan bukannya sekadar dimalapkan — tanpa sambungan, penunjuk itu tidak membawa apa-apa makna dan barisnya hanya memakan ruang</li>
+                    <li>Ia muncul apabila tersambung dan hilang serta-merta apabila diputuskan, sekali gus menghentikan tinjauan berkalanya</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.8.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Panel isyarat RS-232</div>
+                <div class="feature-highlight">
+                    <h4>🚦 Sebaris penunjuk jabat tangan di bawah pengepala</h4>
+                    <p>Setiap talian kawalan RS-232 dalam satu pandangan — dan isyarat outputnya boleh diklik untuk ditukar.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>LOCAL (OUT): BRK / RTS / DTR</strong> — klik satu penunjuk untuk menukar output itu; dilumpuhkan ketika terputus
+                        <ul>
+                            <li>Dipaparkan padam sehingga klik pertama: pelayar boleh menetapkan isyarat output tetapi tidak boleh membaca keadaan semasanya</li>
+                            <li>NuMonitor sengaja tidak menetapkan DTR/RTS semasa menyambung, kerana pada kebanyakan papan Arduino dan ESP32 talian itu memacu litar tetapan semula automatik</li>
+                        </ul>
+                    </li>
+                    <li><strong>REMOTE (IN): DCD / DSR / CTS / RI</strong> — baca sahaja, disegarkan setiap 250 ms</li>
+                    <li><strong>ACT</strong> — berkelip setiap kali bait bergerak ke mana-mana arah</li>
+                    <li><strong>ERR</strong> — berkelip merah selama tiga saat apabila berlaku ralat rangka, ralat pariti, limpahan penimbal atau break diterima; klik untuk memadamkannya. Pembacaan kini pulih sendiri dan bukannya memutuskan sambungan</li>
+                </ul>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">⚠️</span>Tentang ralat pariti</div>
+                <ul class="change-list">
+                    <li>Port dibuka sebagai <strong>8N1 (tanpa pariti)</strong>, jadi ralat pariti tidak mungkin berlaku — dalam amalannya ERR bertindak balas terhadap ralat rangka, limpahan dan break</li>
+                    <li>Untuk mengesan ralat pariti yang sebenar, tetapan pariti / bit data / bit henti perlu didedahkan dahulu dalam antara muka</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.7.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Pembalutan pengepala dibetulkan</div>
+                <ul class="change-list">
+                    <li><strong>Pengepala membalut ke baris kedua jauh lebih awal daripada waktu ia benar-benar sesak</strong> — puncanya ialah titik putus yang ditulis mati, yang menyusun pengepala secara menegak apabila lebar kurang daripada 1200 px, walaupun masih ada 400 px ruang kosong antara kawalan itu</li>
+                    <li>Titik putus itu telah dibuang; susun atur kini hanya membalut apabila kawalan benar-benar tidak muat lagi</li>
+                    <li>Titik balutan yang diukur beralih daripada 1200 px kepada kira-kira 899 px — pada lebar itu, dua kawalan terakhir hanya berjarak kira-kira 13 px</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.7.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Susun atur pengepala</div>
+                <ul class="change-list">
+                    <li><strong>Suis tema dan pemilih bahasa kini rapat pada tepi kanan</strong>, memisahkan kawalan sambungan (kiri) daripada keutamaan (kanan)</li>
+                    <li>Garis pemisah di hadapannya telah dibuang — jurang itu sendiri sudah memisahkan kedua-dua kumpulan</li>
+                    <li>Kedua-duanya kekal dijajarkan ke kanan apabila tetingkap cukup sempit sehingga perlu membalut</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.6.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Menyambung semula selepas halaman dimuat semula</div>
+                <div class="feature-highlight">
+                    <h4>🔄 Tidak perlu lagi mengklik Sambung selepas setiap kali menyegarkan</h4>
+                    <p>Jika port yang anda guna kali terakhir masih ada, NuMonitor menyambung semasa memuat dan memulihkan kadar baudnya sekali.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Ketiga-tiga syarat ini mesti dipenuhi</strong>
+                        <ul>
+                            <li>Sambung semula automatik sedang dihidupkan</li>
+                            <li>Kali terakhir anda <strong>tidak</strong> memutuskan sambungan dengan sengaja (peranti yang tercabut tidak dikira)</li>
+                            <li>Port itu masih ada dan masih dibenarkan</li>
+                        </ul>
+                    </li>
+                    <li>Jika port itu tiada, NuMonitor <strong>tidak</strong> memulakan tinjauan berterusan — merampas port sebaik halaman dimuat akan menghalang program lain seperti Arduino IDE</li>
+                    <li>Sambungan automatik yang gagal hanya mencatat satu baris dan bukannya membuka keseluruhan panel penyelesaian masalah</li>
+                </ul>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Pembetulan</div>
+                <ul class="change-list">
+                    <li><strong>Suis sambung semula automatik kini mengingati keadaannya</strong> — sebelum ini ia kembali hidup selepas setiap kali dimuat semula</li>
+                    <li>Rekod port yang diingati kini termasuk kadar baud, jadi nilai itu turut dipulihkan</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.5.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Sinaran berdenyut lebih terang</div>
+                <ul class="change-list">
+                    <li>Sinaran "Tersambung" terlalu samar untuk disedari di atas latar gelap; kini ia jauh lebih terang</li>
+                    <li>Dibina semula sebagai dua lapisan — garis luar padat untuk ketegasan bentuk, ditambah lingkaran cahaya lembut yang mengembang supaya denyutan itu kelihatan; kecerahan puncaknya lebih enam kali ganda nilai sebelumnya</li>
+                    <li>Sinaran jingga ketika menyambung semula turut dikuatkan sepadan</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.5.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Penambahbaikan butang sambung</div>
+                <ul class="change-list">
+                    <li><strong>Penunjuk berdenyut bertukar menjadi sinaran yang mengelilingi seluruh butang</strong>, menggantikan titik kecil di sebelah "Tersambung" — isyarat yang lebih jelas dan butang yang lebih kemas
+                        <ul>
+                            <li>Tersambung: sinaran hijau, kitaran 2.6 saat</li>
+                            <li>Menyambung semula: sinaran jingga, kitaran 1.1 saat</li>
+                            <li>Menuding pada butang menghentikan animasi</li>
+                        </ul>
+                    </li>
+                    <li><strong>Anak panah menu port disembunyikan sepenuhnya ketika tersambung</strong> dan bukannya dimalapkan — tiada port untuk dipilih sementara sambungan terbuka</li>
+                    <li>Anak panah itu kekal tersedia ketika menyambung semula, jadi anda boleh bertukar ke port lain di pertengahan percubaan</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.4.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Status sambungan digabungkan ke dalam butang</div>
+                <div class="feature-highlight">
+                    <h4>🔗 Penunjuk "Tidak tersambung / Tersambung" yang berasingan telah tiada</h4>
+                    <p>Butang itu sendiri ialah lampu status: warnanya memberitahu keadaan, tulisannya memberitahu apa yang akan berlaku apabila diklik.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Tiga keadaan, tiga warna</strong>
+                        <ul>
+                            <li><strong>Biru "Sambung"</strong> — belum tersambung</li>
+                            <li><strong>Hijau "Tersambung"</strong> — tersambung, dengan sinaran berdenyut perlahan</li>
+                            <li><strong>Jingga "Menyambung…"</strong> — peranti hilang, sambungan semula automatik sedang berjalan, iramanya lebih pantas</li>
+                        </ul>
+                    </li>
+                    <li><strong>Menuding padanya menunjukkan akibatnya terlebih dahulu</strong>: ketika tersambung ia bertukar merah dan berbunyi "Putuskan"; ketika menyambung semula ia bertukar merah dan berbunyi "Batal". Animasi berhenti supaya anda tidak mengklik sasaran yang bergerak</li>
+                    <li><strong>Mengklik ketika menyambung semula akan membatalkan percubaan itu</strong> (sebelum ini ia memulakan percubaan sambungan yang berasingan)</li>
+                    <li>Ikon palam dan pangkah digugurkan, digantikan warna status, menjadikan butang itu lebih kecil</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.3.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Warna teks pengepala diseragamkan</div>
+                <ul class="change-list">
+                    <li><strong>"Panduan", lencana versi dan "Sambung Semula Automatik" satu tingkat lebih gelap</strong> berbanding yang lain pada baris itu; kini keseluruhan pengepala menggunakan satu warna teks</li>
+                    <li>Semua teks dan ikon pada pengepala mengikut satu pemboleh ubah: <code>#e6edf3</code> dalam mod gelap, <code>#1f2328</code> dalam mod cerah</li>
+                    <li>Satu-satunya pengecualian ialah tulisan putih pada butang Sambung/Putuskan yang berlatar padat, iaitu memang warna hadapan butang itu</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.3.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Pengepala lebih padat, tanpa huruf tebal</div>
+                <ul class="change-list">
+                    <li><strong>Ketinggian kawalan dikurangkan daripada 26 px kepada 22 px</strong>; jumlah ketinggian pengepala kini 33.7 px, 45 % lebih rendah berbanding sebelum reka bentuk semula</li>
+                    <li><strong>Semua huruf tebal dibuang daripada pengepala</strong>, termasuk logonya — semuanya berketebalan biasa</li>
+                    <li>Setiap label telah disahkan masih muat di dalam kawalan yang lebih pendek tanpa terpotong</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.2.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Tipografi pengepala diseragamkan</div>
+                <div class="feature-highlight">
+                    <h4>📏 Satu saiz, satu ketebalan, satu ketinggian</h4>
+                    <p>Sebelum ini pengepala mencampurkan tiga saiz huruf, tiga ketebalan dan ketinggian kawalan antara 29 px hingga 36 px.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Setiap kawalan kini sama ketinggian, saiz, ketebalan dan bulatan sudutnya</strong>
+                        <ul>
+                            <li>Hierarki visual datang daripada warna teks, bukan daripada saiz atau ketebalan</li>
+                            <li>Kadar baud mengekalkan muka taip lebar tetap supaya digitnya sejajar</li>
+                        </ul>
+                    </li>
+                    <li><strong>Pengepala 36 % lebih rendah</strong>, meninggalkan lebih banyak ruang untuk terminal</li>
+                    <li>Penunjuk status bertukar daripada bentuk pil kepada segi empat bersudut bulat yang sepadan dengan kawalan lain</li>
+                    <li>Butang pada baris input dan pada pemilih warna mengekalkan saiz asalnya</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.1.0</span>
+                <span class="version-date">2026-07-30</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Satu butang untuk menyambung dan memutuskan</div>
+                <div class="feature-highlight">
+                    <h4>🔌 "Pilih Port" dan "Putuskan" digabungkan menjadi butang terbelah</h4>
+                    <p>Biru "Sambung" ketika terbiar, merah "Putuskan" sebaik tersambung — dan tiada lagi dialog port setiap kali digunakan.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Dialog port tidak lagi muncul setiap kali.</strong> Mengklik Sambung akan mencuba, mengikut susunan:
+                        <ul>
+                            <li>port yang digunakan kali terakhir</li>
+                            <li>port yang cipnya dikenali (CH340 / CP210x / FTDI / ESP32 / Arduino dan seumpamanya)</li>
+                            <li>satu-satunya port yang dibenarkan, jika memang hanya ada satu</li>
+                            <li>dan barulah selepas itu pemilih port pelayar</li>
+                        </ul>
+                    </li>
+                    <li><strong>Anak panah ▾ membuka menu port</strong>
+                        <ul>
+                            <li>Menyenaraikan setiap port yang dibenarkan berserta label tersuai atau nama cipnya; peranti yang serupa dibezakan dengan <code>#indeks</code></li>
+                            <li>Port yang digunakan kali terakhir ditandakan dengan ★</li>
+                            <li>Entri terakhir, <em>Lain… (pemilih pelayar)</em>, memberi kebenaran kepada peranti baharu</li>
+                        </ul>
+                    </li>
+                    <li>Port terakhir diingati dalam storan setempat bersama VID/PID dan indeksnya</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.0.0</span>
+                <span class="version-date">2026-07-30</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Nombor versi berasaskan tahun</div>
+                <div class="feature-highlight">
+                    <h4>🔢 Beralih kepada V<em>a</em>.<em>b</em>.<em>c</em></h4>
+                    <p>Bermula keluaran ini, <strong>a</strong> ialah dua digit terakhir tahun (2026 → 26), <strong>b</strong> mengira ciri dan <strong>c</strong> mengira pembetulan; menaikkan satu segmen akan mengosongkan segmen selepasnya. v3.0.1 ialah keluaran terakhir di bawah skema semantik yang lama.</p>
+                </div>
+                <ul class="change-list">
+                    <li><strong>Elemen <code>&lt;title&gt;</code> menjadi satu-satunya sumber kebenaran</strong> bagi nombor versi
+                        <ul>
+                            <li>Lencana pada pengepala membacanya semasa program berjalan dan bukannya menulisnya mati</li>
+                            <li>Mesej permulaan dalam konsol juga begitu, jadi nombor itu tidak mungkin berbeza antara satu tempat dengan yang lain</li>
+                        </ul>
+                    </li>
+                    <li><strong>Aliran kerja syot simpanan ditambah</strong>: setiap keluaran membekukan fail semasa ke dalam <code>backup/</code> sebelum perubahan dimulakan</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v3.0.1</span>
+                <span class="version-date">2026-03-18</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Penambahbaikan sambungan semula automatik</div>
+                <ul class="change-list">
+                    <li><strong>Tempoh percubaan semula kini tanpa had.</strong> Sebelum ini ia berputus asa selepas kira-kira 30 percubaan; kini ia mencuba setiap saat sehingga peranti itu kembali atau anda mematikan sambungan semula automatik</li>
+                    <li>Berguna untuk ketiadaan yang lama: memuat semula perisian tegar, peranti but semula, hab USB berkuasa yang dimatikan dan dihidupkan</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v3.0.0</span>
+                <span class="version-date">2026-03-10</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Tema cerah</div>
+                <ul class="change-list">
+                    <li><strong>Tema baharu bergaya GitHub Light</strong> dengan suis serta-merta di penjuru kanan atas
+                        <ul>
+                            <li>Setiap elemen menyesuaikan diri: antara muka, terminal dan carta</li>
+                            <li>Warna penekan ditala semula agar sesuai dengan latar cerah</li>
+                        </ul>
+                    </li>
+                    <li><strong>Pilihan itu disimpan</strong> dan kekal merentas sesi</li>
+                    <li>Kanvas carta mengikut tema secara langsung, membaca palet semasa pada setiap lukisan semula</li>
+                    <li>Tip alat bagi tema diterjemahkan ke dalam kesemua 18 bahasa antara muka</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v2.0.0</span>
+                <span class="version-date">2026-01-22</span>
+                <span class="version-tag tag-major">Besar</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Pemplot dirombak</div>
+                <ul class="change-list">
+                    <li><strong>Format data diperluas</strong> — pembilang sampel dengan <code>#nombor</code> dan koordinat dengan <code>map:</code></li>
+                    <li><strong>Carta kawasan bertindan</strong> (<code>stack</code>) ditambah sebagai jenis carta yang ketujuh</li>
+                    <li><strong>Kursor paksi X</strong> — tuding pada carta untuk membaca setiap siri pada sampel tersebut</li>
+                    <li><strong>Jejak GPS</strong> di atas lapisan asas OpenStreetMap, dengan bilangan titik jejak yang boleh dilaras dan kunci paparan</li>
+                    <li><strong>Pengesanan URL</strong> dalam terminal menjadikan pautan boleh diklik</li>
+                    <li>Panduan pengguna berformat HTML diterbitkan bersama aplikasi ini</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.9.0</span>
+                <span class="version-date">2026-01-21</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Penyesuaian warna terminal</div>
+                <ul class="change-list">
+                    <li>TX, RX dan mesej sistem masing-masing mendapat warna yang boleh ditetapkan secara berasingan</li>
+                    <li>Warna dipilih daripada dialog contoh warna dan disimpan antara sesi</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.8.0</span>
+                <span class="version-date">2026-01-14</span>
+                <span class="version-tag tag-major">Besar</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Antara muka 18 bahasa</div>
+                <ul class="change-list">
+                    <li>Terjemahan antara muka yang lengkap ke dalam 18 bahasa dengan pemilih berbendera</li>
+                    <li>Pengesanan automatik bahasa pelayar, dan pilihan anda diingati selepas itu</li>
+                    <li>Sokongan susun atur kanan ke kiri bagi bahasa Arab, Ibrani dan Parsi</li>
+                    <li>Mesej yang dijana secara dinamik turut diterjemahkan, bukan setakat label statik</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.7.0</span>
+                <span class="version-date">2026-01-14</span>
+                <span class="version-tag tag-feature">Ciri</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Sintaks kumpulan dipermudah dan suis pemplot</div>
+                <ul class="change-list">
+                    <li>Sintaks takrifan kumpulan disusun semula kepada bentuk <code>{Nama|min|maks|jenis}</code> seperti sekarang</li>
+                    <li>Satu suis untuk mematikan pelukisan carta sepenuhnya dan menggunakan NuMonitor sebagai terminal biasa</li>
+                    <li>Tab carta boleh dinamakan semula dan ditutup satu per satu</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.6.0</span>
+                <span class="version-date">2026-01-08</span>
+                <span class="version-tag tag-major">Besar</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Serial Plotter</div>
+                <ul class="change-list">
+                    <li><strong>Enjin pelukis carta tiba</strong> — enam jenis carta dilukis secara langsung daripada teks bersiri</li>
+                    <li>Berbilang kumpulan data, setiap satu pada tabnya sendiri</li>
+                    <li>Tatal untuk mengubah bilangan sampel yang dipaparkan</li>
+                    <li>Pelicinan pilihan, julat paksi Y yang boleh ditetapkan, warna bagi setiap siri dan petunjuk</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.5.0</span>
+                <span class="version-date">2026-01-04</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Sejarah arahan dan label peranti</div>
+                <ul class="change-list">
+                    <li>Arahan yang dihantar disimpan dalam senarai sejarah untuk dihantar semula dengan pantas</li>
+                    <li>Nama tersuai boleh diberikan kepada peranti dan diingati mengikut VID:PID</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.4.0</span>
+                <span class="version-date">2026-01-03</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-fix">🔧</span>Pembetulan pepijat</div>
+                <ul class="change-list">
+                    <li>Pembetulan kestabilan berkaitan penyambungan, pemutusan dan pembersihan strim</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.3.0</span>
+                <span class="version-date">2026-01-02</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Ciri-ciri terminal</div>
+                <ul class="change-list">
+                    <li>Cap masa, tatal automatik, mod paparan TXT/HEX dan pemilihan penamat baris</li>
+                    <li>Pengecaman cip USB yang memaparkan nama peranti yang mesra</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v1.0.0 ~ v1.2.0</span>
+                <span class="version-date">2025-12-30 ~ 2026-01-01</span>
+            </div>
+            <div class="change-category">
+                <div class="category-title"><span class="category-icon icon-new">🆕</span>Keluaran terawal</div>
+                <ul class="change-list">
+                    <li>Sambungan Web Serial pertama yang berfungsi: pemilihan port, kadar baud, hantar dan terima</li>
+                    <li>Seni bina fail tunggal dan antara muka gelap bergaya GitHub ditetapkan</li>
+                    <li>Sambungan semula automatik diperkenalkan</li>
+                </ul>
+            </div>
+        </article>
+
+        <footer class="footer">
+            <p>NuMonitor for Serial Port | Dibangunkan oleh <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
+            <p style="margin-top: 10px;">
+                <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">Jalankan NuMonitor</a> |
+                <a href="manual.html" data-sibling="manual.html">Panduan pengguna</a> |
+                <a href="https://github.com/Nuxtack-tw/NuMonitor4SerialPort">Kod sumber</a>
+            </p>
+        </footer>
+    </div>
+

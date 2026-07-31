@@ -1,0 +1,409 @@
+    <header class="header">
+        <h1>📡 NuMonitor ユーザーマニュアル</h1>
+        <p class="subtitle">Web Serial による本格的なシリアル監視とデータ可視化</p>
+        <span class="version">V26.11.0</span>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#intro">概要</a>
+            <a href="#requirements">動作条件</a>
+            <a href="#quickstart">クイックスタート</a>
+            <a href="#terminal">ターミナル</a>
+            <a href="#signals">信号パネル</a>
+            <a href="#plotter">プロッタ</a>
+            <a href="#charts">グラフの種類</a>
+            <a href="#map">GPS マップ</a>
+            <a href="#format">データ形式</a>
+            <a href="#faq">FAQ</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section id="intro">
+            <h2><span class="icon">🎯</span> 概要</h2>
+            <p>NuMonitor は Arduino、ESP32、モデム、組み込み開発全般のためのシリアルポートモニタです。Arduino IDE のシリアルモニタを置き換えるもので、リアルタイムのグラフ描画、GPS トラッキング、RS-232 信号の完全な制御を備えています。すべては単一の HTML ファイルで、ブラウザから直接動作します。</p>
+            <div class="highlight">
+                <strong>インストール不要。</strong>
+                <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">nuxtack-tw.github.io/NuMonitor4SerialPort</a>
+                でそのまま実行できます。HTML ファイルをダウンロードしてローカルで開いても構いません。
+            </div>
+        </section>
+
+        <section id="requirements">
+            <h2><span class="icon">💻</span> 動作条件</h2>
+
+            <h3>ブラウザ対応</h3>
+            <table>
+                <tr><th>ブラウザ</th><th>バージョン</th><th>状態</th></tr>
+                <tr><td>Google Chrome</td><td>89 以降</td><td>✅ 推奨</td></tr>
+                <tr><td>Microsoft Edge</td><td>89 以降</td><td>✅ 対応</td></tr>
+                <tr><td>Opera</td><td>75 以降</td><td>✅ 対応</td></tr>
+                <tr><td>Firefox</td><td>—</td><td>❌ Web Serial API 非対応</td></tr>
+                <tr><td>Safari</td><td>—</td><td>❌ Web Serial API 非対応</td></tr>
+            </table>
+            <p>NuMonitor は <strong>Web Serial API</strong> の上に構築されており、この API は Chromium 系ブラウザにしか実装されていません。また <strong>セキュアコンテキスト</strong> が必要です。HTTPS、<code>localhost</code>、ローカルの <code>file://</code> ページのいずれでも動作します。</p>
+
+            <h3>ハードウェア</h3>
+            <p>シリアルポートとして認識されるものであれば何でも使えます。Arduino ボード、ESP32 モジュール、USB シリアル変換器（CH340/CH343、CP210x、FTDI、PL2303）、携帯通信モデム、RS-232 ポートを備えた産業機器などです。NuMonitor は約 20 種類の代表的な USB シリアルチップを VID:PID で識別し、分かりやすい名前で表示します。</p>
+        </section>
+
+        <section id="quickstart">
+            <h2><span class="icon">🚀</span> クイックスタート</h2>
+
+            <h3>手順 1 — NuMonitor を開く</h3>
+            <p>公開版をそのまま開くか、ローカルにコピーした <code>NuMonitor4SerialPort.html</code> を開きます。インストールもビルドも不要です。</p>
+
+            <h3>手順 2 — デバイスを接続する</h3>
+            <ol>
+                <li>デバイスを USB ポートに挿します</li>
+                <li><strong>接続</strong> をクリックします
+                    <ul>
+                        <li><strong>初回：</strong>ブラウザのポート選択ダイアログが開くので、対象のデバイスを選びます</li>
+                        <li><strong>2 回目以降：</strong>同じポートへ自動的に再接続され、ダイアログは出ません</li>
+                    </ul>
+                </li>
+                <li>別のポートを使うときは、ボタン右の <strong>▾</strong> をクリックして一覧から選びます。新しいデバイスを許可するには <em>その他…（ブラウザの選択画面）</em> を選びます</li>
+                <li>接続すると、ボタンは <strong>緑色の「接続済み」</strong> になり、ゆっくりと呼吸するように光ります。ポートメニューの矢印は消えます。ボタンにカーソルを乗せると赤くなり、クリックで <strong>切断</strong> できます</li>
+                <li>デバイスが抜かれると、ボタンは <strong>オレンジ色の「接続中…」</strong> になり、復帰するまで 1 秒ごとに再試行します。その状態でクリックすると再試行を中止します</li>
+            </ol>
+
+            <figure class="shot">
+                <img src="img/port-menu.png" alt="許可済みシリアルポートを一覧表示するポートメニュー">
+                <figcaption>▾ メニューには許可済みのポートがすべて並びます。★ は前回使ったポート、最後の項目はブラウザの許可ダイアログを開きます。</figcaption>
+            </figure>
+
+            <h3>手順 3 — ボーレートを設定する</h3>
+            <p>デバイスに合わせた速度を選びます。Arduino のスケッチであれば <code>Serial.begin()</code> に渡した値です。選択できる速度は 300、1200、2400、4800、9600、19200、38400、57600、74880、115200（既定）、230400、250000、500000、1000000、2000000 ボーです。</p>
+            <p>ボーレートはポートと一緒に保存されるため、ページを再読み込みしても両方が復元されます。</p>
+            <div class="highlight">
+                <strong>文字化けする場合は？</strong> ほぼ確実にボーレートの不一致です。ポートは <strong>8N1</strong>（データ 8 ビット、パリティなし、ストップ 1 ビット）で開かれます。これは大多数のデバイスが使う設定です。
+            </div>
+        </section>
+
+        <section id="terminal">
+            <h2><span class="icon">📟</span> ターミナル</h2>
+
+            <figure class="shot">
+                <img src="img/terminal-connected.png" alt="AT コマンドのやり取りを表示しているターミナル">
+                <figcaption>→ は送信したデータ、← は受信したデータです。TX・RX・システムメッセージはそれぞれ別の色で表示されます。図は携帯通信モデムとの AT コマンドのやり取りです。</figcaption>
+            </figure>
+
+            <h3>機能</h3>
+            <table>
+                <tr><th>機能</th><th>内容</th></tr>
+                <tr><td>自動スクロール</td><td>データが届くたびに最新行を追いかけます</td></tr>
+                <tr><td>タイムスタンプ</td><td>各行の先頭に受信時刻を付けます</td></tr>
+                <tr><td>クリア</td><td>ターミナルの表示を空にします</td></tr>
+                <tr><td>送信</td><td>入力欄のテキストを送ります。Enter キーまたは送信ボタンで実行します</td></tr>
+                <tr><td>コマンド履歴</td><td>入力欄の左にある時計アイコンから、過去のコマンドを呼び出し・再送信・コピーできます</td></tr>
+                <tr><td>エコー</td><td>送信した内容をターミナルにも表示し、実際に出て行ったことを確認できます</td></tr>
+                <tr><td>TXT / HEX</td><td>テキスト表示と 16 進表示を切り替えます。バイナリプロトコルでは必須です</td></tr>
+                <tr><td>配色</td><td>TX・RX・システムの色を個別に調整でき、テーマごとに別々に保存されます</td></tr>
+            </table>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/terminal-hex.png" alt="HEX モードのターミナル">
+                    <figcaption>HEX モード — 左が 16 進、右が対応する ASCII</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/color-picker.png" alt="カラーピッカーのダイアログ">
+                    <figcaption>カラーピッカー — TX・RX・SYS はそれぞれ独立して設定します</figcaption>
+                </figure>
+            </div>
+
+            <h3>URL の自動検出</h3>
+            <p>受信データに現れたリンクは自動的にクリックできるようになります。対象は <code>https://</code>、<code>http://</code>、<code>www.</code>（https とみなします）、<code>ftp://</code> です。</p>
+
+            <h3>行末コード</h3>
+            <p>入力欄の右にあるセレクタで、送信するデータの末尾に何を付けるかを決めます。</p>
+            <table>
+                <tr><th>選択肢</th><th>送信されるバイト</th><th>用途</th></tr>
+                <tr><td>なし</td><td>（何も付けない）</td><td>1 バイトずつ自分で制御する場合</td></tr>
+                <tr><td>LF</td><td><code>\n</code>（0x0A）</td><td><code>readStringUntil('\n')</code> を使う Arduino/ESP32 のスケッチ。既定値です</td></tr>
+                <tr><td>CR</td><td><code>\r</code>（0x0D）</td><td><strong>モデムの AT コマンド、および多くの CLI ファームウェア</strong></td></tr>
+                <tr><td>CRLF</td><td><code>\r\n</code></td><td>Windows 系のデバイスや一部のモジュール</td></tr>
+            </table>
+            <div class="highlight">
+                <strong>⚠️ モデムを扱うなら CR を選んでください。</strong> AT コマンドはキャリッジリターンで終端します。<code>LF</code> や「なし」で送ると、モデムは終端待ちのまま止まり <strong>何も応答しません</strong>。これは接続の失敗ではなく、コマンドが完結したと見なされていないだけです。
+            </div>
+            <p>この設定は <strong>記憶され</strong>、次にページを開いたときに復元されます。</p>
+        </section>
+
+        <section id="signals">
+            <h2><span class="icon">🚦</span> RS-232 信号パネル</h2>
+            <p>接続するとヘッダーの下にハンドシェイク信号の表示列が現れます。未接続のときは列ごと非表示になります。</p>
+
+            <figure class="shot">
+                <img src="img/header-signalbar.png" alt="RS-232 信号パネルを含むヘッダー">
+                <figcaption>RTS と DTR（青）は自分で制御する出力、DCD・DSR・CTS（緑）はデバイス側からの入力です</figcaption>
+            </figure>
+
+            <h3>LOCAL (OUT) — 自分の出力、クリックで切り替え</h3>
+            <table>
+                <tr><th>表示</th><th>正式名称</th><th>備考</th></tr>
+                <tr><td><strong>BRK</strong></td><td>Break</td><td>ブレーク状態にします。1 回目のクリックで開始、もう一度で解除します</td></tr>
+                <tr><td><strong>RTS</strong></td><td>Request To Send</td><td>ハードウェアフロー制御を行うデバイスでは通常必要です</td></tr>
+                <tr><td><strong>DTR</strong></td><td>Data Terminal Ready</td><td><strong>ほとんどのモデムは DTR がアサートされていないとコマンドを受け付けません</strong></td></tr>
+            </table>
+            <p><strong>なぜ最初は消灯しているのか。</strong> Web Serial API は出力信号を <em>設定</em> できますが <em>読み戻す</em> ことができません。クリックするまで NuMonitor は本当にその状態を知らないため、ブラウザがオープン時に何をしたかを推測せず、正直に「不明」として表示します。</p>
+            <div class="highlight">
+                <strong>⚠️ Arduino・ESP32 をお使いの方へ：</strong> 多くの開発ボードでは DTR と RTS が自動リセット回路につながっているため、これらを操作すると <strong>ボードが再起動することがあります</strong>。NuMonitor は接続時にこれらの信号へ意図的に一切触れません。操作するかどうかは完全にあなたの判断です。
+            </div>
+
+            <h3>REMOTE (IN) — デバイス側の出力、読み取り専用</h3>
+            <table>
+                <tr><th>表示</th><th>正式名称</th><th>点灯の意味</th></tr>
+                <tr><td><strong>DCD</strong></td><td>Data Carrier Detect</td><td>キャリア検出 — モデムが回線を確立しています</td></tr>
+                <tr><td><strong>DSR</strong></td><td>Data Set Ready</td><td>デバイスに電源が入り、準備ができています</td></tr>
+                <tr><td><strong>CTS</strong></td><td>Clear To Send</td><td>デバイスがデータを受け付けられる状態です</td></tr>
+                <tr><td><strong>RI</strong></td><td>Ring Indicator</td><td>呼び出し信号を検出しました</td></tr>
+            </table>
+            <p>この 4 つは 250 ms ごとにポーリングしています。Web Serial API は信号変化のイベントを提供しないため、ポーリング以外の方法がありません。</p>
+
+            <h3>ACT と ERR</h3>
+            <ul>
+                <li><strong>ACT</strong> — どちらの向きであれバイトが流れるたびに点滅します。連続転送中は点灯しっぱなしに見えます</li>
+                <li><strong>ERR</strong> — フレーミングエラー、パリティエラー、バッファオーバーラン、ブレーク受信のいずれかで赤く 3 秒間点滅します。クリックすれば早めに消せます。接続は <strong>切断されず</strong>、受信は自動的に再開します</li>
+            </ul>
+            <p><strong>パリティエラーについて：</strong> 現在ポートは <strong>8N1</strong> で開かれます。パリティビットがなければパリティエラーは発生しないため、実際には ERR はフレーミング・オーバーラン・ブレークに反応します。</p>
+        </section>
+
+        <section id="plotter">
+            <h2><span class="icon">📈</span> プロッタ</h2>
+
+            <figure class="shot">
+                <img src="img/plotter-line.png" alt="3 系列の折れ線グラフを表示しているプロッタ">
+                <figcaption>データのグループごとにタブが作られます。グラフ下の凡例は現在値を表示し、そのまま表示・非表示の切り替えにもなります。</figcaption>
+            </figure>
+
+            <h3>自動解析</h3>
+            <p>設定は不要です。デバイスから普通のテキストを出力するだけで、NuMonitor が何をグラフにするかを判断します。解析できる数値を 1 つ以上含む行はデータとして扱われ、それ以外はそのままターミナルのテキストとして表示されます。</p>
+
+            <h3>グラフの操作</h3>
+            <table>
+                <tr><th>ボタン</th><th>内容</th></tr>
+                <tr><td>一時停止</td><td>裏でデータを受け取りながら、グラフの更新だけを止めます</td></tr>
+                <tr><td>スムージング</td><td>折れ線グラフと面グラフを滑らかな曲線で描きます</td></tr>
+                <tr><td>クリア</td><td>そのグループのデータを破棄します</td></tr>
+                <tr><td>CSV</td><td>グループのデータを CSV ファイルとして書き出します</td></tr>
+                <tr><td>背景色</td><td>グラフの背景色を指定します。グループごとに記憶されます</td></tr>
+                <tr><td>マップ</td><td>グループに <code>map:</code> 座標が含まれるときだけ現れます</td></tr>
+            </table>
+
+            <h3>X 軸カーソル</h3>
+            <p>グラフの上でポインタを動かすと、その位置のサンプルにおける各系列の正確な値を読み取れます。</p>
+
+            <h3>スクロールで拡大縮小</h3>
+            <p>グラフ上でスクロールすると表示するサンプル数が 20 から 2000 まで変わります（既定は 100）。メモリには系列ごとに最大 500 サンプルが保持されます。</p>
+
+            <h3>凡例の操作</h3>
+            <p>凡例の項目をクリックするとその系列を表示・非表示にできます。色のマークをクリックすると色を変更でき、その色は記憶されます。</p>
+        </section>
+
+        <section id="charts">
+            <h2><span class="icon">📊</span> グラフの種類</h2>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/plotter-line.png" alt="折れ線グラフ">
+                    <figcaption><code>line</code> — 連続した時系列。スムージングに対応</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-area.png" alt="面グラフ">
+                    <figcaption><code>area</code> — 半透明の塗りつぶしで大きさを強調</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-stack.png" alt="積み上げ面グラフ">
+                    <figcaption><code>stack</code> — 時間とともに変化する構成比</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-scatter.png" alt="散布図">
+                    <figcaption><code>scatter</code> — 分布、ばらつき、外れ値</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-bar.png" alt="棒グラフ">
+                    <figcaption><code>bar</code> — 複数項目の最新値を比較</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-gauge.png" alt="ゲージ">
+                    <figcaption><code>gauge</code> — 単一値の監視。複数の値は自動的に並びます</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-pie.png" alt="円グラフ">
+                    <figcaption><code>pie</code> — 割合の表示。2〜8 項目が適切です</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/gps-map.png" alt="GPS 軌跡マップ">
+                    <figcaption>🗺️ マップ表示 — グラフの種類ではなく、データに <code>map:</code> が含まれるときに追加される表示モードです</figcaption>
+                </figure>
+            </div>
+
+            <div class="highlight">
+                <strong>注意：</strong> <code>map</code> は有効なグラフ種別では <strong>ありません</strong>。<code>{X|0|1|map}</code> と書くと <code>line</code> に戻されます。マップは座標を含むタブに現れる表示切り替えです。
+            </div>
+        </section>
+
+        <section id="map">
+            <h2><span class="icon">🗺️</span> GPS トラッキング</h2>
+
+            <figure class="shot">
+                <img src="img/gps-map.png" alt="OpenStreetMap 上の GPS 軌跡">
+                <figcaption>ベースマップは OpenStreetMap です。下の操作部で軌跡として残す点の数と、最新位置に追従するかどうかを設定します。右上のボタンでグラフ表示に戻ります。</figcaption>
+            </figure>
+
+            <h3>マップを有効にする</h3>
+            <p>データ行に <code>map:緯度,経度</code> を追加します。そのタブに 🗺️ ボタンが現れます。</p>
+
+            <h3>座標の形式</h3>
+            <table>
+                <tr><th>形式</th><th>例</th></tr>
+                <tr><td>十進度（負値可）</td><td><code>map:25.051075,121.630951</code></td></tr>
+                <tr><td>十進度＋方位</td><td><code>map:25.051075N,121.630951E</code></td></tr>
+                <tr><td>度・分</td><td><code>map:25°3.0645'N,121°37.857'E</code></td></tr>
+                <tr><td>度・分・秒</td><td><code>map:25°3'3.87"N,121°37'51.4"E</code></td></tr>
+            </table>
+            <p>緯度 ±90 度、経度 ±180 度を超える座標は受け付けません。</p>
+
+            <h3>マップの操作</h3>
+            <ul>
+                <li><strong>軌跡の点数</strong> — 地図上に残す直近の位置の数。1 から 100 まで（既定は 10）</li>
+                <li><strong>追従</strong> — 最新位置を常に中央に保ちます。オフにすると、地図が勝手に戻ることなく自由に移動・拡大できます</li>
+                <li>軌跡のマーカーをクリックすると、その地点の座標と記録されたデータ値が表示されます</li>
+            </ul>
+        </section>
+
+        <section id="format">
+            <h2><span class="icon">📝</span> データ形式リファレンス</h2>
+
+            <h3>完全な構文</h3>
+            <div class="code-block">{グループ名|Y軸最小|Y軸最大|グラフ種別}#カウンタ ラベル:値 ラベル=値 map:緯度,経度</div>
+
+            <h3>各項目</h3>
+            <table>
+                <tr><th>項目</th><th>必須</th><th>備考</th></tr>
+                <tr><td>グループ名</td><td>いいえ</td><td>タブになります。ラテン文字以外を含む任意のテキストが使えます</td></tr>
+                <tr><td>Y 軸最小 / 最大</td><td>いいえ</td><td>数値、または <code>auto</code>。解析できない値は auto として扱われます</td></tr>
+                <tr><td>グラフ種別</td><td>いいえ</td><td><code>line</code> <code>area</code> <code>stack</code> <code>scatter</code> <code>bar</code> <code>gauge</code> <code>pie</code>。それ以外は <code>line</code> に戻されます</td></tr>
+                <tr><td><code>#カウンタ</code></td><td>いいえ</td><td><code>}</code> の直後に置きます。X 軸のラベルになります。負数・小数も使えます</td></tr>
+                <tr><td>データ点</td><td><strong>はい</strong></td><td>解析できる数値が最低 1 つ必要です。なければその行はテキストのままです</td></tr>
+                <tr><td><code>map:</code></td><td>いいえ</td><td>そのタブにマップ表示を追加します</td></tr>
+            </table>
+
+            <h3>データ点の書き方</h3>
+            <div class="code-block">Serial.println("Temp:25.5 Humidity:60.2");   // キー:値 — 推奨
+Serial.println("Temp=25.5 Humidity=60.2");   // キー=値
+Serial.println("25.5 60.2 1013.2");          // 数値のみ → CH1, CH2, CH3
+Serial.println("Temp\t25.5");                // ラベル [タブ/空白] 値</div>
+            <ul>
+                <li>区切り文字：空白、カンマ、タブ</li>
+                <li>ラベルと値の区切り：<code>:</code> または <code>=</code></li>
+                <li><strong>単位は自動的に取り除かれます</strong> — <code>25.5°C</code>、<code>60.2%</code>、<code>40.5km/h</code> はいずれも先頭の数値として解析されます</li>
+                <li>解析できないトークンは読み飛ばされ、行の残りは失われません</li>
+            </ul>
+
+            <h3>スケッチの例</h3>
+            <div class="code-block">// 単位とサンプル番号を付けた環境モニタリング
+void loop() {
+  Serial.print("{Environment|0|100|line}#");
+  Serial.print(seq++);
+  Serial.print(" Temp:"); Serial.print(readTemp(), 1); Serial.print("°C");
+  Serial.print(" RH:");   Serial.print(readRH(), 1);   Serial.println("%");
+  delay(100);   // 10 Hz
+}
+
+// 3 つのタブを同時に出す
+void loop() {
+  Serial.print("{Temperature|15|35|line}Indoor:");  Serial.print(t1);
+  Serial.print(" Outdoor:"); Serial.println(t2);
+
+  Serial.print("{System|0|100|bar}CPU:"); Serial.print(cpu);
+  Serial.print(" MEM:"); Serial.println(mem);
+
+  Serial.print("{Battery|0|100|gauge}Level:"); Serial.println(bat);
+  delay(500);
+}
+
+// GPS 軌跡付きのドローンテレメトリ
+void loop() {
+  Serial.print("{Drone|0|120|line}#"); Serial.print(frame++);
+  Serial.print(" Alt:");   Serial.print(alt, 1);
+  Serial.print(" Speed:"); Serial.print(spd, 1);
+  Serial.print(" map:");   Serial.print(lat, 6);
+  Serial.print(",");       Serial.println(lng, 6);
+  delay(200);
+}</div>
+
+            <h3>上限値</h3>
+            <table>
+                <tr><th>項目</th><th>上限</th></tr>
+                <tr><td>同時に扱えるグループ（タブ）</td><td>10 — これを超えた分は黙って無視されます</td></tr>
+                <tr><td>系列ごとに保持するサンプル数</td><td>500</td></tr>
+                <tr><td>表示するサンプル数</td><td>既定 100、スクロールで 20〜2000</td></tr>
+                <tr><td>GPS 軌跡の点数</td><td>既定 10、1〜100 で調整可能</td></tr>
+                <tr><td>配色パレット</td><td>32 色、その後は循環します</td></tr>
+                <tr><td>ボーレート</td><td>300 〜 2,000,000</td></tr>
+            </table>
+        </section>
+
+        <section id="faq">
+            <h2><span class="icon">❓</span> FAQ</h2>
+
+            <h3>Q: ポートが 1 つも表示されません。</h3>
+            <p><strong>A:</strong> デバイスが挿さっているか、USB ドライバが入っているか、Chrome/Edge/Opera を使っているか、そして他のプログラムがポートを掴んでいないかを確認してください。よくある原因は Arduino IDE のシリアルモニタです。</p>
+
+            <h3>Q: 文字化けしか出ません。</h3>
+            <p><strong>A:</strong> ボーレートが合っていません。デバイスの <code>Serial.begin()</code> と同じ値に設定してください。</p>
+
+            <h3>Q: グラフが表示されません。</h3>
+            <p><strong>A:</strong> プロッタの切り替え（📊）がオンになっているか、その行に解析できる数値が 1 つ以上あるか、グループ数の上限 10 に達していないかを確認してください。</p>
+
+            <h3>Q: モデムが AT コマンドにまったく応答しません。</h3>
+            <p><strong>A:</strong> 上から順に確認してください。</p>
+            <ol>
+                <li><strong>行末コードを CR にする</strong> — これが圧倒的に多い原因です。AT コマンドはキャリッジリターンで終わる必要があり、既定の LF ではモデムは応答しません</li>
+                <li>信号パネルから <strong>DTR をアサート</strong> します（モデムがハードウェアフロー制御を使うなら RTS も）。他の端末ソフトはオープン時に自動的にこれらを立てますが、NuMonitor は開発ボードのリセットを避けるため意図的に立てません</li>
+                <li><strong>DSR と CTS を確認</strong> します。DSR が消灯なら電源が入っていないか配線が誤っています。CTS が消灯ならデータを受け付けていません</li>
+                <li><strong>ボーレートを確認</strong> します</li>
+                <li><strong>エコー</strong> をオンにし、<strong>TX バイト数</strong> のカウンタを見て、データが実際にパソコンから出て行ったことを確かめます</li>
+            </ol>
+
+            <h3>Q: 自動再接続と自動接続はどう違いますか。</h3>
+            <p><strong>A:</strong> 1 つのスイッチで 2 つの動作を制御しています。</p>
+            <ul>
+                <li><strong>接続中にデバイスが抜かれた場合</strong> → 戻ってくるまで 1 秒ごとに無期限で再試行します</li>
+                <li><strong>ページを再読み込みまたは開き直した場合</strong> → 前回のポートに再接続し、ボーレートも復元します</li>
+            </ul>
+            <p>ページを離れる前に <strong>自分で切断した</strong> 場合は、自動的に再接続することはありません。スイッチの状態自体も記憶されます。</p>
+
+            <h3>Q: ESP32 の接続が不安定です。</h3>
+            <p><strong>A:</strong> ESP32 の USB CDC デバイスは、再起動するとポートオブジェクトが無効になることがあります。NuMonitor は古くなったハンドルを捨て、ブラウザからポートを取り直します。デバイスを選び直さなくても再接続できるのはこのためです。</p>
+
+            <h3>Q: データを書き出すには？</h3>
+            <p><strong>A:</strong> グラフの操作列にある <strong>CSV</strong> をクリックすると、そのグループを書き出せます。</p>
+
+            <h3>Q: テーマや言語はどこで切り替えますか。</h3>
+            <p><strong>A:</strong> 右上の月／太陽の切り替えと言語セレクタを使います。どちらも記憶されます。グラフとターミナルの配色はテーマに追従します。</p>
+            <p><strong>マニュアル</strong> のリンクとバージョンバッジも画面の言語に追従します。このマニュアルは English、日本語、Tiếng Việt、Bahasa Indonesia、Bahasa Melayu、および <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/doc/manual.html">繁體中文</a> で読めます。右上のセレクタから選んでください。まだ専用のマニュアルがない言語では英語版が表示されます。</p>
+
+            <figure class="shot">
+                <img src="img/language-menu.png" alt="18 言語を並べた言語メニュー">
+                <figcaption>18 言語の画面表示。右から左に書く言語（アラビア語・ヘブライ語・ペルシア語）にも対応します</figcaption>
+            </figure>
+
+            <figure class="shot">
+                <img src="img/theme-light.png" alt="ライトテーマ">
+                <figcaption>ライトテーマ — グラフのグリッド、文字、背景がすべてテーマに追従します</figcaption>
+            </figure>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>NuMonitor V26.11.0 | 開発元 <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
+        <p style="margin-top: 10px;">
+            <a href="https://nuxtack-tw.github.io/NuMonitor4SerialPort/">NuMonitor を実行</a> |
+            <a href="changelog.html" data-sibling="changelog.html">変更履歴</a> |
+            <a href="https://github.com/Nuxtack-tw/NuMonitor4SerialPort">ソースコード</a>
+        </p>
+    </footer>
