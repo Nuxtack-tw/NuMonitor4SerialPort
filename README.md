@@ -1,4 +1,6 @@
 <div align="center">
+  <img src="doc/img/logo.svg" alt="NuMonitor Logo" width="96" height="96">
+
   # NuMonitor for Serial Port
 
   **專業的 Web Serial Port 監控與數據視覺化工具**
@@ -36,25 +38,44 @@ NuMonitor 是一款專為 **Arduino/ESP32** 開發者設計的 Serial Port 監�
 
 <div align="center">
   <img src="doc/img/terminal-connected.png" alt="終端機" width="88%">
-  <br><sub>終端機：TX／RX 分色、時間戳記，圖為對數據機下 AT 指令</sub>
-</div>
-
-<div align="center">
-  <img src="doc/img/plotter-line.png" alt="繪圖器" width="88%">
-  <br><sub>繪圖器：每個資料群組自成分頁，圖例即時顯示數值</sub>
-</div>
-
-<div align="center">
-  <img src="doc/img/gps-map.png" alt="GPS 軌跡" width="88%">
-  <br><sub>GPS 軌跡：OpenStreetMap 底圖，可調保留點數與視界鎖定</sub>
+  <br><sub><b>終端機</b>：TX／RX 分色、時間戳記，圖為對數據機下 AT 指令</sub>
 </div>
 
 <div align="center">
   <img src="doc/img/header-signalbar.png" alt="RS-232 訊號狀態列" width="88%">
-  <br><sub>RS-232 訊號狀態列：RTS／DTR 可點擊切換，DCD／DSR／CTS 即時顯示</sub>
+  <br><sub><b>RS-232 訊號狀態列</b>：RTS／DTR 可點擊切換，DCD／DSR／CTS 即時顯示</sub>
 </div>
 
-> 更多畫面與操作說明見[使用說明書](doc/manual.html)。
+<div align="center">
+  <img src="doc/img/plotter-line.png" alt="折線圖" width="49%">
+  <img src="doc/img/chart-area.png" alt="面積圖" width="49%">
+  <br><sub><b>折線圖 line</b>　／　<b>面積圖 area</b></sub>
+</div>
+
+<div align="center">
+  <img src="doc/img/chart-stack.png" alt="堆疊面積圖" width="49%">
+  <img src="doc/img/chart-scatter.png" alt="散點圖" width="49%">
+  <br><sub><b>堆疊面積圖 stack</b>　／　<b>散點圖 scatter</b></sub>
+</div>
+
+<div align="center">
+  <img src="doc/img/chart-bar.png" alt="長條圖" width="49%">
+  <img src="doc/img/chart-gauge.png" alt="儀表圖" width="49%">
+  <br><sub><b>長條圖 bar</b>　／　<b>儀表圖 gauge</b></sub>
+</div>
+
+<div align="center">
+  <img src="doc/img/chart-pie.png" alt="圓餅圖" width="49%">
+  <img src="doc/img/gps-map.png" alt="GPS 軌跡" width="49%">
+  <br><sub><b>圓餅圖 pie</b>　／　<b>GPS 軌跡地圖</b>（OpenStreetMap）</sub>
+</div>
+
+<div align="center">
+  <img src="doc/img/theme-light.png" alt="淺色主題" width="88%">
+  <br><sub><b>淺色主題</b>：圖表格線、文字與背景全部跟著切換</sub>
+</div>
+
+> 更多畫面（HEX 模式、顏色選擇器、連接埠選單、語言選單）見[使用說明書](doc/manual.html)。
 
 ---
 

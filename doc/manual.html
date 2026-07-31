@@ -601,10 +601,25 @@
                     <td>切換文字或十六進位顯示，除錯二進位協定時很有用</td>
                 </tr>
                 <tr>
+                    <td>指令歷史</td>
+                    <td>輸入框左側的時鐘圖示，可重送或複製先前送過的指令</td>
+                </tr>
+                <tr>
                     <td>顏色自訂</td>
                     <td>TX／RX／SYS 三種訊息的顏色可各自調整，深淺主題分開記憶</td>
                 </tr>
             </table>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/terminal-hex.png" alt="HEX 模式的終端機畫面">
+                    <figcaption>HEX 模式：左側十六進位、右側對應的 ASCII，除錯二進位協定時很有用</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/color-picker.png" alt="顏色選擇器">
+                    <figcaption>顏色選擇器：TX／RX／SYS 三種訊息可各自調色，深淺主題分開記憶</figcaption>
+                </figure>
+            </div>
 
             <h3>URL 自動識別</h3>
             <p>終端機會自動識別以下格式的 URL 並轉換為可點擊的連結：</p>
@@ -785,8 +800,20 @@
 
             <div class="shot-grid">
                 <figure class="shot">
+                    <img src="img/plotter-line.png" alt="折線圖">
+                    <figcaption><code>line</code> 折線圖 — 連續時序數據，支援平滑曲線</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-area.png" alt="面積圖">
+                    <figcaption><code>area</code> 面積圖 — 半透明填充，強調量體變化</figcaption>
+                </figure>
+                <figure class="shot">
                     <img src="img/chart-stack.png" alt="堆疊面積圖">
                     <figcaption><code>stack</code> 堆疊面積圖 — 看組成比例隨時間的變化</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-scatter.png" alt="散點圖">
+                    <figcaption><code>scatter</code> 散點圖 — 觀察數據分布與跳動，適合看雜訊與離群值</figcaption>
                 </figure>
                 <figure class="shot">
                     <img src="img/chart-bar.png" alt="長條圖">
@@ -799,6 +826,10 @@
                 <figure class="shot">
                     <img src="img/chart-pie.png" alt="圓餅圖">
                     <figcaption><code>pie</code> 圓餅圖 — 比例分配，2～8 個類別最好讀</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/gps-map.png" alt="GPS 軌跡地圖">
+                    <figcaption>🗺️ 地圖視圖 — 不是圖表類型，而是資料含 <code>map:</code> 時多出來的切換視圖</figcaption>
                 </figure>
             </div>
 
@@ -1107,7 +1138,12 @@ Serial.println("25.5 60.2 1013.2");</code></pre>
             <p><strong>A:</strong> 點擊圖表上方的「CSV」按鈕，即可將該圖表的數據匯出為 CSV 檔案。</p>
 
             <h3>Q: 如何改變介面語言？</h3>
-            <p><strong>A:</strong> 點擊右上角的語言選擇器（如「繁中」），選擇您偏好的語言。設定會自動儲存。</p>
+            <p><strong>A:</strong> 點擊右上角的語言選擇器，選擇您偏好的語言。設定會自動儲存，下次開啟仍是同一個語言。</p>
+
+            <figure class="shot">
+                <img src="img/language-menu.png" alt="語言選單展開，列出 18 種語言">
+                <figcaption>18 種語言，含阿拉伯文、希伯來文、波斯文等 RTL 語系</figcaption>
+            </figure>
         </section>
     </main>
 
