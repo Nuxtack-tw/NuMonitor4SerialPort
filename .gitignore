@@ -1,0 +1,13 @@
+# Python（doc/src/build.py 執行後產生）
+__pycache__/
+*.pyc
+
+# 瀏覽器自動化產出的截圖與 console log
+.playwright-mcp/
+
+# 文件組裝的暫存輸出（發佈用的產物在英文版 repo，不在這裡）
+doc/src/out/
+
+# OS
+Thumbs.db
+.DS_Store
