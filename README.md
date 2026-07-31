@@ -1,19 +1,15 @@
-# 🌐 Language / 語言
-
-[English](README/README_en-US.md) | [日本語](README/README_ja-JP.md) | [Français](README/README_fr-FR.md) | [Deutsch](README/README_de-DE.md) | [Italiano](README/README_it-IT.md) | [Español](README/README_es-ES.md) | [Português](README/README_pt-PT.md) | [Türkçe](README/README_tr-TR.md) | [Русский](README/README_ru-RU.md) | [العربية](README/README_ar-SA.md) | [עברית](README/README_he-IL.md) | [فارسی](README/README_fa-IR.md) | [हिन्दी](README/README_hi-IN.md) | [Tiếng Việt](README/README_vi-VN.md) | [ไทย](README/README_th-TH.md) | [Bahasa Melayu](README/README_ms-MY.md) | [Bahasa Indonesia](README/README_id-ID.md)
-
----  
+<div align="center">
   # NuMonitor for Serial Port
-  
+
   **專業的 Web Serial Port 監控與數據視覺化工具**
-  
-  [![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/Nuxtack-tw/NuMonitor4SerialPort/releases)
+
+  [![Version](https://img.shields.io/badge/version-V26.10.0-blue.svg)](https://github.com/Nuxtack-tw/NuMonitor4SerialPort/releases)
   [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
   [![Browser](https://img.shields.io/badge/browser-Chrome%20%7C%20Edge%20%7C%20Opera-orange.svg)](#瀏覽器支援)
   [![Languages](https://img.shields.io/badge/languages-18-purple.svg)](#多語言支援)
-  
+
   [線上展示](#) · [使用說明書](doc/manual.html) · [版本記錄](doc/changelog.html) · [回報問題](https://github.com/Nuxtack-tw/NuMonitor4SerialPort/issues)
-  
+
 </div>
 
 ---
@@ -24,10 +20,13 @@ NuMonitor 是一款專為 **Arduino/ESP32** 開發者設計的 Serial Port 監�
 
 ### ✨ 主要特色
 
-- 🖥️ **終端機監控** - 即時顯示串口數據，支援時間戳記、自動捲動、URL 自動識別
+- 🖥️ **終端機監控** - 即時顯示串口數據，支援時間戳記、自動捲動、URL 自動識別、TXT/HEX 切換、指令歷史
 - 📊 **7 種圖表類型** - 折線圖、面積圖、柱狀圖、散點圖、圓餅圖、儀表圖、堆疊圖
 - 🗺️ **GPS 軌跡追蹤** - 整合 OpenStreetMap，即時顯示 GPS 移動軌跡
 - 🎯 **X 軸遊標** - 滑鼠移動即時顯示數據點數值
+- 🚦 **RS-232 訊號狀態列** - BRK/RTS/DTR 可點擊切換，DCD/DSR/CTS/RI 即時顯示，含 ACT 與 ERR 指示
+- 🔌 **智慧連線** - 記住上次的連接埠與鮑率，重新整理自動接回；裝置拔掉後無限重試直到插回
+- 🌗 **深／淺雙主題** - GitHub 風格配色，設定自動記憶
 - 🌐 **18 種語言** - 自動偵測瀏覽器語言，支援 RTL 語言
 - 📦 **單一檔案** - 無需安裝，下載即可使用
 
@@ -36,31 +35,27 @@ NuMonitor 是一款專為 **Arduino/ESP32** 開發者設計的 Serial Port 監�
 ## 🖼️ 截圖
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-terminal.png" alt="Terminal" width="90%">
+  <img src="doc/img/terminal-connected.png" alt="終端機" width="88%">
+  <br><sub>終端機：TX／RX 分色、時間戳記，圖為對數據機下 AT 指令</sub>
 </div>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-line.png" alt="Line" width="90%">
+  <img src="doc/img/plotter-line.png" alt="繪圖器" width="88%">
+  <br><sub>繪圖器：每個資料群組自成分頁，圖例即時顯示數值</sub>
 </div>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-map.png" alt="GNSS Map" width="90%">
+  <img src="doc/img/gps-map.png" alt="GPS 軌跡" width="88%">
+  <br><sub>GPS 軌跡：OpenStreetMap 底圖，可調保留點數與視界鎖定</sub>
 </div>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-area.png" alt="Area" width="45%">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-stack.png" alt="Area Stack" width="45%">
+  <img src="doc/img/header-signalbar.png" alt="RS-232 訊號狀態列" width="88%">
+  <br><sub>RS-232 訊號狀態列：RTS／DTR 可點擊切換，DCD／DSR／CTS 即時顯示</sub>
 </div>
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-bar.png" alt="Bar" width="45%">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-gauge.png" alt="Gauge" width="45%">
-</div>
+> 更多畫面與操作說明見[使用說明書](doc/manual.html)。
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-pie.png" alt="Pie" width="45%">
-  <img src="https://raw.githubusercontent.com/Nuxtack-tw/NuMonitor4SerialPort/main/img/screenshot-scatter.png" alt="Scatter" width="45%">
-</div>
 ---
 
 ## 🚀 快速開始
@@ -80,9 +75,12 @@ git clone https://github.com/Nuxtack-tw/NuMonitor4SerialPort.git
 ### 3. 連接裝置
 
 1. 將 Arduino/ESP32 透過 USB 連接到電腦
-2. 點擊「選擇連接埠」按鈕
-3. 選擇對應的 COM Port
-4. 開始監控！
+2. 點擊「連線」按鈕（第一次會跳出瀏覽器的連接埠對話框，之後直接連上次那顆）
+3. 要換埠就點按鈕右側的 `▾`，從清單挑選，或選「其他…（瀏覽器選單）」授權新裝置
+4. 開始監控！連上後按鈕會變成綠色的「已連接」、外框緩慢呼吸發光，滑鼠移上去轉紅顯示「斷開」
+
+> 💡 **送指令沒反應？** 先確認輸入框右側的**行結尾**設定：Arduino/ESP32 多半用 `LF`，**數據機的 AT 指令必須用 `CR`**。此設定會被記住。
+> 接數據機時通常還要把訊號列的 **DTR** 點亮（必要時連 RTS），詳見[使用說明書](doc/manual.html)。
 
 ---
 
@@ -131,6 +129,8 @@ Serial.println(lng, 6);
 
 ## 🌐 多語言支援
 
+> 指的是**程式介面**的語言，開啟後可在右上角切換，設定會自動記住。
+
 | 語言 | 代碼 | 語言 | 代碼 |
 |------|------|------|------|
 | 繁體中文 | zh-TW | Türkçe | tr-TR |
@@ -163,18 +163,18 @@ Serial.println(lng, 6);
 
 ```
 NuMonitor4SerialPort/
-├── NuMonitor4SerialPort.html    # 主程式
-├── NuMonitor4SerialPort.ino     # Arduino 展示程式
+├── NuMonitor4SerialPort.html    # 主程式（單一檔案應用，版號寫在 <title>）
+├── backup/                      # 各版本凍結快照（NuMonitor4SerialPort_V<版號>.html）
 ├── doc/
 │   ├── manual.html              # 使用說明書
-│   └── changelog.html           # 版本記錄
-├── docs/
-│   └── TECHNICAL.md             # 技術文件
-├── README/
-│   └── [各語言 README]
-├── .claude/
-│   └── skills/
-│       └── NuMonitor_SKILL.md   # 專案技能檔
+│   └── changelog.html           # 版本記錄（唯一一份 changelog）
+├── reports/                     # 分析報告（專案盤點、設計說明）
+├── .claude/                     # Claude Code 開發設定
+│   ├── skills/                  # 技能檔
+│   └── sessions/                # Session 對話記錄
+├── CLAUDE.md                    # Claude Code 專案指示
+├── MEMORY.md                    # 專案記憶檔
+├── TODO.md                      # 待辦事項
 ├── LICENSE
 └── README.md
 ```
@@ -206,15 +206,37 @@ npx serve
 
 ## 📝 版本歷史
 
-### v2.0.0 (2025-01-22)
+> **版本編號制度**：自 V26.0.0 起改用年度制 `Va.b.c`（`a` = 西元年後兩碼、`b` = 功能擴充、`c` = bug 修正）。版號的唯一來源是主程式 `<title>`。
+> **完整變更記錄請看 [doc/changelog.html](doc/changelog.html)** —— 這裡只列各版重點。
 
-**新功能**
-- 🗺️ GPS 地圖軌跡追蹤
-- 🎯 X 軸遊標顯示數據點
-- 🔗 終端機 URL 自動識別
-- 📊 堆疊面積圖
-- 🔒 地圖視界鎖定
-- 📖 HTML 使用說明書
+### V26.10.0 (2026-07-31)
+- 💾 行結尾設定（無行尾／LF／CR／CRLF）記憶到 localStorage，重新整理後自動還原
+
+### V26.8.0 ~ V26.9.1 (2026-07-31)
+- 🚦 新增 RS-232 訊號狀態列：LOCAL(OUT) BRK/RTS/DTR 可點擊切換、REMOTE(IN) DCD/DSR/CTS/RI 唯讀、ACT 資料進出閃爍、ERR 協定錯誤告警
+- 🔁 讀取遇到 Framing/Parity/Overrun/Break 錯誤時不再中斷連線，自動恢復接收
+- 未連線時整列隱藏；燈號配色與標題列按鈕一致
+
+### V26.6.0 ~ V26.7.1 (2026-07-31)
+- 🔄 重新整理／重新開啟頁面時自動接回上次的連接埠（含還原鮑率）；自己按過「斷開」則不會自動接回
+- 💾 「自動重連」開關狀態記憶
+- ↔️ 主題切換與語言選單靠齊標題列右緣；移除寫死的換行斷點，改為真的擠不下才換行
+
+### V26.1.0 ~ V26.5.1 (2026-07-30 ~ 07-31)
+- 🔌 「選擇連接埠」與「斷開」合併為單一分割按鈕，連線狀態直接以按鈕顏色與呼吸光暈呈現
+- 🧠 連線優先序：上次的埠 → 認得型號的埠 → 唯一已授權埠 → 才叫瀏覽器選單
+- 📏 標題列全面重整：統一字級／字重／高度／配色，總高減少 45%
+
+### V26.0.0 (2026-07-30)
+- 🔢 版本編號改用年度制，`<title>` 成為版號唯一來源
+- 🗄️ 新增 `backup/` 快照機制
+
+### v3.0.x (2026-03)
+- 🌗 新增淺色主題與即時切換
+- 🔄 自動重連等待時間改為無限制
+
+### v2.0.0 (2026-01)
+- 🗺️ GPS 地圖軌跡追蹤、X 軸遊標、堆疊面積圖、終端機 URL 自動識別
 
 查看完整 [版本記錄](doc/changelog.html)
 
@@ -247,9 +269,9 @@ npx serve
 ---
 
 <div align="center">
-  
+
   **Made with ❤️ by [Nuxtack](https://github.com/Nuxtack)**
-  
+
   ⭐ 如果這個專案對您有幫助，請給我們一顆星！
-  
+
 </div>

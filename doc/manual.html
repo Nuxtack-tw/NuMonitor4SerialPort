@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NuMonitor v2.0.0 使用說明書</title>
+    <title>NuMonitor V26.10.0 使用說明書</title>
     <style>
         :root {
             --bg-primary: #0a0e14;
@@ -373,13 +373,51 @@
                 justify-content: flex-start;
             }
         }
+
+        /* 畫面截圖 */
+        figure.shot {
+            margin: 20px 0;
+        }
+
+        figure.shot img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+        }
+
+        figure.shot figcaption {
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .shot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin: 20px 0;
+        }
+
+        .shot-grid figure.shot {
+            margin: 0;
+        }
+
+        @media (max-width: 900px) {
+            .shot-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <header class="header">
         <h1>📡 NuMonitor 使用說明書</h1>
         <p class="subtitle">專業的 Serial Port 監控與數據視覺化工具</p>
-        <span class="version">v2.0.0</span>
+        <span class="version">V26.10.0</span>
     </header>
 
     <nav class="nav">
@@ -388,6 +426,7 @@
             <a href="#requirements">系統需求</a>
             <a href="#quickstart">快速開始</a>
             <a href="#terminal">終端機</a>
+            <a href="#signals">訊號狀態列</a>
             <a href="#plotter">繪圖器</a>
             <a href="#charts">圖表類型</a>
             <a href="#map">GPS 地圖</a>
@@ -488,10 +527,21 @@
             <h3>步驟 2：連接裝置</h3>
             <ol>
                 <li>將 Arduino/ESP32 透過 USB 連接到電腦</li>
-                <li>點擊「<strong>選擇連接埠</strong>」按鈕</li>
-                <li>在彈出的對話框中選擇對應的 COM Port</li>
-                <li>裝置會自動連接並開始接收數據</li>
+                <li>點擊「<strong>連線</strong>」按鈕（V26.1.0 起「連線」與「斷開」合併為同一顆按鈕）
+                    <ul>
+                        <li><strong>第一次使用</strong>：會跳出瀏覽器的連接埠對話框，選擇對應的 COM Port</li>
+                        <li><strong>之後</strong>：直接連上次用過的埠，不再跳對話框</li>
+                    </ul>
+                </li>
+                <li>要換別的埠，點按鈕右側的「<strong>▾</strong>」箭頭，從清單挑選已授權的埠，或選「其他…（瀏覽器選單）」重新授權</li>
+                <li>連上後按鈕會變成<strong>綠色的「已連接」</strong>，外框緩慢呼吸發光，右側的挑埠箭頭會自動隱藏；把滑鼠移上去會轉紅並顯示「<strong>斷開</strong>」，按下即中斷連線</li>
+                <li>裝置突然斷線時，按鈕會轉成<strong>橘色的「連線中…」</strong>並加快呼吸，代表正在自動重連；此時按下按鈕＝取消重連</li>
             </ol>
+
+            <figure class="shot">
+                <img src="img/port-menu.png" alt="連接埠下拉選單，列出已授權的連接埠">
+                <figcaption>點按鈕右側的 ▾ 展開已授權的連接埠；★ 是上次使用的那一顆，最後一項可叫出瀏覽器的授權對話框</figcaption>
+            </figure>
 
             <h3>步驟 3：設定鮑率</h3>
             <p>點擊鮑率下拉選單，選擇與您 Arduino 程式中 <code>Serial.begin()</code> 設定相同的鮑率。常用的鮑率有：</p>
@@ -511,6 +561,11 @@
         <section id="terminal">
             <h2><span class="icon">📟</span> 終端機功能</h2>
             
+            <figure class="shot">
+                <img src="img/terminal-connected.png" alt="終端機畫面，顯示 AT 指令與模組回應">
+                <figcaption>終端機畫面：→ 為送出、← 為接收，TX／RX／系統訊息以不同顏色區分（圖為對數據機下 AT 指令的示範）</figcaption>
+            </figure>
+
             <h3>基本功能</h3>
             <table>
                 <tr>
@@ -531,7 +586,23 @@
                 </tr>
                 <tr>
                     <td>傳送指令</td>
-                    <td>向裝置發送文字指令</td>
+                    <td>向裝置發送文字指令，按 Enter 或「發送」按鈕</td>
+                </tr>
+                <tr>
+                    <td>指令歷史</td>
+                    <td>輸入框左側的時鐘圖示可叫出歷史紀錄，重送或複製先前的指令</td>
+                </tr>
+                <tr>
+                    <td>回顯（Echo）</td>
+                    <td>把自己送出的指令也顯示在畫面上，方便確認「到底有沒有送出去」</td>
+                </tr>
+                <tr>
+                    <td>TXT / HEX 模式</td>
+                    <td>切換文字或十六進位顯示，除錯二進位協定時很有用</td>
+                </tr>
+                <tr>
+                    <td>顏色自訂</td>
+                    <td>TX／RX／SYS 三種訊息的顏色可各自調整，深淺主題分開記憶</td>
                 </tr>
             </table>
 
@@ -545,19 +616,121 @@
             </ul>
 
             <h3>行結尾設定</h3>
-            <p>傳送指令時可選擇不同的行結尾符號：</p>
+            <p>傳送指令時，可在輸入框右側選擇要附加的行結尾符號：</p>
+            <table>
+                <tr>
+                    <th>選項</th>
+                    <th>送出的位元組</th>
+                    <th>適用情境</th>
+                </tr>
+                <tr>
+                    <td>無行尾</td>
+                    <td>（不附加）</td>
+                    <td>自行控制每個位元組時</td>
+                </tr>
+                <tr>
+                    <td>LF</td>
+                    <td><code>\n</code>（0x0A）</td>
+                    <td>Arduino / ESP32 的 <code>Serial.readStringUntil('\n')</code>，預設值</td>
+                </tr>
+                <tr>
+                    <td>CR</td>
+                    <td><code>\r</code>（0x0D）</td>
+                    <td><strong>數據機 AT 指令、多數 CLI 韌體</strong></td>
+                </tr>
+                <tr>
+                    <td>CRLF</td>
+                    <td><code>\r\n</code></td>
+                    <td>Windows 風格的裝置、部分模組</td>
+                </tr>
+            </table>
+            <p><strong>⚠️ 接數據機（modem）請務必選 CR。</strong> AT 指令集規定命令以回車（CR）結尾，若送成 LF 或不加行尾，數據機會一直等待結束符，<strong>完全不會回應</strong>——這不是連線失敗，而是命令根本沒被視為送出。</p>
+            <p>此設定<strong>會被記住</strong>，下次開啟頁面時自動還原（V26.10.0 起）。</p>
+        </section>
+
+        <!-- RS-232 訊號狀態列 -->
+        <section id="signals">
+            <h2><span class="icon">🚦</span> RS-232 訊號狀態列</h2>
+            <p>連線成功後，標題列下方會出現一排 RS-232 握手訊號燈；未連線時整列隱藏。</p>
+
+            <figure class="shot">
+                <img src="img/header-signalbar.png" alt="標題列與 RS-232 訊號狀態列">
+                <figcaption>訊號列亮起的樣子：RTS／DTR（藍）是我方送出的訊號，DCD／DSR／CTS（綠）是對方送來的</figcaption>
+            </figure>
+
+            <h3>LOCAL (OUT) — 我方送出的訊號，可點擊切換</h3>
+            <table>
+                <tr>
+                    <th>燈號</th>
+                    <th>全名</th>
+                    <th>說明</th>
+                </tr>
+                <tr>
+                    <td><strong>BRK</strong></td>
+                    <td>Break</td>
+                    <td>送出中斷訊號。點一下開始、再點一下解除</td>
+                </tr>
+                <tr>
+                    <td><strong>RTS</strong></td>
+                    <td>Request To Send</td>
+                    <td>請求傳送。硬體流控的裝置通常需要拉高</td>
+                </tr>
+                <tr>
+                    <td><strong>DTR</strong></td>
+                    <td>Data Terminal Ready</td>
+                    <td>終端就緒。<strong>多數數據機要 DTR 為高才接受命令</strong></td>
+                </tr>
+            </table>
+            <p><strong>為什麼一開始顯示為未亮？</strong> 瀏覽器的 Web Serial API 只能「設定」輸出訊號，<strong>無法讀回目前狀態</strong>，所以連線後、你第一次點擊之前，程式並不知道實際值，一律顯示為未亮。</p>
+            <p><strong>⚠️ 對 Arduino / ESP32 使用者的提醒：</strong> DTR 與 RTS 在多數開發板上接的是自動重置電路，切換它們<strong>可能導致板子重新開機</strong>。因此 NuMonitor 刻意不在連線時自動設定這兩個訊號，一切由你手動決定。</p>
+
+            <h3>REMOTE (IN) — 對方送來的訊號，唯讀</h3>
+            <table>
+                <tr>
+                    <th>燈號</th>
+                    <th>全名</th>
+                    <th>亮起代表</th>
+                </tr>
+                <tr>
+                    <td><strong>DCD</strong></td>
+                    <td>Data Carrier Detect</td>
+                    <td>偵測到載波（數據機已建立連線）</td>
+                </tr>
+                <tr>
+                    <td><strong>DSR</strong></td>
+                    <td>Data Set Ready</td>
+                    <td>對方裝置已就緒、有電在線上</td>
+                </tr>
+                <tr>
+                    <td><strong>CTS</strong></td>
+                    <td>Clear To Send</td>
+                    <td>對方允許你送資料</td>
+                </tr>
+                <tr>
+                    <td><strong>RI</strong></td>
+                    <td>Ring Indicator</td>
+                    <td>偵測到響鈴訊號</td>
+                </tr>
+            </table>
+            <p>這四顆燈每 0.25 秒更新一次（Web Serial 沒有訊號變化事件可監聽，只能定期查詢）。</p>
+
+            <h3>ACT / ERR</h3>
             <ul>
-                <li><strong>None</strong> - 不加任何結尾</li>
-                <li><strong>NL</strong> - 換行符 (\n)</li>
-                <li><strong>CR</strong> - 回車符 (\r)</li>
-                <li><strong>Both</strong> - 換行+回車 (\r\n)</li>
+                <li><strong>ACT</strong> — 只要有資料進出（TX 或 RX）就閃爍；連續傳輸時看起來會是持續亮著</li>
+                <li><strong>ERR</strong> — 偵測到 Framing、Parity、Buffer Overrun 或收到對方送來的 Break 時亮紅閃爍 3 秒，點一下可提前清除。發生錯誤後連線<strong>不會中斷</strong>，會自動恢復接收</li>
             </ul>
+            <p><strong>關於同位元（Parity）錯誤：</strong> NuMonitor 目前固定以 <strong>8N1（8 資料位元、無同位元、1 停止位元）</strong> 開啟連接埠，既然沒有同位元位，就不可能發生同位元錯誤。ERR 燈實際上只會對 Framing／Overrun／Break 有反應。</p>
         </section>
 
         <!-- 繪圖器 -->
         <section id="plotter">
             <h2><span class="icon">📈</span> 繪圖器功能</h2>
             
+            <figure class="shot">
+                <img src="img/plotter-line.png" alt="繪圖器折線圖，含三條數據系列與圖例">
+                <figcaption>繪圖器：每個群組自成一個分頁，下方圖例即時顯示各系列目前的數值，可點擊隱藏／顯示</figcaption>
+            </figure>
+
             <h3>自動數據解析</h3>
             <p>NuMonitor 會自動解析 Serial 輸出的數據並繪製圖表。當您的 Arduino 輸出符合特定格式的數據時，會自動出現對應的圖表分頁。</p>
 
@@ -609,6 +782,25 @@
         <!-- 圖表類型 -->
         <section id="charts">
             <h2><span class="icon">📊</span> 圖表類型</h2>
+
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="img/chart-stack.png" alt="堆疊面積圖">
+                    <figcaption><code>stack</code> 堆疊面積圖 — 看組成比例隨時間的變化</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-bar.png" alt="長條圖">
+                    <figcaption><code>bar</code> 長條圖 — 比較多個類別的當前值</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-gauge.png" alt="儀表圖">
+                    <figcaption><code>gauge</code> 儀表圖 — 單一數值監控，多個數值自動排成網格</figcaption>
+                </figure>
+                <figure class="shot">
+                    <img src="img/chart-pie.png" alt="圓餅圖">
+                    <figcaption><code>pie</code> 圓餅圖 — 比例分配，2～8 個類別最好讀</figcaption>
+                </figure>
+            </div>
 
             <div class="chart-type">
                 <div class="chart-type-icon">📈</div>
@@ -678,6 +870,11 @@
         <section id="map">
             <h2><span class="icon">🗺️</span> GPS 地圖軌跡</h2>
             
+            <figure class="shot">
+                <img src="img/gps-map.png" alt="GPS 軌跡地圖，OpenStreetMap 底圖上顯示軌跡點">
+                <figcaption>GPS 軌跡：底圖為 OpenStreetMap，下方可調整保留的軌跡點數與切換視界跟隨；右上角「圖表」可切回原本的折線圖</figcaption>
+            </figure>
+
             <h3>啟用地圖功能</h3>
             <p>當數據中包含 <code>map:lat,lng</code> 格式的座標時，圖表會自動顯示「地圖」按鈕。點擊按鈕可切換到地圖視圖。</p>
 
@@ -880,6 +1077,32 @@ Serial.println("25.5 60.2 1013.2");</code></pre>
             <h3>Q: ESP32 連接不穩定？</h3>
             <p><strong>A:</strong> ESP32 USB CDC 裝置可能需要在每次連接時重新選擇連接埠。這是 USB 實作的限制，NuMonitor 已針對此問題進行優化。</p>
 
+            <h3>Q: 接數據機（modem），送 AT 指令完全沒有回應？</h3>
+            <p><strong>A:</strong> 依序檢查：</p>
+            <ol>
+                <li><strong>行結尾要選 CR</strong>——這是最常見的原因。AT 指令必須以回車結尾，送成預設的 LF 數據機不會有任何反應</li>
+                <li><strong>把 DTR 點亮</strong>（必要時連 RTS 一起）——多數數據機要 DTR 為高才接受命令；其他終端軟體開埠時預設就會拉高，NuMonitor 為了避免重置開發板刻意不自動設定</li>
+                <li><strong>看 DSR 與 CTS 燈</strong>——DSR 不亮代表對方沒電或線沒接好；CTS 不亮代表對方不允許你送資料</li>
+                <li><strong>確認鮑率</strong>與數據機設定一致</li>
+                <li>打開<strong>回顯</strong>並觀察底部的 <strong>TX bytes</strong>，確認資料真的送出去了</li>
+            </ol>
+
+            <h3>Q: 自動重連跟自動連線有什麼差別？</h3>
+            <p><strong>A:</strong> 是同一個開關控制的兩件事：</p>
+            <ul>
+                <li><strong>連線中裝置被拔掉</strong> → 每秒重試，直到插回來為止（無時間限制）</li>
+                <li><strong>重新整理或重新開啟頁面</strong> → 若上次那顆連接埠還在，自動接回去並還原鮑率</li>
+            </ul>
+            <p>但如果你上次是<strong>自己按「斷開」</strong>離開的，重新整理後不會自作主張接回去。開關本身的狀態也會被記住。</p>
+
+            <h3>Q: 怎麼切換深色／淺色主題？</h3>
+            <p><strong>A:</strong> 點擊右上角的月亮／太陽切換開關，設定會自動記住。圖表與終端機配色都會跟著切換。</p>
+
+            <figure class="shot">
+                <img src="img/theme-light.png" alt="淺色主題下的繪圖器畫面">
+                <figcaption>淺色主題（GitHub Light 風格）：連圖表的格線、文字與背景都會跟著切換</figcaption>
+            </figure>
+
             <h3>Q: 如何匯出數據？</h3>
             <p><strong>A:</strong> 點擊圖表上方的「CSV」按鈕，即可將該圖表的數據匯出為 CSV 檔案。</p>
 
@@ -889,7 +1112,7 @@ Serial.println("25.5 60.2 1013.2");</code></pre>
     </main>
 
     <footer class="footer">
-        <p>NuMonitor v2.0.0 | Developed by <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
+        <p>NuMonitor V26.10.0 | Developed by <a href="https://www.nuwarobotics.com" target="_blank">Nuwa Robotics</a></p>
         <p style="margin-top: 10px;">
             <a href="../NuMonitor4SerialPort.html">返回 NuMonitor</a> | 
             <a href="changelog.html">版本變更記錄</a>
