@@ -11,3 +11,7 @@ doc/src/out/
 # OS
 Thumbs.db
 .DS_Store
+
+# Claude Code 開發設定：技能檔與 session 記錄一律留在本機，不上 GitHub
+# （2026-07-31 user 裁示）
+.claude/
