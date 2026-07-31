@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NuMonitor for Serial Port</title>
+    <title>NuMonitor for Serial Port V26.10.0</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
+        :root,
+        [data-theme="dark"] {
             --bg-primary: #0a0e14;
             --bg-secondary: #0d1117;
             --bg-tertiary: #161b22;
@@ -21,10 +22,60 @@
             --accent-blue: #58a6ff;
             --accent-blue-dim: rgba(88, 166, 255, 0.15);
             --accent-orange: #d29922;
+            --accent-orange-dim: rgba(210, 153, 34, 0.35);
+            /* 連線按鈕呼吸光暈：soft = 吐氣（弱）、strong = 吸氣（強）*/
+            --conn-glow-green-soft: rgba(57, 211, 83, 0.3);
+            --conn-glow-green: rgba(57, 211, 83, 0.95);
+            --conn-glow-orange-soft: rgba(210, 153, 34, 0.3);
+            --conn-glow-orange: rgba(210, 153, 34, 0.95);
             --accent-red: #f85149;
             --accent-purple: #a371f7;
             --terminal-green: #00ff9f;
             --terminal-amber: #ffb000;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --shadow-light: rgba(0, 0, 0, 0.3);
+            --overlay-bg: rgba(0, 0, 0, 0.7);
+            --tab-active-bg: #21262d;
+            --chart-bg: #0a0e14;
+            --chart-grid: #21262d;
+            --chart-text: #6e7681;
+            --chart-text-primary: #e6edf3;
+            --terminal-radial: rgba(57, 211, 83, 0.03);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f6f8fa;
+            --bg-tertiary: #eaeef2;
+            --bg-elevated: #d0d7de;
+            --border-color: #d0d7de;
+            --border-active: #0969da;
+            --text-primary: #1f2328;
+            --text-secondary: #656d76;
+            --text-muted: #8c959f;
+            --accent-green: #1a7f37;
+            --accent-green-dim: rgba(26, 127, 55, 0.12);
+            --accent-blue: #0969da;
+            --accent-blue-dim: rgba(9, 105, 218, 0.12);
+            --accent-orange: #9a6700;
+            --accent-orange-dim: rgba(154, 103, 0, 0.3);
+            --conn-glow-green-soft: rgba(26, 127, 55, 0.28);
+            --conn-glow-green: rgba(26, 127, 55, 0.9);
+            --conn-glow-orange-soft: rgba(154, 103, 0, 0.28);
+            --conn-glow-orange: rgba(154, 103, 0, 0.9);
+            --accent-red: #cf222e;
+            --accent-purple: #8250df;
+            --terminal-green: #116329;
+            --terminal-amber: #9a6700;
+            --shadow-color: rgba(31, 35, 40, 0.15);
+            --shadow-light: rgba(31, 35, 40, 0.1);
+            --overlay-bg: rgba(31, 35, 40, 0.5);
+            --tab-active-bg: #d0d7de;
+            --chart-bg: #ffffff;
+            --chart-grid: #d0d7de;
+            --chart-text: #656d76;
+            --chart-text-primary: #1f2328;
+            --terminal-radial: rgba(26, 127, 55, 0.04);
         }
 
         * {
@@ -48,49 +99,67 @@
         }
 
         /* Header */
+        /* ═══ Header 控制列尺寸 tokens（與主題無關，統一字級／高度／間距）═══
+           所有 header 控制項一律 var(--ctl-h) 高、var(--ctl-font) 字級、var(--ctl-weight) 字重，
+           階層改用顏色（--text-primary / --text-secondary）表達，不用字級或字重。 */
+        :root {
+            --ctl-h: 22px;
+            --ctl-radius: 4px;
+            --ctl-pad-x: 8px;
+            --ctl-font: 12px;
+            --ctl-weight: 400;   /* header 一律一般字重，不用粗體 */
+            --ctl-gap: 6px;
+            --ctl-color: var(--text-primary);   /* header 文字一律同一個顏色（填色按鈕的白字除外）*/
+        }
+
         .header {
             flex-shrink: 0;
             background: var(--bg-secondary);
             border-bottom: 1px solid var(--border-color);
-            padding: 12px 20px;
+            padding: 5px 14px;
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            gap: 20px;
+            flex-wrap: wrap;   /* 真的塞不下才換行，不用寫死斷點 */
+            gap: 10px;
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 10px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .logo-icon {
-            width: 36px;
-            height: 36px;
+            width: var(--ctl-h);
+            height: var(--ctl-h);
             background: var(--bg-tertiary);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: var(--ctl-radius);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
+        }
+
+        .logo-icon svg {
+            width: 16px;
+            height: 16px;
         }
 
         .logo-text {
             font-family: 'Rubik', sans-serif;
-            font-weight: 700;
-            font-size: 16px;
+            font-weight: 400;
+            font-size: 15px;
             letter-spacing: -0.3px;
-            color: white;
+            color: var(--ctl-color);
             white-space: nowrap;
-            min-width: 220px;
         }
 
         .logo-icon-link,
@@ -128,14 +197,16 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 4px 10px;
+            height: var(--ctl-h);
+            padding: 0 var(--ctl-pad-x);
             background: var(--bg-tertiary);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-secondary);
+            border-radius: var(--ctl-radius);
+            color: var(--ctl-color);
             text-decoration: none;
-            font-size: 11px;
-            font-weight: 500;
+            font-size: var(--ctl-font);
+            font-weight: var(--ctl-weight);
+            white-space: nowrap;
             transition: all 0.2s ease;
         }
 
@@ -146,16 +217,138 @@
         }
 
         .changelog-link svg {
-            width: 12px;
-            height: 12px;
+            width: 13px;
+            height: 13px;
+        }
+
+        /* ═══ RS-232 訊號狀態列 ═══ */
+        .signal-bar {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+            padding: 4px 14px;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* 配色與「說明書」按鈕（.changelog-link）完全一致：
+           bg-tertiary 底、border-color 框、ctl-color 文字。只有「亮起」時才換成訊號色 */
+        .sig-group-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            color: var(--ctl-color);
+            margin-right: 2px;
+            white-space: nowrap;
+        }
+
+        .sig-led {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            height: 18px;
+            padding: 0 7px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--ctl-radius);
+            background: var(--bg-tertiary);
+            color: var(--ctl-color);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            transition: color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .sig-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            flex-shrink: 0;
+            transition: background 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        /* 輸出訊號可點擊 */
+        button.sig-led {
+            cursor: pointer;
+        }
+
+        button.sig-led:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        button.sig-led:not(:disabled):hover {
+            border-color: var(--text-secondary);
+        }
+
+        /* 亮起：輸出＝藍、輸入＝綠 */
+        .sig-out.on {
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .sig-out.on .sig-dot {
+            background: var(--accent-blue);
+            box-shadow: 0 0 5px var(--accent-blue);
+        }
+
+        .sig-in.on {
+            color: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+
+        .sig-in.on .sig-dot {
+            background: var(--accent-green);
+            box-shadow: 0 0 5px var(--accent-green);
+        }
+
+        /* ACT：資料進出時閃一下 */
+        .sig-act.blink {
+            color: var(--accent-orange);
+            border-color: var(--accent-orange);
+        }
+
+        .sig-act.blink .sig-dot {
+            background: var(--accent-orange);
+            box-shadow: 0 0 5px var(--accent-orange);
+        }
+
+        /* ERR：錯誤時閃紅並保持一段時間 */
+        .sig-err.on {
+            color: var(--accent-red);
+            border-color: var(--accent-red);
+            cursor: pointer;
+        }
+
+        .sig-err.on .sig-dot {
+            background: var(--accent-red);
+            box-shadow: 0 0 6px var(--accent-red);
+            animation: sig-err-blink 0.5s ease-in-out infinite;
+        }
+
+        @keyframes sig-err-blink {
+            0%, 100% { opacity: 1; }
+            50%      { opacity: 0.25; }
+        }
+
+        /* 未連線時整列隱藏——燈號在沒連線時沒有意義，留著只是佔位 */
+        .signal-bar.offline {
+            display: none;
         }
 
         /* Connection Panel */
         .connection-panel {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: var(--ctl-gap);
             flex-wrap: wrap;
+            /* 1 1 auto：以「內容實際寬度」參與換行判定（flex-basis 0 會讓面板永遠自認為 0 寬、
+               擠爆了也不換行），同時仍會長滿剩餘寬度，右側主題／語言才推得到底 */
+            flex: 1 1 auto;
         }
 
         .select-wrapper {
@@ -165,10 +358,10 @@
         .select-wrapper::after {
             content: '▾';
             position: absolute;
-            right: 12px;
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-secondary);
+            color: var(--ctl-color);
             pointer-events: none;
             font-size: 10px;
         }
@@ -177,11 +370,13 @@
             appearance: none;
             background: var(--bg-tertiary);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 8px 32px 8px 12px;
-            color: var(--text-primary);
+            border-radius: var(--ctl-radius);
+            height: var(--ctl-h);
+            padding: 0 26px 0 var(--ctl-pad-x);
+            color: var(--ctl-color);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
+            font-size: var(--ctl-font);
+            font-weight: var(--ctl-weight);
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -213,6 +408,17 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
+        }
+
+        /* Header 內的按鈕改用統一的控制列尺寸（輸入列、Modal 的按鈕維持原本大小）*/
+        .header .btn {
+            gap: 6px;
+            height: var(--ctl-h);
+            padding: 0 12px;
+            border-radius: var(--ctl-radius);
+            font-size: var(--ctl-font);
+            font-weight: var(--ctl-weight);
+            white-space: nowrap;
         }
 
         .btn-icon {
@@ -261,51 +467,196 @@
             box-shadow: none !important;
         }
 
-        .status-indicator {
+        /* ═══ 連線控制：連線/斷開 + 連接埠下拉的分割按鈕 ═══ */
+        .connect-dropdown {
+            position: relative;
+            display: flex;
+            border-radius: var(--ctl-radius);   /* 讓呼吸光暈的圓角跟按鈕一致 */
+        }
+
+        /* 連線中／重連中：整顆按鈕外框呼吸發光（滑鼠移上去時停止）*/
+        .connect-dropdown.connected {
+            animation: conn-breathe 2.6s ease-in-out infinite;
+        }
+
+        .connect-dropdown.reconnecting {
+            animation: conn-breathe-fast 1.1s ease-in-out infinite;
+        }
+
+        .connect-dropdown.connected:has(.btn-connect-main:hover),
+        .connect-dropdown.reconnecting:has(.btn-connect-main:hover) {
+            animation: none;
+        }
+
+        /* 呼吸光暈：外圈實色描邊（讀得出輪廓）+ 外擴柔光（看得出在呼吸）*/
+        @keyframes conn-breathe {
+            0%, 100% { box-shadow: 0 0 0 1px var(--conn-glow-green-soft), 0 0 5px 1px var(--conn-glow-green-soft); }
+            50%      { box-shadow: 0 0 0 2px var(--conn-glow-green), 0 0 18px 5px var(--conn-glow-green); }
+        }
+
+        @keyframes conn-breathe-fast {
+            0%, 100% { box-shadow: 0 0 0 1px var(--conn-glow-orange-soft), 0 0 5px 1px var(--conn-glow-orange-soft); }
+            50%      { box-shadow: 0 0 0 2px var(--conn-glow-orange), 0 0 18px 5px var(--conn-glow-orange); }
+        }
+
+        /* ── 連線按鈕＝狀態顯示 + 動作，三種狀態各一種顏色 ──
+           未連線：藍「連線」．已連線：綠「已連接」+ 呼吸．重連中：橘「連線中…」+ 快速呼吸
+           滑過（已連線／重連中）時文字換成按下去會發生的事：斷開／取消 */
+        .connect-dropdown .btn-connect-main {
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+            border-radius: var(--ctl-radius) 0 0 var(--ctl-radius);
+        }
+
+        .connect-dropdown .btn-connect-main:hover:not(:disabled) {
+            filter: brightness(1.12);
+        }
+
+        .connect-dropdown.connected .btn-connect-main {
+            background: var(--accent-green);
+            border-radius: var(--ctl-radius);   /* 箭頭已隱藏，四角都要圓 */
+        }
+
+        .connect-dropdown.reconnecting .btn-connect-main {
+            background: var(--accent-orange);
+        }
+
+        /* 已連線時整個藏起挑埠箭頭（不是變淡）——連上了就沒有換埠這個選項 */
+        .connect-dropdown.connected .connect-arrow {
+            display: none;
+        }
+
+        /* 滑過時預告「按下去會斷線／取消」→ 轉紅並停止呼吸 */
+        .connect-dropdown.connected .btn-connect-main:hover,
+        .connect-dropdown.reconnecting .btn-connect-main:hover {
+            background: var(--accent-red);
+            animation: none;
+        }
+
+        /* 重連中箭頭仍可用（可以中途換一顆埠），跟著主鈕變橘 */
+        .connect-dropdown.reconnecting .connect-arrow {
+            background: var(--accent-orange);
+        }
+
+        /* 五個文字標籤同一時間只露出一個 */
+        .conn-label { display: none; }
+        .connect-dropdown:not(.connected):not(.reconnecting) .lbl-idle { display: inline; }
+        .connect-dropdown.connected .lbl-live { display: inline; }
+        .connect-dropdown.reconnecting .lbl-busy { display: inline; }
+
+        .connect-dropdown.connected .btn-connect-main:hover .lbl-live,
+        .connect-dropdown.reconnecting .btn-connect-main:hover .lbl-busy {
+            display: none;
+        }
+
+        .connect-dropdown.connected .btn-connect-main:hover .lbl-stop,
+        .connect-dropdown.reconnecting .btn-connect-main:hover .lbl-cancel {
+            display: inline;
+        }
+
+        .connect-arrow {
+            display: flex;
+            align-items: center;
+            height: var(--ctl-h);
+            padding: 0 8px;
+            background: var(--accent-blue);
+            color: #ffffff;
+            border: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 0 var(--ctl-radius) var(--ctl-radius) 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+
+        .connect-arrow:hover:not(:disabled) {
+            filter: brightness(1.12);
+        }
+
+        .connect-arrow:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .connect-arrow svg {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.15s ease;
+        }
+
+        .connect-dropdown.open .connect-arrow svg {
+            transform: rotate(180deg);
+        }
+
+        .connect-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 6px;
+            min-width: 250px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px var(--shadow-color);
+            z-index: 200;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.15s ease;
+        }
+
+        .connect-dropdown.open .connect-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .connect-menu-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 12px;
-            background: var(--bg-tertiary);
-            border-radius: 20px;
+            padding: 9px 14px;
             font-size: 12px;
-            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.15s ease, color 0.15s ease;
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--text-muted);
-            transition: all 0.3s ease;
+        .connect-menu-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
         }
 
-        .status-dot.connected {
-            background: var(--accent-green);
-            box-shadow: 0 0 8px var(--accent-green);
-            animation: pulse 2s infinite;
+        .connect-menu-item.other {
+            border-top: 1px solid var(--border-color);
+            color: var(--accent-blue);
         }
 
-        .status-dot.reconnecting {
-            background: var(--accent-orange);
-            box-shadow: 0 0 8px var(--accent-orange);
-            animation: pulse 0.5s infinite;
+        .connect-menu-item .port-star {
+            margin-left: auto;
+            color: var(--accent-orange);
+            font-size: 11px;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .connect-menu-empty {
+            padding: 9px 14px;
+            font-size: 12px;
+            color: var(--text-muted);
         }
+
 
         /* Auto Connect Toggle */
         .toggle-switch {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             cursor: pointer;
-            padding: 6px 12px;
+            height: var(--ctl-h);
+            padding: 0 var(--ctl-pad-x);
             background: var(--bg-tertiary);
-            border-radius: 6px;
+            border-radius: var(--ctl-radius);
             border: 1px solid var(--border-color);
             transition: all 0.2s ease;
         }
@@ -319,10 +670,11 @@
         }
 
         .toggle-slider {
-            width: 36px;
-            height: 20px;
+            width: 24px;
+            height: 13px;
+            flex-shrink: 0;
             background: var(--bg-primary);
-            border-radius: 10px;
+            border-radius: 7px;
             position: relative;
             transition: all 0.3s ease;
         }
@@ -330,8 +682,8 @@
         .toggle-slider::after {
             content: '';
             position: absolute;
-            width: 16px;
-            height: 16px;
+            width: 9px;
+            height: 9px;
             background: var(--text-secondary);
             border-radius: 50%;
             top: 2px;
@@ -344,14 +696,76 @@
         }
 
         .toggle-switch input:checked + .toggle-slider::after {
-            transform: translateX(16px);
+            transform: translateX(11px);
             background: var(--accent-green);
         }
 
         .toggle-label {
-            font-size: 12px;
-            color: var(--text-secondary);
+            font-size: var(--ctl-font);
+            font-weight: var(--ctl-weight);
+            color: var(--ctl-color);
             white-space: nowrap;
+        }
+
+        /* Theme Toggle Switch */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            height: var(--ctl-h);
+            padding: 0 8px;
+            background: var(--bg-tertiary);
+            border-radius: var(--ctl-radius);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            margin-left: auto;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--text-secondary);
+        }
+
+        .theme-toggle input {
+            display: none;
+        }
+
+        .theme-toggle-icon {
+            font-size: 12px;
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle .toggle-slider {
+            width: 24px;
+            height: 13px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 7px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle .toggle-slider::after {
+            content: '';
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            background: var(--accent-orange);
+            border-radius: 50%;
+            top: 1px;
+            left: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle input:checked + .toggle-slider {
+            background: var(--accent-blue-dim);
+            border-color: var(--accent-blue);
+        }
+
+        .theme-toggle input:checked + .toggle-slider::after {
+            transform: translateX(11px);
+            background: var(--accent-blue);
         }
 
         /* Mini Toggle Switch for Terminal Controls */
@@ -512,7 +926,7 @@
             line-height: 1.6;
             min-height: 0;
             background: 
-                radial-gradient(ellipse at top, rgba(57, 211, 83, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at top, var(--terminal-radial) 0%, transparent 50%),
                 var(--bg-secondary);
         }
 
@@ -708,7 +1122,7 @@
             background: var(--bg-elevated);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 24px var(--shadow-color);
             opacity: 0;
             visibility: hidden;
             transform: translateY(8px);
@@ -904,7 +1318,7 @@
             background: var(--bg-elevated);
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 16px var(--shadow-color);
             opacity: 0;
             visibility: hidden;
             transition: all 0.15s ease;
@@ -1009,7 +1423,7 @@
             background: var(--bg-elevated);
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 24px var(--shadow-color);
             opacity: 0;
             visibility: hidden;
             transition: all 0.15s ease;
@@ -1233,24 +1647,24 @@
         .language-selector {
             position: relative;
             user-select: none;
-            margin-left: auto;
         }
 
         .language-trigger {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
+            gap: 6px;
+            height: var(--ctl-h);
+            padding: 0 var(--ctl-pad-x);
             background: var(--bg-tertiary);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: var(--text-primary);
+            border-radius: var(--ctl-radius);
+            color: var(--ctl-color);
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: var(--ctl-font);
+            font-weight: var(--ctl-weight);
+            white-space: nowrap;
             cursor: pointer;
             transition: all 0.2s ease;
-            min-height: 36px;
         }
 
         .language-trigger:hover {
@@ -1264,8 +1678,8 @@
         }
 
         .language-flag {
-            width: 20px;
-            height: 15px;
+            width: 18px;
+            height: 13px;
             display: inline-block;
             object-fit: cover;
             border-radius: 2px;
@@ -1278,7 +1692,7 @@
 
         .language-arrow {
             font-size: 10px;
-            color: var(--text-secondary);
+            color: var(--ctl-color);
             transition: transform 0.2s ease;
         }
 
@@ -1296,7 +1710,7 @@
             background: var(--bg-elevated);
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 24px var(--shadow-color);
             opacity: 0;
             visibility: hidden;
             transform: translateY(-8px);
@@ -1374,7 +1788,7 @@
             font-family: 'Space Grotesk', sans-serif;
             white-space: nowrap;
             color: var(--text-primary);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 16px var(--shadow-color);
             z-index: 10000;
             pointer-events: none;
             opacity: 0;
@@ -1400,9 +1814,10 @@
         /* Separator */
         .separator {
             width: 1px;
-            height: 24px;
+            height: 18px;
+            flex-shrink: 0;
             background: var(--border-color);
-            margin: 0 4px;
+            margin: 0 2px;
         }
 
         /* Error Tips */
@@ -1439,7 +1854,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: var(--overlay-bg);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -1495,20 +1910,11 @@
             border-radius: 6px;
         }
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-
-            .connection-panel {
-                justify-content: flex-start;
-                flex-wrap: wrap;
-            }
-        }
-
+        /* Responsive
+           註：這裡原本有一條 @media (max-width: 1200px) 把 .header 改成 flex-direction: column，
+           那是寫死的斷點——即使控制項之間還空著 400px 也照樣換行。已移除，改由 flex 自然換行處理：
+           .header 為 flex-wrap: wrap、.connection-panel 為 flex: 1 1 auto，
+           只有在「logo 區 + 連線面板」真的塞不下同一行時，面板才整塊掉到第二行。 */
         @media (max-width: 768px) {
             .connection-panel {
                 justify-content: center;
@@ -1574,7 +1980,7 @@
         }
 
         .tab-item.active {
-            background: #21262d;
+            background: var(--tab-active-bg);
             border-color: var(--border-color);
             color: var(--text-primary);
         }
@@ -1853,7 +2259,7 @@
             border-radius: 6px !important;
             color: var(--text-primary) !important;
             padding: 6px 10px !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+            box-shadow: 0 4px 12px var(--shadow-light) !important;
         }
 
         .map-tooltip::before {
@@ -1871,7 +2277,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: var(--overlay-bg);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -2023,20 +2429,28 @@
                     <line x1="16" y1="17" x2="8" y2="17"/>
                     <polyline points="10 9 9 9 8 9"/>
                 </svg>
-                v2.0.0
+                <span id="appVersion">V26.0.0</span>
             </a>
         </div>
 
         <div class="connection-panel">
-            <!-- Select Port Button -->
-            <button class="btn btn-secondary tooltip" id="addPortBtn" data-i18n-tip="btn.selectPort.tip" data-tip="">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M5 5C3 5 2 6.5 2 8.5v7C2 17.5 3 19 5 19h14c2 0 3-1.5 3-3.5v-7C22 6.5 21 5 19 5H5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-                    <circle cx="5.5" cy="9.5" r="1.1"/><circle cx="9" cy="9.5" r="1.1"/><circle cx="12.5" cy="9.5" r="1.1"/><circle cx="16" cy="9.5" r="1.1"/><circle cx="19.5" cy="9.5" r="1.1"/>
-                    <circle cx="7.25" cy="14.5" r="1.1"/><circle cx="10.75" cy="14.5" r="1.1"/><circle cx="14.25" cy="14.5" r="1.1"/><circle cx="17.75" cy="14.5" r="1.1"/>
-                </svg>
-                <span data-i18n="btn.selectPort">選擇連接埠</span>
-            </button>
+            <!-- Connect / Disconnect 分割按鈕（主鈕切換連線狀態，箭頭展開連接埠選單）-->
+            <div class="connect-dropdown" id="connectDropdown">
+                <!-- 按鈕本身就是狀態顯示：未連線=藍「連線」／已連線=綠「已連接」+ 外框呼吸／重連中=橘「連線中…」
+                     已連線或重連中時滑過按鈕，文字改成該按下去會發生的事（斷開／取消）
+                     已連線時右側挑埠箭頭整個隱藏 -->
+                <button class="btn btn-connect-main tooltip" id="connectBtn" data-i18n-tip="btn.connect.tip" data-tip="">
+                    <span class="conn-label lbl-idle" data-i18n="btn.connect">連線</span>
+                    <span class="conn-label lbl-live" data-i18n="status.connected">已連接</span>
+                    <span class="conn-label lbl-busy" data-i18n="status.connecting">連線中...</span>
+                    <span class="conn-label lbl-stop" data-i18n="btn.disconnect">斷開</span>
+                    <span class="conn-label lbl-cancel" data-i18n="btn.cancel">取消</span>
+                </button>
+                <button class="connect-arrow tooltip" id="connectArrowBtn" data-i18n-tip="btn.selectPort.tip" data-tip="">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="connect-menu" id="connectMenu"></div>
+            </div>
 
             <div class="separator"></div>
 
@@ -2070,24 +2484,17 @@
                 <span class="toggle-label" data-i18n="autoReconnect.label">自動重連</span>
             </label>
 
-            <div class="separator"></div>
+            <!-- 連線狀態已整合進上方的連線按鈕（V26.4.0 起不再有獨立的狀態指示器）-->
 
-            <!-- Disconnect Button -->
-            <button class="btn btn-disconnect tooltip" id="disconnectBtn" data-i18n-tip="btn.disconnect.tip" data-tip="" disabled>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"/>
-                    <line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
-                <span data-i18n="btn.disconnect">斷開</span>
-            </button>
+            <!-- 以下兩項（主題切換、語言選單）由 .theme-toggle 的 margin-left:auto 推到最右邊 -->
 
-            <!-- Status -->
-            <div class="status-indicator tooltip" data-i18n-tip="status.tip" data-tip="">
-                <div class="status-dot" id="statusDot"></div>
-                <span id="statusText" data-i18n="status.disconnected">未連接</span>
-            </div>
-            
-            <div class="separator"></div>
+            <!-- Theme Toggle -->
+            <label class="theme-toggle tooltip" id="themeToggle" data-i18n-tip="theme.toggle.tip" data-tip="">
+                <span class="theme-toggle-icon" id="themeIcon">&#x263E;</span>
+                <input type="checkbox" id="themeSwitch">
+                <span class="toggle-slider"></span>
+                <span class="theme-toggle-icon" id="themeLightIcon">&#x2600;</span>
+            </label>
 
             <!-- Language Selector -->
             <div class="language-selector" id="languageSelector">
@@ -2173,6 +2580,36 @@
             </div>
         </div>
     </header>
+
+    <!-- ═══ RS-232 訊號狀態列（未連線時整列 display:none）═══
+         LOCAL：輸出訊號，點燈號即切換（Web Serial 只能設不能讀，故連線後、首次點擊前顯示為「未設定」）
+         REMOTE：輸入訊號，每 250ms 以 getSignals() 輪詢（Web Serial 沒有事件可監聽）
+         ACT：有 RX/TX 就閃　ERR：讀取串流拋出 Framing/Parity/Overrun/Break 例外時閃 -->
+    <div class="signal-bar offline" id="signalBar">
+        <span class="sig-group-label">LOCAL (OUT)</span>
+        <button class="sig-led sig-out tooltip" id="sigBreak" data-sig="break" data-tip="Break — 送出中斷訊號（點擊切換）" disabled>
+            <span class="sig-dot"></span>BRK
+        </button>
+        <button class="sig-led sig-out tooltip" id="sigRts" data-sig="rts" data-tip="Request To Send（點擊切換）" disabled>
+            <span class="sig-dot"></span>RTS
+        </button>
+        <button class="sig-led sig-out tooltip" id="sigDtr" data-sig="dtr" data-tip="Data Terminal Ready（點擊切換）" disabled>
+            <span class="sig-dot"></span>DTR
+        </button>
+
+        <div class="separator"></div>
+
+        <span class="sig-group-label">REMOTE (IN)</span>
+        <span class="sig-led sig-in tooltip" id="sigDcd" data-tip="Data Carrier Detect"><span class="sig-dot"></span>DCD</span>
+        <span class="sig-led sig-in tooltip" id="sigDsr" data-tip="Data Set Ready"><span class="sig-dot"></span>DSR</span>
+        <span class="sig-led sig-in tooltip" id="sigCts" data-tip="Clear To Send"><span class="sig-dot"></span>CTS</span>
+        <span class="sig-led sig-in tooltip" id="sigRi" data-tip="Ring Indicator"><span class="sig-dot"></span>RI</span>
+
+        <div class="separator"></div>
+
+        <span class="sig-led sig-act tooltip" id="sigAct" data-tip="TX / RX 資料進出時閃爍"><span class="sig-dot"></span>ACT</span>
+        <span class="sig-led sig-err tooltip" id="sigErr" data-tip="Framing / Parity / Overrun / Break 錯誤（點擊清除）"><span class="sig-dot"></span>ERR</span>
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -2346,6 +2783,17 @@
     <script>
 
         // ═══════════════════════════════════════════════════════════════════
+        // 版本號：唯一真實來源是 <title>（格式「軟體名稱 空格 Va.b.c」）
+        // 改版時只改 <title>，Header 徽章與 console 都從這裡抓
+        // ═══════════════════════════════════════════════════════════════════
+
+        const APP_VERSION = (document.title.match(/V\d+\.\d+\.\d+/) || ['V26.0.0'])[0];
+        (() => {
+            const el = document.getElementById('appVersion');
+            if (el) el.textContent = APP_VERSION;
+        })();
+
+        // ═══════════════════════════════════════════════════════════════════
         // Plotter Constants and Color Storage
         // ═══════════════════════════════════════════════════════════════════
 
@@ -2377,7 +2825,15 @@
             maxDataPoints: 500,
             maxGroups: 10,
             gridLines: 5,
-            colors: { background: '#0a0e14', grid: '#21262d', text: '#6e7681', textPrimary: '#e6edf3' },
+            get colors() {
+                const style = getComputedStyle(document.documentElement);
+                return {
+                    background: style.getPropertyValue('--chart-bg').trim() || '#0a0e14',
+                    grid: style.getPropertyValue('--chart-grid').trim() || '#21262d',
+                    text: style.getPropertyValue('--chart-text').trim() || '#6e7681',
+                    textPrimary: style.getPropertyValue('--chart-text-primary').trim() || '#e6edf3'
+                };
+            },
             fonts: { label: '11px JetBrains Mono', value: 'bold 12px JetBrains Mono', title: '14px Space Grotesk', gauge: 'bold 32px JetBrains Mono' },
             padding: { top: 20, right: 20, bottom: 30, left: 50 }
         };
@@ -4111,6 +4567,19 @@
         }
 
         // Device Labels Storage
+        // 上次成功連線的埠：{vid, pid, idx, baudRate}。getInfo() 沒有 COM 號，同型多顆靠 getPorts() 的 index 區分
+        const LAST_PORT_KEY = 'numonitor_lastPort';
+
+        // 自動重連開關的狀態（預設開）
+        const AUTO_RECONNECT_KEY = 'numonitor_autoReconnect';
+
+        // 送出訊息的行結尾（''=None / '\n'=LF / '\r'=CR / '\r\n'=CRLF），預設 LF
+        const LINE_ENDING_KEY = 'numonitor_lineEnding';
+
+        // 「頁面關掉的當下是連著的嗎」——只有 true 才在重新整理後自動接回去
+        // 使用者自己按斷開 → false；裝置被拔掉 → 維持 true（那不是使用者想斷）
+        const AUTO_CONNECT_ARMED_KEY = 'numonitor_autoConnectArmed';
+
         const DeviceLabels = {
             getAll() { try { return JSON.parse(localStorage.getItem('serialDeviceLabels') || '{}'); } catch { return {}; } },
             get(key) { return this.getAll()[key] || null; },
@@ -4133,7 +4602,14 @@
                 this.showTimestamp = false;
                 this.autoScroll = true;
                 this.hexMode = false;
-                this.autoReconnect = true;
+                this.autoReconnect = localStorage.getItem(AUTO_RECONNECT_KEY) !== 'false';   // 預設開，關過就記住
+
+                // RS-232 輸出訊號的「我方認知」。Web Serial 只能 setSignals 不能讀回，
+                // 所以連線後、使用者首次點擊前一律是 null（未設定），不假裝知道瀏覽器開埠時的預設值
+                this.localSignals = { break: null, rts: null, dtr: null };
+                this.signalPollTimer = null;
+                this.actBlinkTimer = null;
+                this.errClearTimer = null;
                 this.echoEnabled = true;  // 複誦指令功能
                 this.buffer = '';
                 this.isDisconnecting = false;
@@ -4166,12 +4642,28 @@
             }
 
             initElements() {
-                this.addPortBtn = document.getElementById('addPortBtn');
-                this.disconnectBtn = document.getElementById('disconnectBtn');
+                this.connectDropdown = document.getElementById('connectDropdown');
+                this.connectBtn = document.getElementById('connectBtn');
+                this.connectArrowBtn = document.getElementById('connectArrowBtn');
+                this.connectMenu = document.getElementById('connectMenu');
                 this.baudRateSelect = document.getElementById('baudRate');
                 this.autoReconnectToggle = document.getElementById('autoReconnectToggle');
-                this.statusDot = document.getElementById('statusDot');
-                this.statusText = document.getElementById('statusText');
+
+                // RS-232 訊號狀態列
+                this.signalBar = document.getElementById('signalBar');
+                this.sigOutEls = {
+                    break: document.getElementById('sigBreak'),
+                    rts: document.getElementById('sigRts'),
+                    dtr: document.getElementById('sigDtr')
+                };
+                this.sigInEls = {
+                    dataCarrierDetect: document.getElementById('sigDcd'),
+                    dataSetReady: document.getElementById('sigDsr'),
+                    clearToSend: document.getElementById('sigCts'),
+                    ringIndicator: document.getElementById('sigRi')
+                };
+                this.sigActEl = document.getElementById('sigAct');
+                this.sigErrEl = document.getElementById('sigErr');
                 this.terminalOutput = document.getElementById('terminalOutput');
                 this.inputField = document.getElementById('inputField');
                 this.lineEndingSelect = document.getElementById('lineEndingSelect');
@@ -4213,11 +4705,30 @@
             }
 
             bindEvents() {
-                this.addPortBtn.addEventListener('click', () => this.selectPort());
-                
+                // 主鈕一鍵三態：已連線 → 斷開；重連中 → 取消重連；未連線 → 智慧連線
+                this.connectBtn.addEventListener('click', () => {
+                    if (this.isConnected) {
+                        this.disconnect();
+                    } else if (this.isReconnecting) {
+                        this.stopReconnect();
+                        this.appendLine(window.languageManager.t('autoreconnect.disabled'), 'info');
+                    } else {
+                        this.smartConnect();
+                    }
+                });
+
+                // 箭頭：展開已授權連接埠清單
+                this.connectArrowBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.toggleConnectMenu();
+                });
+
                 document.addEventListener('click', (e) => {
                     if (!this.historyDropdown.contains(e.target)) {
                         this.historyDropdown.classList.remove('open');
+                    }
+                    if (!this.connectDropdown.contains(e.target)) {
+                        this.connectDropdown.classList.remove('open');
                     }
                 });
                 
@@ -4230,10 +4741,19 @@
                     }
                 });
                 
-                this.disconnectBtn.addEventListener('click', () => this.disconnect());
-                
+                // RS-232 訊號列：輸出燈號可點擊切換，ERR 點一下清除
+                Object.keys(this.sigOutEls).forEach(name => {
+                    this.sigOutEls[name]?.addEventListener('click', () => this.toggleLocalSignal(name));
+                });
+                this.sigErrEl?.addEventListener('click', () => {
+                    clearTimeout(this.errClearTimer);
+                    this.sigErrEl.classList.remove('on');
+                });
+
+                this.autoReconnectToggle.checked = this.autoReconnect;   // 還原上次的設定
                 this.autoReconnectToggle.addEventListener('change', (e) => {
                     this.autoReconnect = e.target.checked;
+                    localStorage.setItem(AUTO_RECONNECT_KEY, String(this.autoReconnect));
                     this.appendLine(this.autoReconnect ? window.languageManager.t('autoreconnect.enabled') : window.languageManager.t('autoreconnect.disabled'), 'info');
                     if (!this.autoReconnect) this.stopReconnect();
                 });
@@ -4332,17 +4852,14 @@
                 if (!this.autoReconnect || this.isReconnecting) return;
                 this.isReconnecting = true;
                 this.reconnectAttempts = 0;
-                this.statusDot.classList.remove('connected');
-                this.statusDot.classList.add('reconnecting');
-                this.statusText.dataset.i18n = 'status.connecting'; this.statusText.textContent = window.languageManager.t('status.connecting');
+                // 按鈕轉橘色「連線中…」並快速呼吸
+                this.connectDropdown.classList.remove('connected');
+                this.connectDropdown.classList.add('reconnecting');
+                this.connectBtn.setAttribute('data-tip', window.languageManager.t('device.waiting'));
                 this.appendLine(window.languageManager.t('device.waiting'), 'system');
                 
                 this.reconnectTimer = setInterval(() => {
-                    if (++this.reconnectAttempts > this.maxReconnectAttempts) {
-                        this.stopReconnect();
-                        this.appendLine(window.languageManager.t('autoreconnect.timeout'), 'warning');
-                        return;
-                    }
+                    this.reconnectAttempts++;
                     this.tryFindAndReconnect();
                 }, 1000);
             }
@@ -4352,10 +4869,8 @@
                 this.reconnectTimer = null;
                 this.isReconnecting = false;
                 this.reconnectAttempts = 0;
-                if (!this.isConnected) {
-                    this.statusDot.classList.remove('reconnecting');
-                    this.statusText.dataset.i18n = 'status.disconnected'; this.statusText.textContent = window.languageManager.t('status.disconnected');
-                }
+                this.connectDropdown.classList.remove('reconnecting');
+                if (!this.isConnected) this.updateConnectionUI(false);
             }
             
             async tryFindAndReconnect() {
@@ -4394,28 +4909,111 @@
                 } catch (e) {}
             }
 
+            // ═══════════════════════════════════════════════════════════════
+            // 連線埠選擇（分割按鈕：主鈕智慧連線 / 箭頭挑埠）
+            // getInfo() 只給 VID/PID、拿不到 COM 號，同型多顆用 getPorts() 的 index 區分
+            // ═══════════════════════════════════════════════════════════════
+
+            saveLastPort(port) {
+                try {
+                    const info = port.getInfo();
+                    const baudRate = parseInt(this.baudRateSelect.value);
+                    navigator.serial.getPorts().then(granted => {
+                        localStorage.setItem(LAST_PORT_KEY, JSON.stringify({
+                            vid: info.usbVendorId ?? null,
+                            pid: info.usbProductId ?? null,
+                            idx: granted.indexOf(port),
+                            baudRate                       // 一併記住鮑率，重新整理後才能原樣接回來
+                        }));
+                    }).catch(() => {});
+                } catch {}
+            }
+
+            findLastPort(granted) {
+                let rec = null;
+                try { rec = JSON.parse(localStorage.getItem(LAST_PORT_KEY) || 'null'); } catch {}
+                if (!rec) return null;
+                const same = granted.filter(p => {
+                    try {
+                        const i = p.getInfo();
+                        return (i.usbVendorId ?? null) === rec.vid && (i.usbProductId ?? null) === rec.pid;
+                    } catch { return false; }
+                });
+                if (!same.length) return null;
+                // 同型多顆：優先比對記錄下來的 index
+                if (rec.idx != null && granted[rec.idx] && same.includes(granted[rec.idx])) return granted[rec.idx];
+                return same[0];
+            }
+
+            portLabel(port, i) {
+                try {
+                    const info = port.getInfo();
+                    const key = getDeviceKey(info.usbVendorId, info.usbProductId);
+                    const name = (key && DeviceLabels.get(key))
+                        || getDeviceName(info.usbVendorId, info.usbProductId)
+                        || (key ? `USB ${key}` : window.languageManager.t('serial.port'));
+                    return `${name} #${i + 1}`;
+                } catch {
+                    return `${window.languageManager.t('serial.port')} #${i + 1}`;
+                }
+            }
+
+            // 開頁自動連線：自動重連開著、且上次那顆埠現在就在，就直接接回去（含還原鮑率）
+            // 找不到就什麼都不做——不主動開重連輪詢，避免一開頁就霸佔埠讓別的程式連不上
+            async autoConnectOnLoad() {
+                if (!this.autoReconnect || !('serial' in navigator)) return;
+                if (localStorage.getItem(AUTO_CONNECT_ARMED_KEY) === 'false') return;   // 上次是使用者自己斷的
+
+                let rec = null;
+                try { rec = JSON.parse(localStorage.getItem(LAST_PORT_KEY) || 'null'); } catch {}
+                if (!rec) return;
+
+                let granted = [];
+                try { granted = await navigator.serial.getPorts(); } catch { return; }
+
+                const port = this.findLastPort(granted);
+                if (!port) return;
+
+                if (rec.baudRate) {
+                    const opt = [...this.baudRateSelect.options].find(o => parseInt(o.value) === rec.baudRate);
+                    if (opt) this.baudRateSelect.value = String(rec.baudRate);
+                }
+
+                this.appendLine(window.languageManager.t('device.restored'), 'system');
+                await this.connectToPort(port, true);
+            }
+
+            // 主鈕：上次連線的埠 → 認得型號的埠 → 唯一已授權埠 → 都沒有才跳瀏覽器選單
+            async smartConnect() {
+                if (!('serial' in navigator)) {
+                    this.appendLine(window.languageManager.t('browser.warning.title'), 'error');
+                    return;
+                }
+                let port = null;
+                try {
+                    const granted = await navigator.serial.getPorts();
+                    port = this.findLastPort(granted)
+                        || granted.find(p => {
+                            try {
+                                const i = p.getInfo();
+                                return !!getDeviceName(i.usbVendorId, i.usbProductId);
+                            } catch { return false; }
+                        })
+                        || (granted.length === 1 ? granted[0] : null);
+                } catch {}
+
+                if (port) {
+                    await this.connectToPort(port);
+                    return;
+                }
+                await this.selectPort();
+            }
+
+            // 「其他…」與無授權埠時的退路：叫出瀏覽器的連接埠選單
             async selectPort() {
                 try {
                     const port = await navigator.serial.requestPort();
-                    this.port = port;
-                    
-                    const info = port.getInfo();
-                    if (info.usbVendorId) {
-                        const deviceName = getDeviceName(info.usbVendorId, info.usbProductId);
-                        const key = getDeviceKey(info.usbVendorId, info.usbProductId);
-                        this.selectedPortName = deviceName || 'USB Serial';
-                        this.selectedPortKey = key;
-                        this.appendLine(window.languageManager.t('connection.selected') + ': ' + `${this.selectedPortName} [${key}]`, 'info');
-                    } else {
-                        this.selectedPortName = '串列埠';
-                        this.selectedPortKey = null;
-                        this.appendLine(window.languageManager.t('connection.port.selected'), 'info');
-                    }
-                    
-                    // 自動連線
-                    if (!this.isConnected) {
-                        await this.connect();
-                    }
+                    await this.connectToPort(port);
                 } catch (e) {
                     if (e.name !== 'NotFoundError') {
                         this.appendLine(`${window.languageManager.t('error.general')}: ${e.message}`, 'error');
@@ -4423,7 +5021,79 @@
                 }
             }
 
-            async connect() {
+            // silent=true：自動連線用，失敗時不跳排錯提示區塊（每次重新整理都跳很吵）
+            async connectToPort(port, silent = false) {
+                this.port = port;
+
+                const info = port.getInfo();
+                if (info.usbVendorId) {
+                    const deviceName = getDeviceName(info.usbVendorId, info.usbProductId);
+                    const key = getDeviceKey(info.usbVendorId, info.usbProductId);
+                    this.selectedPortName = deviceName || 'USB Serial';
+                    this.selectedPortKey = key;
+                    this.appendLine(window.languageManager.t('connection.selected') + ': ' + `${this.selectedPortName} [${key}]`, 'info');
+                } else {
+                    this.selectedPortName = window.languageManager.t('serial.port');
+                    this.selectedPortKey = null;
+                    this.appendLine(window.languageManager.t('connection.port.selected'), 'info');
+                }
+
+                if (!this.isConnected) await this.connect(silent);
+                if (this.isConnected) {
+                    this.saveLastPort(port);   // 連上了才記，失敗的埠不留下來害下次
+                    localStorage.setItem(AUTO_CONNECT_ARMED_KEY, 'true');
+                }
+            }
+
+            async toggleConnectMenu() {
+                if (this.isConnected) return;
+                const willOpen = !this.connectDropdown.classList.contains('open');
+                this.connectDropdown.classList.toggle('open', willOpen);
+                if (willOpen) await this.refreshConnectMenu();
+            }
+
+            async refreshConnectMenu() {
+                let granted = [];
+                try { granted = await navigator.serial.getPorts(); } catch {}
+                const last = this.findLastPort(granted);
+
+                this.connectMenu.innerHTML = '';
+
+                granted.forEach((p, i) => {
+                    const item = document.createElement('div');
+                    item.className = 'connect-menu-item';
+                    item.textContent = this.portLabel(p, i);
+                    if (p === last) {
+                        const star = document.createElement('span');
+                        star.className = 'port-star';
+                        star.textContent = '★';
+                        item.appendChild(star);
+                    }
+                    item.addEventListener('click', async () => {
+                        this.connectDropdown.classList.remove('open');
+                        await this.connectToPort(p);
+                    });
+                    this.connectMenu.appendChild(item);
+                });
+
+                if (!granted.length) {
+                    const empty = document.createElement('div');
+                    empty.className = 'connect-menu-empty';
+                    empty.textContent = window.languageManager.t('connection.menu.empty');
+                    this.connectMenu.appendChild(empty);
+                }
+
+                const other = document.createElement('div');
+                other.className = 'connect-menu-item other';
+                other.textContent = window.languageManager.t('connection.menu.other');
+                other.addEventListener('click', async () => {
+                    this.connectDropdown.classList.remove('open');
+                    await this.selectPort();
+                });
+                this.connectMenu.appendChild(other);
+            }
+
+            async connect(silent = false) {
                 if (!this.port) {
                     this.appendLine(window.languageManager.t('error.no.port'), 'error');
                     return;
@@ -4456,11 +5126,15 @@
                     }
                     this.readLoop();
                 } catch (e) {
-                    this.handleConnectionError(e);
+                    this.handleConnectionError(e, silent);
                 }
             }
 
-            handleConnectionError(error) {
+            handleConnectionError(error, silent = false) {
+                if (silent) {   // 自動連線失敗：留一行訊息就好，不佔畫面
+                    this.appendLine(`${window.languageManager.t('error.connection')}: ${error.message}`, 'error');
+                    return;
+                }
                 const tips = error.message.includes('Failed to open')
                     ? ['確認串列埠未被其他程式佔用', '關閉 Arduino IDE Serial Monitor', '嘗試重新插拔 USB']
                     : ['確認裝置已正確連接', '嘗試重新插拔'];
@@ -4482,6 +5156,7 @@
                 this.isDisconnecting = true;
                 this.keepReading = false;
                 this.lastConnectedDevice = null;
+                localStorage.setItem(AUTO_CONNECT_ARMED_KEY, 'false');   // 使用者主動斷線 → 重新整理後不要自己接回去
                 this.stopReconnect();
                 
                 try {
@@ -4512,15 +5187,102 @@
             }
 
             updateConnectionUI(connected) {
-                this.statusDot.classList.remove('reconnecting');
-                this.statusDot.classList.toggle('connected', connected);
-                this.statusText.dataset.i18n = connected ? 'status.connected' : 'status.disconnected'; this.statusText.textContent = window.languageManager.t(this.statusText.dataset.i18n);
-                
-                this.disconnectBtn.disabled = !connected;  // 未連線時禁用斷開按鈕
+                // 連線狀態就是按鈕本身：未連線＝藍「連線」、已連線＝綠「已連接」+ 呼吸
+                // 文字切換交給 CSS（.conn-label），這裡只管狀態 class 與 tooltip
+                this.connectDropdown.classList.remove('reconnecting');
+                this.connectDropdown.classList.toggle('connected', connected);
+                this.connectBtn.dataset.i18nTip = connected ? 'btn.disconnect.tip' : 'btn.connect.tip';
+                this.connectBtn.setAttribute('data-tip', window.languageManager.t(this.connectBtn.dataset.i18nTip));
+                this.connectArrowBtn.disabled = connected;   // 已連線時不能再挑埠
+                if (connected) this.connectDropdown.classList.remove('open');
+
+                this.updateSignalBar(connected);   // RS-232 訊號列跟著連線狀態啟用／停用
+
                 this.inputField.disabled = !connected;
                 this.sendBtn.disabled = !connected;
                 this.baudRateSelect.disabled = connected;
-                this.addPortBtn.disabled = connected;
+            }
+
+            // ═══════════════════════════════════════════════════════════════
+            // RS-232 訊號狀態列
+            // 輸出（BRK/RTS/DTR）：只能 setSignals()，讀不回來 → 以 this.localSignals 記錄我方設定值
+            // 輸入（DCD/DSR/CTS/RI）：只能 getSignals() 輪詢，Web Serial 沒有事件
+            // ═══════════════════════════════════════════════════════════════
+
+            async toggleLocalSignal(name) {
+                if (!this.isConnected || !this.port) return;
+                const next = !this.localSignals[name];   // null（未設定）→ true
+                try {
+                    await this.port.setSignals({
+                        break: name === 'break' ? next : undefined,
+                        requestToSend: name === 'rts' ? next : undefined,
+                        dataTerminalReady: name === 'dtr' ? next : undefined
+                    });
+                    this.localSignals[name] = next;
+                    this.updateLocalLeds();
+                    this.appendLine(`${name.toUpperCase()} → ${next ? 'ON' : 'OFF'}`, 'system');
+                } catch (e) {
+                    this.appendLine(`${window.languageManager.t('error.general')}: ${e.message}`, 'error');
+                }
+            }
+
+            updateLocalLeds() {
+                for (const [name, el] of Object.entries(this.sigOutEls)) {
+                    if (!el) continue;
+                    el.classList.toggle('on', this.localSignals[name] === true);
+                    el.disabled = !this.isConnected;
+                }
+            }
+
+            startSignalPoll() {
+                this.stopSignalPoll();
+                this.pollSignals();
+                this.signalPollTimer = setInterval(() => this.pollSignals(), 250);
+            }
+
+            stopSignalPoll() {
+                if (this.signalPollTimer) clearInterval(this.signalPollTimer);
+                this.signalPollTimer = null;
+            }
+
+            async pollSignals() {
+                if (!this.isConnected || !this.port) return;
+                let s;
+                try { s = await this.port.getSignals(); } catch { return; }
+                for (const [key, el] of Object.entries(this.sigInEls)) {
+                    if (el) el.classList.toggle('on', !!s[key]);
+                }
+            }
+
+            // 有資料進出就閃一下（連續傳輸時看起來會是持續亮著）
+            blinkAct() {
+                if (!this.sigActEl) return;
+                this.sigActEl.classList.add('blink');
+                clearTimeout(this.actBlinkTimer);
+                this.actBlinkTimer = setTimeout(() => this.sigActEl.classList.remove('blink'), 90);
+            }
+
+            // 讀取串流拋出的協定層錯誤：Framing / Parity / Overrun / Break
+            flagSignalError(name) {
+                if (this.sigErrEl) this.sigErrEl.classList.add('on');
+                clearTimeout(this.errClearTimer);
+                this.errClearTimer = setTimeout(() => this.sigErrEl?.classList.remove('on'), 3000);
+                this.appendLine(`${window.languageManager.t('error.read')}: ${name}`, 'error');
+            }
+
+            // 連線／斷線時整列的啟用狀態
+            updateSignalBar(connected) {
+                this.signalBar?.classList.toggle('offline', !connected);
+                if (!connected) {
+                    this.localSignals = { break: null, rts: null, dtr: null };
+                    Object.values(this.sigInEls).forEach(el => el?.classList.remove('on'));
+                    this.sigActEl?.classList.remove('blink');
+                    this.sigErrEl?.classList.remove('on');
+                    this.stopSignalPoll();
+                } else {
+                    this.startSignalPoll();
+                }
+                this.updateLocalLeds();
             }
 
             async readLoop() {
@@ -4534,7 +5296,8 @@
                                 if (value) {
                                     this.rxCount += value.length;
                                     this.rxCountEl.textContent = this.rxCount;
-                                    this.hexMode 
+                                    this.blinkAct();
+                                    this.hexMode
                                         ? this.appendHexData(value)
                                         : this.processTextData(this.textDecoder.decode(value, { stream: true }));
                                 }
@@ -4544,6 +5307,12 @@
                             this.reader = null;
                         }
                     } catch (e) {
+                        // 協定層錯誤：串流會被 errored，但埠沒斷。點亮 ERR 後繼續讀新的 readable
+                        if (['FramingError', 'ParityError', 'BufferOverrunError', 'BreakError'].includes(e.name)) {
+                            this.flagSignalError(e.name);
+                            await new Promise(r => setTimeout(r, 20));   // 讓瀏覽器重建 readable，避免空轉
+                            continue;
+                        }
                         if (this.keepReading && e.name !== 'NetworkError') {
                             this.appendLine(`${window.languageManager.t('error.read')}: ${e.message}`, 'error');
                         }
@@ -4742,6 +5511,7 @@
                     writer.releaseLock();
                     this.txCount += encoded.length;
                     this.txCountEl.textContent = this.txCount;
+                    this.blinkAct();
                     
                     // 添加到歷史記錄
                     this.addToHistory(text);
@@ -4838,14 +5608,19 @@
             }
 
             // Terminal Colors 管理
+            getTerminalColorDefaults() {
+                const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+                if (theme === 'light') {
+                    return { tx: '#24292f', rx: '#81D8D0', sys: '#a371f7' };
+                }
+                return { tx: '#ffffff', rx: '#81D8D0', sys: '#ffcc00' };
+            }
+
             loadTerminalColors() {
-                const defaults = {
-                    tx: '#ffffff',
-                    rx: '#81D8D0',
-                    sys: '#ffcc00'
-                };
+                const defaults = this.getTerminalColorDefaults();
                 try {
-                    const saved = localStorage.getItem('numonitor_terminalColors');
+                    const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+                    const saved = localStorage.getItem('numonitor_terminalColors_' + theme);
                     if (saved) {
                         return { ...defaults, ...JSON.parse(saved) };
                     }
@@ -4857,7 +5632,8 @@
 
             saveTerminalColors() {
                 try {
-                    localStorage.setItem('numonitor_terminalColors', JSON.stringify(this.terminalColors));
+                    const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+                    localStorage.setItem('numonitor_terminalColors_' + theme, JSON.stringify(this.terminalColors));
                 } catch (e) {
                     console.warn('Failed to save terminal colors:', e);
                 }
@@ -4876,7 +5652,7 @@
                     sys: window.languageManager.t('terminal.color.sys')
                 };
                 const currentColor = this.terminalColors[type];
-                const defaultColors = { tx: '#ffffff', rx: '#81D8D0', sys: '#ffcc00' };
+                const defaultColors = this.getTerminalColorDefaults();
                 
                 window.openColorPicker(currentColor, titles[type], (newColor) => {
                     this.terminalColors[type] = newColor;
@@ -4914,7 +5690,7 @@
                 }
                 try {
                     this.chartManager = new ChartManager(this.tabBar, this.terminalContainer);
-                    console.log('[NuMonitor] Serial Plotter v2.0.0 已初始化');
+                    console.log(`[NuMonitor] Serial Plotter ${APP_VERSION} 已初始化`);
                 } catch (e) {
                     console.error('[NuMonitor] ChartManager 初始化失敗:', e);
                 }
@@ -4944,7 +5720,7 @@
             }
         }
 
-        new SerialMonitor();
+        window.serialMonitor = new SerialMonitor();
 
         // Color Picker initialization
         (function() {
@@ -5064,27 +5840,41 @@
             const trigger = customSelect.querySelector('.custom-select-trigger');
             const valueDisplay = customSelect.querySelector('.custom-select-value');
             const options = customSelect.querySelectorAll('.custom-select-option');
-            
-            // Set initial value
-            const selectedOption = customSelect.querySelector('.custom-select-option.selected');
-            if (selectedOption) {
-                customSelect.dataset.selectedValue = selectedOption.dataset.value;
+
+            // 套用某個選項（供還原與點擊共用）
+            const applyOption = (option) => {
+                options.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                valueDisplay.textContent = option.textContent;
+                customSelect.dataset.selectedValue = option.dataset.value;
+            };
+
+            // 還原上次選擇（接 modem 的人每次都要改 CR，不記住很煩）
+            // 注意：None 的 data-value 是空字串，不能用 falsy 判斷，要用 !== null
+            const savedLineEnding = localStorage.getItem(LINE_ENDING_KEY);
+            const savedOption = savedLineEnding === null
+                ? null
+                : [...options].find(o => o.dataset.value === savedLineEnding);
+
+            if (savedOption) {
+                applyOption(savedOption);
+            } else {
+                const selectedOption = customSelect.querySelector('.custom-select-option.selected');
+                if (selectedOption) customSelect.dataset.selectedValue = selectedOption.dataset.value;
             }
-            
+
             // Toggle dropdown
             trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 customSelect.classList.toggle('open');
             });
-            
+
             // Select option
             options.forEach(option => {
                 option.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    options.forEach(opt => opt.classList.remove('selected'));
-                    option.classList.add('selected');
-                    valueDisplay.textContent = option.textContent;
-                    customSelect.dataset.selectedValue = option.dataset.value;
+                    applyOption(option);
+                    localStorage.setItem(LINE_ENDING_KEY, option.dataset.value);
                     customSelect.classList.remove('open');
                 });
             });
@@ -5161,6 +5951,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': '選擇連接埠',
                 'btn.selectPort.tip': '選擇要連接的串列埠',
+                'btn.connect': '連線',
+                'btn.connect.tip': '連線到上次使用或唯一的連接埠；點右側箭頭可挑其他埠',
+                'connection.menu.other': '其他…（瀏覽器選單）',
+                'connection.menu.empty': '（尚無已授權的連接埠）',
                 'baudRate.tip': '設定波特率 (bps)',
                 'autoReconnect.label': '自動重連',
                 'autoReconnect.tip': '連線中斷時自動重連',
@@ -5171,7 +5965,8 @@
                 'status.connecting': '連線中...',
                 'status.connected': '已連接',
                 'lang.switch.tip': '切換語言',
-                
+                'theme.toggle.tip': '切換深色/淺色模式',
+
                 // Terminal Tab
                 'tab.terminal': '終端機',
                 // Terminal
@@ -5260,9 +6055,9 @@
                 
                 // Connection Waiting
                 'connection.waiting.title': '等待連接',
-                'connection.waiting.message': '點擊「選擇連接埠」選擇串列埠裝置',
+                'connection.waiting.message': '點擊「連線」開始，或按右側箭頭挑選連接埠',
                 'connection.disconnected': '連線已斷開',
-                'connection.reconnect.tip': '如需重新連接，請點擊「選擇連接埠」',
+                'connection.reconnect.tip': '如需重新連接，請點擊「連線」按鈕',
                 'connection.selected': '已選擇',
                 'connection.port.selected': '已選擇串列埠',
                 'connection.connected': '已連接',
@@ -5329,6 +6124,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'Select Port',
                 'btn.selectPort.tip': 'Select a serial port to connect',
+                'btn.connect': 'Connect',
+                'btn.connect.tip': 'Connect to the last used or only available port; use the arrow to pick another',
+                'connection.menu.other': 'Other… (browser picker)',
+                'connection.menu.empty': '(No authorized ports yet)',
                 'baudRate.tip': 'Set baud rate (bps)',
                 'autoReconnect.label': 'Auto Reconnect',
                 'autoReconnect.tip': 'Automatically reconnect when disconnected',
@@ -5339,7 +6138,8 @@
                 'status.connecting': 'Connecting...',
                 'status.connected': 'Connected',
                 'lang.switch.tip': 'Switch Language',
-                
+                'theme.toggle.tip': 'Toggle Dark/Light Mode',
+
                 // Terminal Tab
                 'tab.terminal': 'Terminal',
                 // Terminal
@@ -5428,9 +6228,9 @@
                 
                 // Connection Waiting
                 'connection.waiting.title': 'Waiting for Connection',
-                'connection.waiting.message': 'Click "Select Port" to choose a serial port device',
+                'connection.waiting.message': 'Click "Connect" to start, or use the arrow to pick a port',
                 'connection.disconnected': 'Connection Disconnected',
-                'connection.reconnect.tip': 'To reconnect, click "Select Port"',
+                'connection.reconnect.tip': 'To reconnect, click "Connect"',
                 'connection.selected': 'Selected',
                 'connection.port.selected': 'Serial Port Selected',
                 'connection.connected': 'Connected',
@@ -5492,6 +6292,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'ポート選択',
                 'btn.selectPort.tip': '接続するシリアルポートを選択',
+                'btn.connect': '接続',
+                'btn.connect.tip': '前回使用したポートまたは唯一のポートに接続。右の矢印で他のポートを選択',
+                'connection.menu.other': 'その他…（ブラウザの選択画面）',
+                'connection.menu.empty': '（許可済みのポートがありません）',
                 'baudRate.tip': 'ボーレートを設定 (bps)',
                 'autoReconnect.label': '自動再接続',
                 'autoReconnect.tip': '切断時に自動的に再接続',
@@ -5502,6 +6306,7 @@
                 'status.connecting': '接続中...',
                 'status.connected': '接続済み',
                 'lang.switch.tip': '言語切替',
+                'theme.toggle.tip': 'ダーク/ライトモード切替',
                 
                 // Terminal Tab
                 'tab.terminal': 'ターミナル',
@@ -5591,9 +6396,9 @@
                 
                 // Connection Waiting
                 'connection.waiting.title': '接続待ち',
-                'connection.waiting.message': '「ポート選択」をクリックしてシリアルポートデバイスを選択',
+                'connection.waiting.message': '「接続」をクリックして開始、または右の矢印でポートを選択',
                 'connection.disconnected': '接続が切断されました',
-                'connection.reconnect.tip': '再接続するには「ポート選択」をクリック',
+                'connection.reconnect.tip': '再接続するには「接続」をクリック',
                 'connection.selected': '選択済み',
                 'connection.port.selected': 'シリアルポートを選択しました',
                 'connection.connected': '接続済み',
@@ -5652,6 +6457,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'Sélectionner Port',
                 'btn.selectPort.tip': 'Sélectionner un port série',
+                'btn.connect': 'Connecter',
+                'btn.connect.tip': 'Se connecter au dernier port utilisé ou au seul disponible ; flèche pour en choisir un autre',
+                'connection.menu.other': 'Autre… (sélecteur du navigateur)',
+                'connection.menu.empty': '(Aucun port autorisé)',
                 'baudRate.tip': 'Définir le débit en bauds (bps)',
                 'autoReconnect.label': 'Reconnexion Auto',
                 'autoReconnect.tip': 'Reconnexion automatique en cas de déconnexion',
@@ -5662,6 +6471,7 @@
                 'status.connecting': 'Connexion...',
                 'status.connected': 'Connecté',
                 'lang.switch.tip': 'Changer de langue',
+                'theme.toggle.tip': 'Basculer mode sombre/clair',
                 'tab.terminal': 'Terminal',
                 'terminal.output.title': 'Sortie Terminal',
                 'terminal.mode.text.tip': 'Mode texte : Afficher le texte lisible',
@@ -5720,9 +6530,9 @@
                 'manual.tip': 'Voir le manuel utilisateur',
                 'changelog.tip': 'Voir le journal des modifications',
                 'connection.waiting.title': 'En attente de connexion',
-                'connection.waiting.message': 'Cliquez sur "Sélectionner Port" pour choisir un appareil',
+                'connection.waiting.message': 'Cliquez sur "Connecter" pour démarrer, ou sur la flèche pour choisir un port',
                 'connection.disconnected': 'Connexion déconnectée',
-                'connection.reconnect.tip': 'Pour reconnecter, cliquez sur "Sélectionner Port"',
+                'connection.reconnect.tip': 'Pour reconnecter, cliquez sur "Connecter"',
                 'connection.selected': 'Sélectionné',
                 'connection.port.selected': 'Port série sélectionné',
                 'connection.connected': 'Connecté',
@@ -5764,6 +6574,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'Port Wählen',
                 'btn.selectPort.tip': 'Seriellen Port auswählen',
+                'btn.connect': 'Verbinden',
+                'btn.connect.tip': 'Mit dem zuletzt genutzten oder einzigen Port verbinden; Pfeil für andere Auswahl',
+                'connection.menu.other': 'Andere… (Browser-Auswahl)',
+                'connection.menu.empty': '(Noch keine freigegebenen Ports)',
                 'baudRate.tip': 'Baudrate einstellen (bps)',
                 'autoReconnect.label': 'Auto-Verbinden',
                 'autoReconnect.tip': 'Automatisch bei Trennung neu verbinden',
@@ -5774,6 +6588,7 @@
                 'status.connecting': 'Verbinde...',
                 'status.connected': 'Verbunden',
                 'lang.switch.tip': 'Sprache wechseln',
+                'theme.toggle.tip': 'Dunkel-/Hellmodus umschalten',
                 'tab.terminal': 'Terminal',
                 'terminal.output.title': 'Terminal-Ausgabe',
                 'terminal.mode.text.tip': 'Textmodus: Lesbaren Text anzeigen',
@@ -5832,9 +6647,9 @@
                 'manual.tip': 'Benutzerhandbuch anzeigen',
                 'changelog.tip': 'Änderungsprotokoll anzeigen',
                 'connection.waiting.title': 'Warte auf Verbindung',
-                'connection.waiting.message': 'Klicken Sie "Port Wählen" um ein Gerät auszuwählen',
+                'connection.waiting.message': 'Klicken Sie "Verbinden" zum Starten oder den Pfeil zur Portauswahl',
                 'connection.disconnected': 'Verbindung getrennt',
-                'connection.reconnect.tip': 'Zum Wiederverbinden "Port Wählen" klicken',
+                'connection.reconnect.tip': 'Zum Wiederverbinden "Verbinden" klicken',
                 'connection.selected': 'Ausgewählt',
                 'connection.port.selected': 'Serieller Port ausgewählt',
                 'connection.connected': 'Verbunden',
@@ -5876,6 +6691,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'Seleziona Porta',
                 'btn.selectPort.tip': 'Seleziona una porta seriale',
+                'btn.connect': 'Connetti',
+                'btn.connect.tip': "Connetti all'ultima porta usata o all'unica disponibile; usa la freccia per sceglierne un'altra",
+                'connection.menu.other': 'Altro… (selettore del browser)',
+                'connection.menu.empty': '(Nessuna porta autorizzata)',
                 'baudRate.tip': 'Imposta baud rate (bps)',
                 'autoReconnect.label': 'Riconnessione Auto',
                 'autoReconnect.tip': 'Riconnetti automaticamente alla disconnessione',
@@ -5886,6 +6705,7 @@
                 'status.connecting': 'Connessione...',
                 'status.connected': 'Connesso',
                 'lang.switch.tip': 'Cambia lingua',
+                'theme.toggle.tip': 'Passa a modalità scura/chiara',
                 'tab.terminal': 'Terminale',
                 'terminal.output.title': 'Output Terminale',
                 'terminal.mode.text.tip': 'Modalità testo: Mostra testo leggibile',
@@ -5944,9 +6764,9 @@
                 'manual.tip': 'Visualizza manuale utente',
                 'changelog.tip': 'Visualizza registro modifiche',
                 'connection.waiting.title': 'In attesa di connessione',
-                'connection.waiting.message': 'Clicca "Seleziona Porta" per scegliere un dispositivo',
+                'connection.waiting.message': 'Clicca "Connetti" per iniziare, o usa la freccia per scegliere una porta',
                 'connection.disconnected': 'Connessione disconnessa',
-                'connection.reconnect.tip': 'Per riconnetterti, clicca "Seleziona Porta"',
+                'connection.reconnect.tip': 'Per riconnetterti, clicca "Connetti"',
                 'connection.selected': 'Selezionato',
                 'connection.port.selected': 'Porta seriale selezionata',
                 'connection.connected': 'Connesso',
@@ -5988,6 +6808,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'Seleccionar Puerto',
                 'btn.selectPort.tip': 'Seleccionar un puerto serie',
+                'btn.connect': 'Conectar',
+                'btn.connect.tip': 'Conectar al último puerto usado o al único disponible; usa la flecha para elegir otro',
+                'connection.menu.other': 'Otro… (selector del navegador)',
+                'connection.menu.empty': '(Sin puertos autorizados)',
                 'baudRate.tip': 'Establecer velocidad en baudios (bps)',
                 'autoReconnect.label': 'Reconexión Auto',
                 'autoReconnect.tip': 'Reconectar automáticamente al desconectar',
@@ -5998,6 +6822,7 @@
                 'status.connecting': 'Conectando...',
                 'status.connected': 'Conectado',
                 'lang.switch.tip': 'Cambiar idioma',
+                'theme.toggle.tip': 'Cambiar modo oscuro/claro',
                 'tab.terminal': 'Terminal',
                 'terminal.output.title': 'Salida del Terminal',
                 'terminal.mode.text.tip': 'Modo texto: Mostrar texto legible',
@@ -6056,9 +6881,9 @@
                 'manual.tip': 'Ver manual de usuario',
                 'changelog.tip': 'Ver registro de cambios',
                 'connection.waiting.title': 'Esperando conexión',
-                'connection.waiting.message': 'Haz clic en "Seleccionar Puerto" para elegir un dispositivo',
+                'connection.waiting.message': 'Haz clic en "Conectar" para empezar, o usa la flecha para elegir un puerto',
                 'connection.disconnected': 'Conexión desconectada',
-                'connection.reconnect.tip': 'Para reconectar, haz clic en "Seleccionar Puerto"',
+                'connection.reconnect.tip': 'Para reconectar, haz clic en "Conectar"',
                 'connection.selected': 'Seleccionado',
                 'connection.port.selected': 'Puerto serie seleccionado',
                 'connection.connected': 'Conectado',
@@ -6100,6 +6925,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'Selecionar Porta',
                 'btn.selectPort.tip': 'Selecionar uma porta série',
+                'btn.connect': 'Ligar',
+                'btn.connect.tip': 'Ligar à última porta usada ou à única disponível; use a seta para escolher outra',
+                'connection.menu.other': 'Outra… (seletor do navegador)',
+                'connection.menu.empty': '(Sem portas autorizadas)',
                 'baudRate.tip': 'Definir taxa de transmissão (bps)',
                 'autoReconnect.label': 'Reconexão Auto',
                 'autoReconnect.tip': 'Reconectar automaticamente ao desconectar',
@@ -6110,6 +6939,7 @@
                 'status.connecting': 'Conectando...',
                 'status.connected': 'Conectado',
                 'lang.switch.tip': 'Mudar idioma',
+                'theme.toggle.tip': 'Alternar modo escuro/claro',
                 'tab.terminal': 'Terminal',
                 'terminal.output.title': 'Saída do Terminal',
                 'terminal.mode.text.tip': 'Modo texto: Mostrar texto legível',
@@ -6168,9 +6998,9 @@
                 'manual.tip': 'Ver manual do utilizador',
                 'changelog.tip': 'Ver registo de alterações',
                 'connection.waiting.title': 'Aguardando conexão',
-                'connection.waiting.message': 'Clique em "Selecionar Porta" para escolher um dispositivo',
+                'connection.waiting.message': 'Clique em "Ligar" para começar, ou use a seta para escolher uma porta',
                 'connection.disconnected': 'Conexão desconectada',
-                'connection.reconnect.tip': 'Para reconectar, clique em "Selecionar Porta"',
+                'connection.reconnect.tip': 'Para reconectar, clique em "Ligar"',
                 'connection.selected': 'Selecionado',
                 'connection.port.selected': 'Porta série selecionada',
                 'connection.connected': 'Conectado',
@@ -6212,6 +7042,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'Port Seç',
                 'btn.selectPort.tip': 'Bir seri port seçin',
+                'btn.connect': 'Bağlan',
+                'btn.connect.tip': 'Son kullanılan veya tek porta bağlan; başka biri için oku kullanın',
+                'connection.menu.other': 'Diğer… (tarayıcı seçici)',
+                'connection.menu.empty': '(Yetkilendirilmiş port yok)',
                 'baudRate.tip': 'Baud hızını ayarla (bps)',
                 'autoReconnect.label': 'Otomatik Bağlan',
                 'autoReconnect.tip': 'Bağlantı kesildiğinde otomatik yeniden bağlan',
@@ -6222,6 +7056,7 @@
                 'status.connecting': 'Bağlanıyor...',
                 'status.connected': 'Bağlı',
                 'lang.switch.tip': 'Dil değiştir',
+                'theme.toggle.tip': 'Karanlık/Aydınlık mod değiştir',
                 'tab.terminal': 'Terminal',
                 'terminal.output.title': 'Terminal Çıkışı',
                 'terminal.mode.text.tip': 'Metin modu: Okunabilir metin göster',
@@ -6280,9 +7115,9 @@
                 'manual.tip': 'Kullanım kılavuzunu görüntüle',
                 'changelog.tip': 'Değişiklik günlüğünü görüntüle',
                 'connection.waiting.title': 'Bağlantı bekleniyor',
-                'connection.waiting.message': 'Bir cihaz seçmek için "Port Seç"e tıklayın',
+                'connection.waiting.message': 'Başlamak için "Bağlan"a tıklayın veya port seçmek için oku kullanın',
                 'connection.disconnected': 'Bağlantı kesildi',
-                'connection.reconnect.tip': 'Yeniden bağlanmak için "Port Seç"e tıklayın',
+                'connection.reconnect.tip': 'Yeniden bağlanmak için "Bağlan"a tıklayın',
                 'connection.selected': 'Seçildi',
                 'connection.port.selected': 'Seri port seçildi',
                 'connection.connected': 'Bağlı',
@@ -6324,6 +7159,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'اختيار المنفذ',
                 'btn.selectPort.tip': 'اختر منفذ تسلسلي للاتصال',
+                'btn.connect': 'اتصال',
+                'btn.connect.tip': 'الاتصال بآخر منفذ مستخدم أو المنفذ الوحيد؛ استخدم السهم لاختيار منفذ آخر',
+                'connection.menu.other': 'أخرى… (قائمة المتصفح)',
+                'connection.menu.empty': '(لا توجد منافذ مصرَّح بها)',
                 'baudRate.tip': 'تعيين معدل الباود (bps)',
                 'autoReconnect.label': 'إعادة الاتصال التلقائي',
                 'autoReconnect.tip': 'إعادة الاتصال تلقائياً عند قطع الاتصال',
@@ -6334,6 +7173,7 @@
                 'status.connecting': 'جاري الاتصال...',
                 'status.connected': 'متصل',
                 'lang.switch.tip': 'تغيير اللغة',
+                'theme.toggle.tip': 'تبديل الوضع الداكن/الفاتح',
                 'tab.terminal': 'الطرفية',
                 'terminal.output.title': 'مخرجات الطرفية',
                 'terminal.mode.text.tip': 'وضع النص: عرض نص قابل للقراءة',
@@ -6392,9 +7232,9 @@
                 'manual.tip': 'عرض دليل المستخدم',
                 'changelog.tip': 'عرض سجل التغييرات',
                 'connection.waiting.title': 'في انتظار الاتصال',
-                'connection.waiting.message': 'انقر على "اختيار المنفذ" لاختيار جهاز',
+                'connection.waiting.message': 'انقر على "اتصال" للبدء، أو استخدم السهم لاختيار منفذ',
                 'connection.disconnected': 'تم قطع الاتصال',
-                'connection.reconnect.tip': 'لإعادة الاتصال، انقر على "اختيار المنفذ"',
+                'connection.reconnect.tip': 'لإعادة الاتصال، انقر على "اتصال"',
                 'connection.selected': 'محدد',
                 'connection.port.selected': 'تم اختيار المنفذ التسلسلي',
                 'connection.connected': 'متصل',
@@ -6436,6 +7276,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'בחר פורט',
                 'btn.selectPort.tip': 'בחר פורט טורי להתחברות',
+                'btn.connect': 'התחבר',
+                'btn.connect.tip': 'התחברות לפורט האחרון או היחיד; לחץ על החץ לבחירת פורט אחר',
+                'connection.menu.other': 'אחר… (בורר הדפדפן)',
+                'connection.menu.empty': '(אין פורטים מורשים)',
                 'baudRate.tip': 'הגדר קצב שידור (bps)',
                 'autoReconnect.label': 'חיבור מחדש אוטומטי',
                 'autoReconnect.tip': 'התחבר מחדש אוטומטית כאשר מנותק',
@@ -6446,6 +7290,7 @@
                 'status.connecting': 'מתחבר...',
                 'status.connected': 'מחובר',
                 'lang.switch.tip': 'החלף שפה',
+                'theme.toggle.tip': 'החלף מצב כהה/בהיר',
                 'tab.terminal': 'מסוף',
                 'terminal.output.title': 'פלט המסוף',
                 'terminal.mode.text.tip': 'מצב טקסט: הצג טקסט קריא',
@@ -6504,9 +7349,9 @@
                 'manual.tip': 'הצג מדריך למשתמש',
                 'changelog.tip': 'הצג יומן שינויים',
                 'connection.waiting.title': 'ממתין לחיבור',
-                'connection.waiting.message': 'לחץ על "בחר פורט" כדי לבחור מכשיר',
+                'connection.waiting.message': 'לחץ על "התחבר" כדי להתחיל, או על החץ לבחירת פורט',
                 'connection.disconnected': 'החיבור נותק',
-                'connection.reconnect.tip': 'להתחברות מחדש, לחץ על "בחר פורט"',
+                'connection.reconnect.tip': 'להתחברות מחדש, לחץ על "התחבר"',
                 'connection.selected': 'נבחר',
                 'connection.port.selected': 'נבחר פורט טורי',
                 'connection.connected': 'מחובר',
@@ -6548,6 +7393,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'انتخاب پورت',
                 'btn.selectPort.tip': 'یک پورت سریال برای اتصال انتخاب کنید',
+                'btn.connect': 'اتصال',
+                'btn.connect.tip': 'اتصال به آخرین پورت استفاده‌شده یا تنها پورت موجود؛ برای انتخاب پورت دیگر از فلش استفاده کنید',
+                'connection.menu.other': 'سایر… (انتخابگر مرورگر)',
+                'connection.menu.empty': '(هیچ پورت مجازی وجود ندارد)',
                 'baudRate.tip': 'تنظیم نرخ باود (bps)',
                 'autoReconnect.label': 'اتصال مجدد خودکار',
                 'autoReconnect.tip': 'اتصال مجدد خودکار هنگام قطع اتصال',
@@ -6558,6 +7407,7 @@
                 'status.connecting': 'در حال اتصال...',
                 'status.connected': 'متصل',
                 'lang.switch.tip': 'تغییر زبان',
+                'theme.toggle.tip': 'تغییر حالت تاریک/روشن',
                 'tab.terminal': 'ترمینال',
                 'terminal.output.title': 'خروجی ترمینال',
                 'terminal.mode.text.tip': 'حالت متن: نمایش متن خوانا',
@@ -6616,9 +7466,9 @@
                 'manual.tip': 'مشاهده راهنمای کاربر',
                 'changelog.tip': 'مشاهده گزارش تغییرات',
                 'connection.waiting.title': 'در انتظار اتصال',
-                'connection.waiting.message': 'روی "انتخاب پورت" کلیک کنید تا یک دستگاه انتخاب کنید',
+                'connection.waiting.message': 'برای شروع روی "اتصال" کلیک کنید یا با فلش پورت را انتخاب کنید',
                 'connection.disconnected': 'اتصال قطع شد',
-                'connection.reconnect.tip': 'برای اتصال مجدد، روی "انتخاب پورت" کلیک کنید',
+                'connection.reconnect.tip': 'برای اتصال مجدد، روی "اتصال" کلیک کنید',
                 'connection.selected': 'انتخاب شده',
                 'connection.port.selected': 'پورت سریال انتخاب شد',
                 'connection.connected': 'متصل',
@@ -6660,6 +7510,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'Выбрать порт',
                 'btn.selectPort.tip': 'Выберите последовательный порт для подключения',
+                'btn.connect': 'Подключить',
+                'btn.connect.tip': 'Подключиться к последнему или единственному порту; стрелка — выбрать другой',
+                'connection.menu.other': 'Другой… (выбор браузера)',
+                'connection.menu.empty': '(Нет разрешённых портов)',
                 'baudRate.tip': 'Установить скорость передачи (bps)',
                 'autoReconnect.label': 'Автоподключение',
                 'autoReconnect.tip': 'Автоматически переподключаться при отключении',
@@ -6670,6 +7524,7 @@
                 'status.connecting': 'Подключение...',
                 'status.connected': 'Подключено',
                 'lang.switch.tip': 'Сменить язык',
+                'theme.toggle.tip': 'Переключить тёмную/светлую тему',
                 'tab.terminal': 'Терминал',
                 'terminal.output.title': 'Вывод терминала',
                 'terminal.mode.text.tip': 'Текстовый режим: Отображать читаемый текст',
@@ -6728,9 +7583,9 @@
                 'manual.tip': 'Просмотреть руководство пользователя',
                 'changelog.tip': 'Просмотреть журнал изменений',
                 'connection.waiting.title': 'Ожидание подключения',
-                'connection.waiting.message': 'Нажмите "Выбрать порт" для выбора устройства',
+                'connection.waiting.message': 'Нажмите "Подключить" для начала или стрелку для выбора порта',
                 'connection.disconnected': 'Соединение разорвано',
-                'connection.reconnect.tip': 'Для переподключения нажмите "Выбрать порт"',
+                'connection.reconnect.tip': 'Для переподключения нажмите "Подключить"',
                 'connection.selected': 'Выбрано',
                 'connection.port.selected': 'Последовательный порт выбран',
                 'connection.connected': 'Подключено',
@@ -6772,6 +7627,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'पोर्ट चुनें',
                 'btn.selectPort.tip': 'कनेक्ट करने के लिए सीरियल पोर्ट चुनें',
+                'btn.connect': 'कनेक्ट',
+                'btn.connect.tip': 'पिछले या एकमात्र पोर्ट से कनेक्ट करें; दूसरा चुनने के लिए तीर दबाएँ',
+                'connection.menu.other': 'अन्य… (ब्राउज़र चयनकर्ता)',
+                'connection.menu.empty': '(कोई अधिकृत पोर्ट नहीं)',
                 'baudRate.tip': 'बॉड रेट सेट करें (bps)',
                 'autoReconnect.label': 'ऑटो रीकनेक्ट',
                 'autoReconnect.tip': 'डिस्कनेक्ट होने पर स्वचालित रूप से पुनः कनेक्ट करें',
@@ -6782,6 +7641,7 @@
                 'status.connecting': 'कनेक्ट हो रहा है...',
                 'status.connected': 'कनेक्टेड',
                 'lang.switch.tip': 'भाषा बदलें',
+                'theme.toggle.tip': 'डार्क/लाइट मोड बदलें',
                 'tab.terminal': 'टर्मिनल',
                 'terminal.output.title': 'टर्मिनल आउटपुट',
                 'terminal.mode.text.tip': 'टेक्स्ट मोड: पठनीय टेक्स्ट दिखाएं',
@@ -6840,9 +7700,9 @@
                 'manual.tip': 'उपयोगकर्ता मैनुअल देखें',
                 'changelog.tip': 'परिवर्तन लॉग देखें',
                 'connection.waiting.title': 'कनेक्शन की प्रतीक्षा में',
-                'connection.waiting.message': 'डिवाइस चुनने के लिए "पोर्ट चुनें" पर क्लिक करें',
+                'connection.waiting.message': 'शुरू करने के लिए "कनेक्ट" दबाएँ, या पोर्ट चुनने के लिए तीर दबाएँ',
                 'connection.disconnected': 'कनेक्शन डिस्कनेक्ट हो गया',
-                'connection.reconnect.tip': 'पुनः कनेक्ट करने के लिए, "पोर्ट चुनें" पर क्लिक करें',
+                'connection.reconnect.tip': 'पुनः कनेक्ट करने के लिए, "कनेक्ट" पर क्लिक करें',
                 'connection.selected': 'चयनित',
                 'connection.port.selected': 'सीरियल पोर्ट चयनित',
                 'connection.connected': 'कनेक्टेड',
@@ -6884,6 +7744,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'Chọn Cổng',
                 'btn.selectPort.tip': 'Chọn một cổng nối tiếp để kết nối',
+                'btn.connect': 'Kết nối',
+                'btn.connect.tip': 'Kết nối tới cổng dùng lần trước hoặc cổng duy nhất; bấm mũi tên để chọn cổng khác',
+                'connection.menu.other': 'Khác… (bộ chọn của trình duyệt)',
+                'connection.menu.empty': '(Chưa có cổng được cấp quyền)',
                 'baudRate.tip': 'Đặt tốc độ baud (bps)',
                 'autoReconnect.label': 'Tự động kết nối lại',
                 'autoReconnect.tip': 'Tự động kết nối lại khi bị ngắt',
@@ -6894,6 +7758,7 @@
                 'status.connecting': 'Đang kết nối...',
                 'status.connected': 'Đã kết nối',
                 'lang.switch.tip': 'Chuyển đổi ngôn ngữ',
+                'theme.toggle.tip': 'Chuyển chế độ tối/sáng',
                 'tab.terminal': 'Terminal',
                 'terminal.output.title': 'Đầu ra Terminal',
                 'terminal.mode.text.tip': 'Chế độ văn bản: Hiển thị văn bản đọc được',
@@ -6952,9 +7817,9 @@
                 'manual.tip': 'Xem hướng dẫn sử dụng',
                 'changelog.tip': 'Xem nhật ký thay đổi',
                 'connection.waiting.title': 'Đang chờ kết nối',
-                'connection.waiting.message': 'Nhấp "Chọn Cổng" để chọn thiết bị',
+                'connection.waiting.message': 'Nhấp "Kết nối" để bắt đầu, hoặc bấm mũi tên để chọn cổng',
                 'connection.disconnected': 'Đã ngắt kết nối',
-                'connection.reconnect.tip': 'Để kết nối lại, nhấp "Chọn Cổng"',
+                'connection.reconnect.tip': 'Để kết nối lại, nhấp "Kết nối"',
                 'connection.selected': 'Đã chọn',
                 'connection.port.selected': 'Đã chọn cổng nối tiếp',
                 'connection.connected': 'Đã kết nối',
@@ -6996,6 +7861,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'เลือกพอร์ต',
                 'btn.selectPort.tip': 'เลือกพอร์ตอนุกรมเพื่อเชื่อมต่อ',
+                'btn.connect': 'เชื่อมต่อ',
+                'btn.connect.tip': 'เชื่อมต่อพอร์ตล่าสุดหรือพอร์ตเดียวที่มี กดลูกศรเพื่อเลือกพอร์ตอื่น',
+                'connection.menu.other': 'อื่น ๆ… (ตัวเลือกของเบราว์เซอร์)',
+                'connection.menu.empty': '(ยังไม่มีพอร์ตที่ได้รับอนุญาต)',
                 'baudRate.tip': 'ตั้งค่าอัตราบอด (bps)',
                 'autoReconnect.label': 'เชื่อมต่ออัตโนมัติ',
                 'autoReconnect.tip': 'เชื่อมต่อใหม่อัตโนมัติเมื่อถูกตัดการเชื่อมต่อ',
@@ -7006,6 +7875,7 @@
                 'status.connecting': 'กำลังเชื่อมต่อ...',
                 'status.connected': 'เชื่อมต่อแล้ว',
                 'lang.switch.tip': 'เปลี่ยนภาษา',
+                'theme.toggle.tip': 'สลับโหมดมืด/สว่าง',
                 'tab.terminal': 'เทอร์มินัล',
                 'terminal.output.title': 'เอาต์พุตเทอร์มินัล',
                 'terminal.mode.text.tip': 'โหมดข้อความ: แสดงข้อความที่อ่านได้',
@@ -7064,9 +7934,9 @@
                 'manual.tip': 'ดูคู่มือการใช้งาน',
                 'changelog.tip': 'ดูบันทึกการเปลี่ยนแปลง',
                 'connection.waiting.title': 'รอการเชื่อมต่อ',
-                'connection.waiting.message': 'คลิก "เลือกพอร์ต" เพื่อเลือกอุปกรณ์',
+                'connection.waiting.message': 'คลิก "เชื่อมต่อ" เพื่อเริ่ม หรือกดลูกศรเพื่อเลือกพอร์ต',
                 'connection.disconnected': 'การเชื่อมต่อถูกตัด',
-                'connection.reconnect.tip': 'เพื่อเชื่อมต่อใหม่, คลิก "เลือกพอร์ต"',
+                'connection.reconnect.tip': 'เพื่อเชื่อมต่อใหม่, คลิก "เชื่อมต่อ"',
                 'connection.selected': 'เลือกแล้ว',
                 'connection.port.selected': 'เลือกพอร์ตอนุกรมแล้ว',
                 'connection.connected': 'เชื่อมต่อแล้ว',
@@ -7108,6 +7978,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'Pilih Port',
                 'btn.selectPort.tip': 'Pilih port bersiri untuk disambung',
+                'btn.connect': 'Sambung',
+                'btn.connect.tip': 'Sambung ke port terakhir atau satu-satunya port; tekan anak panah untuk pilih port lain',
+                'connection.menu.other': 'Lain… (pemilih pelayar)',
+                'connection.menu.empty': '(Tiada port dibenarkan)',
                 'baudRate.tip': 'Tetapkan kadar baud (bps)',
                 'autoReconnect.label': 'Sambung Semula Auto',
                 'autoReconnect.tip': 'Sambung semula secara automatik apabila terputus',
@@ -7118,6 +7992,7 @@
                 'status.connecting': 'Menyambung...',
                 'status.connected': 'Disambung',
                 'lang.switch.tip': 'Tukar bahasa',
+                'theme.toggle.tip': 'Tukar mod gelap/cerah',
                 'tab.terminal': 'Terminal',
                 'terminal.output.title': 'Output Terminal',
                 'terminal.mode.text.tip': 'Mod teks: Paparkan teks yang boleh dibaca',
@@ -7176,9 +8051,9 @@
                 'manual.tip': 'Lihat manual pengguna',
                 'changelog.tip': 'Lihat log perubahan',
                 'connection.waiting.title': 'Menunggu sambungan',
-                'connection.waiting.message': 'Klik "Pilih Port" untuk memilih peranti',
+                'connection.waiting.message': 'Klik "Sambung" untuk mula, atau tekan anak panah untuk pilih port',
                 'connection.disconnected': 'Sambungan terputus',
-                'connection.reconnect.tip': 'Untuk menyambung semula, klik "Pilih Port"',
+                'connection.reconnect.tip': 'Untuk menyambung semula, klik "Sambung"',
                 'connection.selected': 'Dipilih',
                 'connection.port.selected': 'Port bersiri dipilih',
                 'connection.connected': 'Disambung',
@@ -7220,6 +8095,10 @@
                 // Header - Connection Panel
                 'btn.selectPort': 'Pilih Port',
                 'btn.selectPort.tip': 'Pilih port serial untuk koneksi',
+                'btn.connect': 'Hubungkan',
+                'btn.connect.tip': 'Hubungkan ke port terakhir atau satu-satunya port; klik panah untuk memilih port lain',
+                'connection.menu.other': 'Lainnya… (pemilih browser)',
+                'connection.menu.empty': '(Belum ada port yang diizinkan)',
                 'baudRate.tip': 'Atur baud rate (bps)',
                 'autoReconnect.label': 'Koneksi Ulang Otomatis',
                 'autoReconnect.tip': 'Otomatis terhubung kembali saat terputus',
@@ -7230,6 +8109,7 @@
                 'status.connecting': 'Menghubungkan...',
                 'status.connected': 'Terhubung',
                 'lang.switch.tip': 'Ganti bahasa',
+                'theme.toggle.tip': 'Ganti mode gelap/terang',
                 'tab.terminal': 'Terminal',
                 'terminal.output.title': 'Output Terminal',
                 'terminal.mode.text.tip': 'Mode teks: Tampilkan teks yang dapat dibaca',
@@ -7288,9 +8168,9 @@
                 'manual.tip': 'Lihat manual pengguna',
                 'changelog.tip': 'Lihat log perubahan',
                 'connection.waiting.title': 'Menunggu koneksi',
-                'connection.waiting.message': 'Klik "Pilih Port" untuk memilih perangkat',
+                'connection.waiting.message': 'Klik "Hubungkan" untuk mulai, atau klik panah untuk memilih port',
                 'connection.disconnected': 'Koneksi terputus',
-                'connection.reconnect.tip': 'Untuk menghubungkan kembali, klik "Pilih Port"',
+                'connection.reconnect.tip': 'Untuk menghubungkan kembali, klik "Hubungkan"',
                 'connection.selected': 'Dipilih',
                 'connection.port.selected': 'Port serial dipilih',
                 'connection.connected': 'Terhubung',
@@ -7527,8 +8407,50 @@
             }
         }
 
+        // ═══════════════════════════════════════════════════════════════════
+        // Theme Manager
+        // ═══════════════════════════════════════════════════════════════════
+
+        (function initTheme() {
+            const STORAGE_KEY = 'numonitor-theme';
+            const saved = localStorage.getItem(STORAGE_KEY);
+            const theme = saved || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+
+            function applyTheme(t) {
+                document.documentElement.setAttribute('data-theme', t);
+                localStorage.setItem(STORAGE_KEY, t);
+                const sw = document.getElementById('themeSwitch');
+                if (sw) sw.checked = (t === 'light');
+                // 重新載入對應主題的終端機顏色
+                if (window.serialMonitor) {
+                    window.serialMonitor.terminalColors = window.serialMonitor.loadTerminalColors();
+                    window.serialMonitor.updateTerminalColorSwatches();
+                    window.serialMonitor.applyTerminalColors();
+                }
+            }
+
+            function onReady() {
+                const sw = document.getElementById('themeSwitch');
+                if (!sw) return;
+                sw.checked = (theme === 'light');
+                sw.addEventListener('change', () => {
+                    applyTheme(sw.checked ? 'light' : 'dark');
+                });
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', onReady);
+            } else {
+                onReady();
+            }
+        })();
+
         // Initialize Language Manager
         window.languageManager = new LanguageManager();
+
+        // 語言管理器就緒後才自動連線（連線訊息要用它翻譯）
+        window.serialMonitor.autoConnectOnLoad();
 
     </script>
 </body>

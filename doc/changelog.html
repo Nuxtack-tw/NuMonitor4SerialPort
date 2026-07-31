@@ -310,12 +310,493 @@
             <div class="header-subtitle">版本變更記錄</div>
         </header>
 
+        <!-- Version 26.10.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.10.0</span>
+                <span class="version-date">2026-07-31</span>
+                <span class="version-tag tag-latest">最新版本</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    行結尾設定會被記住了
+                </div>
+                <ul class="change-list">
+                    <li><strong>送出訊息的行結尾（無行尾／LF／CR／CRLF）現在會記住</strong>，重新整理後自動還原，不用每次重設</li>
+                    <li>對接數據機特別有感：AT 指令必須以 <strong>CR</strong> 結尾，預設的 LF 送過去數據機不會回應</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.9.1 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.9.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    訊號列可讀性修正
+                </div>
+                <ul class="change-list">
+                    <li><strong>訊號燈號的文字對比太低、不好讀</strong>，已全部改成與「說明書」按鈕相同的配色：同底色、同框線、同文字色、同圓角</li>
+                    <li>字級略為放大，熄滅狀態的燈點也調亮一階，看得出是「有燈但沒亮」而不是幾乎消失</li>
+                    <li>只有訊號真的亮起時才會換成訊號色（輸出藍／輸入綠／ACT 橘／ERR 紅）</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.9.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.9.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    未連線時隱藏訊號列
+                </div>
+                <ul class="change-list">
+                    <li><strong>未連線時 RS-232 訊號狀態列整列隱藏</strong>，不再只是把顏色調淡——沒連線時燈號本來就沒有意義，留著只是佔一列高度</li>
+                    <li>連線後整列出現，斷線後立即消失並停止輪詢</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.8.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.8.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    RS-232 訊號狀態列
+                </div>
+
+                <div class="feature-highlight">
+                    <h4>🚦 標題列下方新增一排訊號燈</h4>
+                    <p>握手訊號一目了然，輸出訊號還可以直接點燈號切換。</p>
+                </div>
+
+                <ul class="change-list">
+                    <li><strong>LOCAL (OUT)：BRK / RTS / DTR</strong> — <strong>點燈號即切換</strong>輸出狀態，未連線時停用
+                        <ul>
+                            <li>連線後、第一次點擊前顯示為未設定：瀏覽器只能設定輸出訊號、無法讀回目前狀態</li>
+                            <li>刻意不在連線時自動設定 DTR/RTS，以免觸發 ESP32／Arduino 的自動重置電路讓板子重開</li>
+                        </ul>
+                    </li>
+                    <li><strong>REMOTE (IN)：DCD / DSR / CTS / RI</strong> — 唯讀，每 0.25 秒更新一次</li>
+                    <li><strong>ACT</strong> — 只要有資料進出就閃爍</li>
+                    <li><strong>ERR</strong> — 偵測到 Framing／Parity／Overrun／Break 錯誤時亮紅閃爍 3 秒，點一下可提前清除；錯誤發生後會自動恢復接收，不再像以前那樣直接中斷</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">⚠️</span>
+                    關於同位元（Parity）錯誤
+                </div>
+                <ul class="change-list">
+                    <li>目前連線一律使用 <strong>8N1（無同位元）</strong>，因此<strong>同位元錯誤不可能發生</strong>，ERR 燈實際上只會對 Framing／Overrun／Break 有反應</li>
+                    <li>若要讓同位元錯誤能被偵測，需要先在介面上提供同位元／資料位元／停止位元的設定選項</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.7.1 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.7.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    標題列換行時機修正
+                </div>
+                <ul class="change-list">
+                    <li><strong>縮小視窗時，標題列還沒被擠到就提早換行</strong>——原因是一條寫死的斷點：只要視窗小於 1200px 就強制上下堆疊，即使控制項之間還空著 400px</li>
+                    <li>已移除該斷點，改由版面自然判斷：<strong>只有在真的塞不下同一行時才換行</strong></li>
+                    <li>實測換行點從 1200px 提前到約 899px——換行的那一刻，「自動重連」與主題切換之間只剩約 13px，確實是擠到了</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.7.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.7.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    標題列版面調整
+                </div>
+                <ul class="change-list">
+                    <li><strong>日／夜主題切換與語言選單改為靠齊標題列最右邊</strong>，與左側的連線相關控制項分成左右兩區，一眼分得出主功能與偏好設定</li>
+                    <li>移除這兩項前面的分隔線——左右已經被大片空白分開，分隔線反而多餘</li>
+                    <li>視窗變窄時仍會正常換行，兩者維持靠右</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.6.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.6.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    重新整理後自動接回連接埠
+                </div>
+
+                <div class="feature-highlight">
+                    <h4>🔄 重新整理頁面不用再手動按一次「連線」</h4>
+                    <p>只要上次那顆連接埠還插著，重新整理或重新開啟頁面時會自動接回去，連鮑率都一起還原。</p>
+                </div>
+
+                <ul class="change-list">
+                    <li><strong>三個條件同時成立才會自動連線</strong>
+                        <ul>
+                            <li>「自動重連」開關是開的</li>
+                            <li>上次<strong>不是</strong>你自己按「斷開」離開的（裝置被拔掉不算）</li>
+                            <li>那顆連接埠目前仍然存在且已授權</li>
+                        </ul>
+                    </li>
+                    <li>找不到連接埠時<strong>不會</strong>持續嘗試連線，避免一開頁就霸佔連接埠，害 Arduino IDE 之類的程式連不上</li>
+                    <li>自動連線失敗只會留一行訊息，不會跳出整塊排錯提示</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    修正
+                </div>
+                <ul class="change-list">
+                    <li><strong>「自動重連」開關的狀態現在會被記住</strong>：原本關掉後重新整理又會變回開啟</li>
+                    <li>連接埠記憶一併記下鮑率，重新整理後鮑率跟著還原</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.5.1 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.5.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    呼吸光暈調亮
+                </div>
+                <ul class="change-list">
+                    <li><strong>「已連接」的呼吸光暈原本太淡</strong>，在深色背景上幾乎看不出來，現已大幅加強</li>
+                    <li>光暈改為兩層：外圈實色描邊讓輪廓清楚，外擴柔光讓呼吸看得出來；吸氣時亮度提高到原本的六倍以上</li>
+                    <li>重連中的橘色光暈同步加強</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.5.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.5.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    連線按鈕視覺調整
+                </div>
+                <ul class="change-list">
+                    <li><strong>呼吸提示改成整顆按鈕外框發光</strong>，取代「已連接」左邊的小圓燈——訊號更明顯，按鈕也更簡潔
+                        <ul>
+                            <li>已連線：綠色光暈，2.6 秒一次</li>
+                            <li>重連中：橘色光暈，1.1 秒一次</li>
+                            <li>滑鼠移到按鈕上時停止發光</li>
+                        </ul>
+                    </li>
+                    <li><strong>已連線時，右側挑選連接埠的箭頭會整個隱藏</strong>（原本只是變淡的停用狀態）；連線中沒有換埠這個選項，藏起來比留一顆按不下去的按鈕清楚</li>
+                    <li>重連中箭頭仍然保留，方便中途改挑別的連接埠</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.4.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.4.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    連線狀態整合進按鈕
+                </div>
+
+                <div class="feature-highlight">
+                    <h4>🔗 「未連接／已連接」指示器取消，狀態直接顯示在連線按鈕上</h4>
+                    <p>按鈕本身就是狀態燈：顏色告訴你現在的狀態，文字告訴你按下去會發生什麼，標題列再少一個元件。</p>
+                </div>
+
+                <ul class="change-list">
+                    <li><strong>三種狀態、三種顏色</strong>
+                        <ul>
+                            <li><strong>藍色「連線」</strong>：未連線，狀態燈暗著</li>
+                            <li><strong>綠色「已連接」</strong>：連線中，狀態燈緩慢呼吸，按鈕外圈有柔和光暈</li>
+                            <li><strong>橘色「連線中…」</strong>：裝置斷線、自動重連進行中，呼吸節奏加快</li>
+                        </ul>
+                    </li>
+                    <li><strong>滑鼠移上去會預告後果</strong>：已連線時轉紅顯示「斷開」、重連中轉紅顯示「取消」，同時停止呼吸，避免要按的東西還在動</li>
+                    <li><strong>重連中按下去＝取消重連</strong>（原本按下去會另外嘗試連線）</li>
+                    <li>按鈕內的插頭／叉叉圖示改由狀態燈取代，按鈕更窄</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.3.1 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.3.1</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    標題列文字配色統一
+                </div>
+                <ul class="change-list">
+                    <li><strong>「說明書」、版本編號、「自動重連」三處的文字比其他項目暗一階</strong>，同一排出現兩種深淺，現已統一</li>
+                    <li>標題列所有文字與圖示改為同一個顏色變數，深色主題一律 <code>#e6edf3</code>、淺色主題一律 <code>#1f2328</code></li>
+                    <li>唯一例外是「連線／斷開」按鈕上的白字——那是按鈕本身的前景色</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.3.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.3.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    控制列再收緊
+                </div>
+                <ul class="change-list">
+                    <li><strong>控制項高度 26px → 22px</strong>，標題列總高降到 33.7px（相較改版前的 60.7px 少了 45%），終端機可視範圍再增加</li>
+                    <li><strong>取消所有粗體</strong>：標題列文字（含 Logo）一律改為一般字重，整排視覺更平順</li>
+                    <li>圓角、內距、間距與 Toggle 開關同步微調；已確認所有文字在新高度內完整顯示、未被裁切</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.2.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.2.0</span>
+                <span class="version-date">2026-07-31</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    上方控制列改版
+                </div>
+
+                <div class="feature-highlight">
+                    <h4>📏 字級、字重、按鈕高度全部統一</h4>
+                    <p>原本從「說明書」、連線、鮑率、自動重連、未連接、日夜切換到語言選單，字級有 11／12／13px 三種、字重有細有粗、控制項高度從 29px 到 36px 不等。現在整排統一為同一套尺寸，整體更緊湊。</p>
+                </div>
+
+                <ul class="change-list">
+                    <li><strong>統一規格</strong>：所有控制項 26px 高、12px 字級、中等字重、5px 圓角
+                        <ul>
+                            <li>視覺階層改用文字顏色深淺表達，不再靠字級大小或粗細</li>
+                            <li>鮑率維持等寬字體（數字對齊好讀），字級與其他項目一致</li>
+                        </ul>
+                    </li>
+                    <li><strong>版面更緊湊</strong>：標題列高度從 60.7px 縮到 38.7px（少 36%），終端機可視範圍變大</li>
+                    <li>狀態指示器由膠囊形改為與其他控制項一致的圓角方框</li>
+                    <li>Toggle 開關、Logo 圖示、國旗、分隔線同步等比縮小</li>
+                    <li>下方輸入列的「發送」按鈕與顏色選擇器的按鈕維持原本大小，不受影響</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.1.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.1.0</span>
+                <span class="version-date">2026-07-30</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    連線控制改版
+                </div>
+
+                <div class="feature-highlight">
+                    <h4>🔌 「選擇連接埠」與「斷開」合併為一顆按鈕</h4>
+                    <p>原本分處左右兩端的兩顆按鈕，現在整合成一個分割按鈕：未連線時是藍色的「連線」，連上後直接變成紅色的「斷開」，再按一次即中斷。</p>
+                </div>
+
+                <ul class="change-list">
+                    <li><strong>不再每次都跳連接埠對話框</strong>：按「連線」時會依序嘗試
+                        <ul>
+                            <li>上次成功連線的那個埠</li>
+                            <li>認得型號的埠（CH340／CP210x／FTDI／ESP32／Arduino 等）</li>
+                            <li>唯一一個已授權的埠</li>
+                            <li>以上都沒有，才叫出瀏覽器的連接埠選單</li>
+                        </ul>
+                    </li>
+                    <li><strong>右側 <code>▾</code> 箭頭：挑埠選單</strong>
+                        <ul>
+                            <li>列出所有已授權的連接埠，顯示自訂標籤或裝置型號，同型多顆以 <code>#序號</code> 區分</li>
+                            <li>上次使用的埠標上 ★</li>
+                            <li>最後一項「其他…（瀏覽器選單）」等同舊版的「選擇連接埠」，可授權新裝置</li>
+                            <li>已連線時箭頭停用；點選單以外的地方會自動收合</li>
+                        </ul>
+                    </li>
+                    <li>連線埠記憶存於 localStorage <code>numonitor_lastPort</code>（記錄 VID/PID 與埠序號）</li>
+                    <li>新增 4 個翻譯鍵並更新 2 段舊提示文字，18 種語言同步（每語言 106 → 110 鍵）</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 26.0.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">V26.0.0</span>
+                <span class="version-date">2026-07-30</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    版本編號制度變更
+                </div>
+
+                <div class="feature-highlight">
+                    <h4>🔢 改用年度制版號 V<em>a</em>.<em>b</em>.<em>c</em></h4>
+                    <p>自本版起，版本號改為年度制：<strong>a</strong> = 西元年後兩碼（2026 → 26）、<strong>b</strong> = 功能擴充編號、<strong>c</strong> = bug 修正編號；前段編號增加時，其後各段一律歸零。原語意版號 v3.0.1 為此制度前的最後一版。</p>
+                </div>
+
+                <ul class="change-list">
+                    <li><strong>版號唯一來源移至 <code>&lt;title&gt;</code></strong>：頁面標題為「NuMonitor for Serial Port V26.0.0」，程式啟動時自行解析
+                        <ul>
+                            <li>Header 的版本徽章改為執行時從 <code>document.title</code> 讀取，不再寫死</li>
+                            <li>Console 初始化訊息同樣改用解析結果，避免多處版號不同步</li>
+                        </ul>
+                    </li>
+                    <li><strong>新增 <code>backup/</code> 快照機制</strong>：每次改版前先將現行檔凍結為 <code>NuMonitor4SerialPort_V&lt;版號&gt;.html</code>，可隨時回滾（目前收錄 V1.8.0、V2.0.0、V3.0.1）</li>
+                    <li><strong>新增 <code>index.html</code> 導向頁</strong>：以本地伺服器開啟專案目錄時會自動進入主程式，不必再手動指定檔名</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 3.0.1 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v3.0.1</span>
+                <span class="version-date">2026-03-18</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    自動重連改善
+                </div>
+                <ul class="change-list">
+                    <li><strong>等待時間改為無限制</strong>：原本嘗試 30 次（約 30 秒）後即逾時放棄，現在會持續每秒嘗試，直到裝置插回成功連線，或使用者手動關閉「自動重連」開關</li>
+                    <li>適用長時間離線的情境：拔線燒錄韌體、裝置重開機、USB Hub 斷電等</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- Version 3.0.0 -->
+        <article class="version-entry">
+            <div class="version-header">
+                <span class="version-number">v3.0.0</span>
+                <span class="version-date">2026-03-10</span>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-new">🆕</span>
+                    新功能 - 淺色模式
+                </div>
+
+                <div class="feature-highlight">
+                    <h4>🌗 深色/淺色主題切換</h4>
+                    <p>新增 GitHub Light 風格的淺色主題，可在畫面右上角透過 Toggle Switch 即時切換：</p>
+                </div>
+
+                <ul class="change-list">
+                    <li><strong>淺色主題</strong>：全新 GitHub Light 風格配色
+                        <ul>
+                            <li>所有 UI 元素、終端機、圖表完整適配</li>
+                            <li>淺色背景搭配深色文字，適合明亮環境使用</li>
+                            <li>所有強調色（綠、藍、紅、紫等）調整為淺色模式適配色彩</li>
+                        </ul>
+                    </li>
+                    <li><strong>主題切換開關</strong>：右上角新增 Toggle Switch
+                        <ul>
+                            <li>月亮/太陽圖示標示，直覺操作</li>
+                            <li>主題設定自動儲存至 localStorage，跨會話保持</li>
+                            <li>圖表 Canvas 色彩即時跟隨主題切換</li>
+                        </ul>
+                    </li>
+                    <li><strong>18 種語言完整支援</strong>：主題切換 Tooltip 翻譯</li>
+                </ul>
+            </div>
+
+            <div class="change-category">
+                <div class="category-title">
+                    <span class="category-icon icon-fix">🔧</span>
+                    技術細節
+                </div>
+                <ul class="change-list">
+                    <li>CSS 變數系統擴充：新增 <code>--shadow-color</code>、<code>--overlay-bg</code>、<code>--tab-active-bg</code>、<code>--chart-bg/grid/text</code> 等變數</li>
+                    <li>硬編碼色彩全面替換為 CSS 變數，支援動態主題切換</li>
+                    <li><code>CHART_CONFIG.colors</code> 改為動態 getter，自動讀取當前主題的 CSS 變數</li>
+                    <li>主題狀態透過 <code>data-theme</code> 屬性控制於 <code>&lt;html&gt;</code> 元素</li>
+                    <li>localStorage 鍵：<code>numonitor-theme</code></li>
+                    <li>新增翻譯 key：<code>theme.toggle.tip</code>（18 種語言）</li>
+                </ul>
+            </div>
+        </article>
+
         <!-- Version 2.0.0 -->
         <article class="version-entry">
             <div class="version-header">
                 <span class="version-number">v2.0.0</span>
                 <span class="version-date">2026-01-22</span>
-                <span class="version-tag tag-latest">最新版本</span>
+                <span class="version-tag tag-major">主要更新</span>
             </div>
 
             <div class="change-category">
